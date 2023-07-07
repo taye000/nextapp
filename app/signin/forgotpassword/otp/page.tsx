@@ -11,7 +11,7 @@ const otp = () => {
           <p className={`m-0 max-w-[30ch] text-4xl`}>
           One-Time-Pass
             </p>
-          <form className="flex flex-col space-y-4">
+          <form className="flex flex-col space-y-4 split-input-form">
             <label htmlFor="Code">Code</label>
             <input
               type="Code"
@@ -23,7 +23,7 @@ const otp = () => {
               type="submit"
               className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"
             >
-              Recover
+              Continue
             </button>
           </form>
         </div>
