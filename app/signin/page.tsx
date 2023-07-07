@@ -5,9 +5,34 @@ const signin = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <h1 className={`mb-3 text-4xl font-bold`}>Sign in</h1>
+        <h1 className={`mb-3 text-4xl items-center font-bold`}>Sign in</h1>
       </div>
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+      <div >
+          <form className="flex flex-col space-y-4">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="border border-gray-300 rounded-md"
+            />
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="border border-gray-300 rounded-md"
+            />
+            <button
+              type="submit"
+              className="border border-gray-300 rounded-md"
+            >
+              Sign in
+            </button>
+          </form>
+        </div><div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+        
+        <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
       <p className={`m-0 max-w-[30ch] text-sm`}>
         Don't have an account,
           </p>
@@ -23,6 +48,7 @@ const signin = () => {
         >
           forgot password
         </Link>
+        </div>
       </div>
     </main>
   );
