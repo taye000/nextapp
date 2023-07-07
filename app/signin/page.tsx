@@ -8,6 +8,9 @@ const signin = () => {
         <h1 className={`mb-3 text-4xl items-center font-bold`}>Sign in</h1>
       </div>
       <div >
+      <p className={`m-0 max-w-[30ch] text-4xl`}>
+      Sign In
+        </p>
           <form className="flex flex-col space-y-4">
             <label htmlFor="email">Email</label>
             <input
