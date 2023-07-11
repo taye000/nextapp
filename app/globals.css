@@ -35,8 +35,8 @@ container {
 header {
   display: flex;
   justify-content: center;
+  margin-bottom: 0.5rem;
   align-items: center;
-  background-color: #0047ab;
   color: #fff;
   padding: 1rem;
   border-bottom: 5px solid #fff;
