@@ -33,6 +33,9 @@ const faq = () => {
           Signup
         </Link>
       </div>
+      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+          <p className={`m-0 max-w-[60ch] text-sm`}>Some of the Frequently asked questions about this service are answered below...</p>
+      </div>
     </main>
   );
 };

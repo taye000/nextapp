@@ -28,7 +28,7 @@ const about = () => {
         </Link>
       </div>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className={`m-0 max-w-[60ch] text-sm opacity-50`}>
+        <p className={`m-0 max-w-[60ch] text-sm`}>
           We are a company aiming to provide a safe platform for small
           enterprises to secure their e-commerce businesses by securing the
           payment process, through offering an escrow service.
