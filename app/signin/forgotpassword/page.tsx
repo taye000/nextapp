@@ -4,8 +4,8 @@ import React from "react";
 const forgotpassword = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <h1 className={`mb-3 text-4xl font-bold`}>Forgot Password</h1>
+      <div>
+        <header>Forgot Password</header>
       </div>
       <div >
           <p className={`m-0 max-w-[30ch] text-4xl`}>
