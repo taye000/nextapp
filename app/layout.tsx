@@ -15,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}
+      <footer id="main-footer">
+        <p>Copyright &copy; 2023 Imani Escrow Services</p>
+        </footer></body>
     </html>
   )
 }

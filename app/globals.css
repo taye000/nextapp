@@ -26,9 +26,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-container {
+.container {
   width: 80%;
   margin: auto;
+  overflow: hidden;
   padding: 0 1rem;
 }
 
