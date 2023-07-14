@@ -103,6 +103,13 @@ spinner {
   animation: spin 1s linear infinite;
 }
 
+#main-footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #ccc;
+}
+
 card {
   border: 1px solid #ccc;
   border-radius: 4px;
