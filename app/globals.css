@@ -16,6 +16,17 @@
   }
 }
 
+@media (max-width:600px) {
+  #main{
+    width: 100%;
+    float: none;
+  }
+  #sidebar{
+    width: 100%;
+    float: none;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -105,9 +116,8 @@ spinner {
 
 #main-footer {
   text-align: center;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-top: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 40px;
 }
 
 #navbar{
@@ -125,6 +135,37 @@ spinner {
 
 #navbar li{
   list-style: none;
+}
+
+#showcase{
+  background-image: url("../public/8988594999_92dba2ed80_b.jpg");
+  background-position: center right;
+  min-height: 300px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#showcase h1{
+  color: #fff;
+  font-size: 50px;
+  line-height: 1.6em;
+  padding-top: 30px;
+}
+
+#main{
+  float: left;
+  width: 70%;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+#sidebar{
+  float: right;
+  width: 30%;
+  background: #fff;
+  color: #333;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 card {
