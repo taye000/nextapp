@@ -110,6 +110,23 @@ spinner {
   border-top: 1px solid #ccc;
 }
 
+#navbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #6936F5;
+}
+
+#navbar ul{
+  display: flex;
+  gap: 1rem;
+}
+
+#navbar li{
+  list-style: none;
+}
+
 card {
   border: 1px solid #ccc;
   border-radius: 4px;

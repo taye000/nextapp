@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -15,7 +16,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}
+      <body className={inter.className}>
+      <header>Imani Escrow Services</header>
+      <nav id="navbar">
+          <div className="container">
+            <ul>
+              <li>
+                <Link href={"/"}>Home</Link>
+              </li>
+              <li>
+                <Link href={"/about"}>About</Link>
+              </li>
+              <li>
+                <Link href={"/contact"}>Contact</Link>
+              </li>
+              <li>
+                <Link href={"/faq"}>FAQ's</Link>
+              </li>
+              <li>
+                <Link href={"/signin"}>Signin</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>{children}
       <footer id="main-footer">
         <p>Copyright &copy; 2023 Imani Escrow Services</p>
         </footer></body>

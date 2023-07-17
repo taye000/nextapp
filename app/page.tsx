@@ -14,28 +14,7 @@ export default function Home() {
           height={25}
           priority
         /> */}
-        <header>Imani Escrow Services</header>
-        <nav id="navbar">
-          <div className="container">
-            <ul>
-              <li>
-                <Link href={"/"}>Home</Link>
-              </li>
-              <li>
-                <Link href={"/about"}>About</Link>
-              </li>
-              <li>
-                <Link href={"/contact"}>Contact</Link>
-              </li>
-              <li>
-                <Link href={"/faq"}>FAQ's</Link>
-              </li>
-              <li>
-                <Link href={"/signin"}>Signin</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        {/* <header>Imani Escrow Services</header> */}
         <section id="showcase">
           <div className="container">
             <h1>Imani Escrow Services</h1>
