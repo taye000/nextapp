@@ -7,9 +7,11 @@ const account = () => {
       <div>
         <header>Your Account</header>
         <ul>
+          <li>UserID: ISS455yh</li>
           <li>Username: TaylorMade</li>
           <li>Email: TaylorMade@service.com</li>
-          <li>Phone: TaylorMade@service.com</li>
+          <li>Phone: +254712000000</li>
+          <li>Payment Mode: M-PESA</li>
         </ul>
         <button type="submit" className="button">
           Update
