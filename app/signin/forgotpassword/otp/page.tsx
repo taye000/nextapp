@@ -3,13 +3,12 @@ import React from "react";
 
 const otp = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div>
         <div>
           <header>Enter Recovery Code</header>
         </div>
         <div>
-          <p className={`m-50 max-w-[30ch] text-4xl`}>One-Time-Pass</p>
           <form className="flex flex-col space-y-4">
             <input
               type="Code"

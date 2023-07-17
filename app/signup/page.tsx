@@ -3,13 +3,12 @@ import React from "react";
 
 const signup = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div>
         <div>
-          <header>Welcome to Imani Escrow Services</header>
+          <header>Sign Up</header>
         </div>
         <div>
-          <p className={`m-50 max-w-[30ch] text-4xl`}>Sign Up</p>
           <form className="flex flex-col space-y-4">
             <label htmlFor="email">Email</label>
             <input

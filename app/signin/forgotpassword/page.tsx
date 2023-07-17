@@ -3,13 +3,12 @@ import React from "react";
 
 const forgotpassword = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div>
         <div>
           <header>Forgot Password</header>
         </div>
         <div>
-          <p className={`m-0 max-w-[30ch] text-4xl`}>Forgot Password</p>
           <form className="flex flex-col space-y-4">
             <label htmlFor="email">Email</label>
             <input
