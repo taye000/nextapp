@@ -9,7 +9,7 @@ const Navbar = () => {
         <h1 className="text-2xl font-bold">Imani Escrow Services</h1>
         </div>
         <div className="md:flex md:flex-row items-center justify-between py-2">
-        <ul className="md:flex md:flex-row justify-between">
+        <ul className="md:flex md:flex-row justify-between space-x-2">
           <li>
             <Link href={"/"}>Home</Link>
           </li>
