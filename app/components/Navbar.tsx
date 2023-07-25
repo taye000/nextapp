@@ -8,28 +8,29 @@ const Navbar = () => {
         <div className="md:block md:py-5">
         <h1 className="text-2xl font-bold">Imani Escrow Services</h1>
         </div>
-        <div className="md:flex md:flex-row items-center justify-between py-2">
-        <ul className="md:flex md:flex-row justify-between space-x-2">
+        <div className="hidden md:flex md:flex-row items-center justify-between py-2">
+        <ul className="md:flex md:flex-row justify-between space-x-4">
           <li>
-            <Link href={"/"}>Home</Link>
+            <Link href={"/"} className="hover:text-gray-500">Home</Link>
           </li>
           <li>
-            <Link href={"/about"}>About</Link>
+            <Link href={"/about"} className="hover:text-gray-500">About Us</Link>
           </li>
           <li>
-            <Link href={"/contact"}>Contact</Link>
+            <Link href={"/contact"} className="hover:text-gray-500">Contact</Link>
           </li>
           <li>
-            <Link href={"/faq"}>FAQ's</Link>
+            <Link href={"/faq"} className="hover:text-gray-500">FAQ's</Link>
           </li>
           <li>
-            <Link href={"/account"}>Account</Link>
+            <Link href={"/account"} className="hover:text-gray-500">Account</Link>
           </li>
           <li>
-            <Link href={"/signin"}>Signin</Link>
+            <Link href={"/signin"} className="hover:text-gray-500">Signin</Link>
           </li>
         </ul>
         </div>
+        <Link href='#' className="hidden p-3 px-6 pt-2 text-white bg-blue-500 rounded-full baseline hover:bg-blue-300 md:block">Get Started</Link>
       </div>
     </header>
   );
