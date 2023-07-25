@@ -30,7 +30,7 @@ const Navbar = () => {
           </li>
         </ul>
         </div>
-        <Link href='#' className="hidden p-3 px-6 pt-2 text-white bg-blue-500 rounded-full baseline hover:bg-blue-300 md:block">Get Started</Link>
+        <Link href='#' className="hidden p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block">Get Started</Link>
       </div>
     </header>
   );
