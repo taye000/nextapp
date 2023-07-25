@@ -3,9 +3,9 @@ import React from "react";
 
 const about = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between mt-10 md:mt-20">
       <div>
-        <header>About Us</header>
+        <h1 className="font-bold text-2xl">About Us</h1>
         <p className={`m-0 max-w-[60ch] text-sm`}>
           We are a company aiming to provide a safe platform for small
           enterprises to secure their e-commerce businesses by securing the
