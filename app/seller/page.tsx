@@ -3,10 +3,10 @@ import React from "react";
 
 const seller = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between mt-5">
       <div>
         <div>
-          <header>Seller Form</header>
+          <h1 className="font-bold text-2xl">Seller Form</h1>
         </div>
         <div>
           <form className="flex flex-col space-y-4">

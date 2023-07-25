@@ -3,7 +3,7 @@ import React from "react";
 
 const about = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between mt-10 md:mt-20">
+    <main className="flex min-h-screen flex-col items-center justify-between mt-5">
       <div>
         <h1 className="font-bold text-2xl">About Us</h1>
         <p className={`m-0 max-w-[60ch] text-sm`}>
