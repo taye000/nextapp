@@ -13,17 +13,23 @@ const Hero = () => {
             Helping small businesses and individuals to transact safely and
             securely.
           </p>
-          <div className="flex justify-center md:justify-start">
+          <div className="flex flex-col space-y-4 justify-center md:space-x-8 md:flex-row md:justify-start">
             <Link
-              href="#"
-              className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
+              href="/buyer"
+              className="p-3 px-6 pt-2 text-center text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
             >
-              Get Started
+              Buyer
+            </Link>
+            <Link
+              href="/seller"
+              className="p-3 px-6 pt-2 text-center text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
+            >
+              Seller
             </Link>
           </div>
         </div>
         <div className="md:w-1/2">
-          <img src="/imanilogo.png"></img>
+          <img src="/imanilogo.png" className="rounded-lg md:rounded-lg"></img>
         </div>
       </div>
     </section>
