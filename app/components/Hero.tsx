@@ -13,7 +13,7 @@ const Hero = () => {
             Helping small businesses and individuals to transact safely and
             securely.
           </p>
-          <div className="flex flex-col space-y-4 justify-center md:space-x-8 md:flex-row md:justify-start">
+          <div className="flex flex-col gap-4 md:gap-12 md:flex-row ">
             <Link
               href="/buyer"
               className="p-3 px-6 pt-2 text-center text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
