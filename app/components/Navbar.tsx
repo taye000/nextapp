@@ -22,7 +22,7 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
-    <header className="w-full mx-auto px-4 bg-white shadow fixed sticky top-0 z-50 sm:px-20">
+    <header className="w-full mx-auto px-4 shadow fixed sticky top-0 z-50 sm:px-20">
       <div className="md:flex md:items-center justify-between">
         <div className="flex flex-row justify-between">
           <div className="md:block md:py-5">
@@ -47,7 +47,7 @@ const Navbar = () => {
                     key={index}
                     href={item.page}
                     className={
-                      "block lg:inline-block text-blue-900  hover:text-blue-500 dark:text-black"
+                      "block lg:inline-block text-blue-900  hover:text-blue-500"
                     }
                     onClick={() => setNavbar(!navbar)}
                   >
@@ -58,14 +58,14 @@ const Navbar = () => {
               {currentTheme === "dark" ? (
                 <button
                   onClick={() => setTheme("light")}
-                  className="bg-state-100 p2 rounded-xl"
+                  className="bg-slate-100 p2 rounded-xl"
                 >
-                  <RiSunLine size={25} />
+                  <RiSunLine size={25} color="black"/>
                 </button>
               ) : (
                 <button
                   onClick={() => setTheme("dark")}
-                  className="bg-state-100 p2 rounded-xl"
+                  className="bg-slate-100 p2 rounded-xl"
                 >
                   <RiMoonFill size={25} />
                 </button>
