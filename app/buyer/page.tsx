@@ -3,7 +3,7 @@ import React from "react";
 const buyer = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
-      <div>
+      <div className="border rounded-md shadow-md p-6">
         <div className="flex justify-center">
           <h1 className="font-bold text-2xl">Buyer Form</h1>
         </div>

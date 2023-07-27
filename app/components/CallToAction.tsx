@@ -10,7 +10,7 @@ const CallToAction = () => {
         </h2>
         <div>
           <Link
-            href="#"
+            href="/signup"
             className="p-3 px-6 pt-2 text-blue-700 bg-white shadow-2xl rounded-full baseline hover:bg-gray-900 md:block"
           >
             Get Started
