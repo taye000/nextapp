@@ -11,10 +11,9 @@ interface NavItem {
 }
 
 const navItems: Array<NavItem> = [
-  { label: "Home", page: "/" },
-  { label: "Account", page: "/account" },
   { label: "About", page: "about" },
   { label: "Contact", page: "contact" },
+  { label: "Account", page: "account" },
   { label: "FAQ's", page: "faq" },
 ];
 const Navbar = () => {
@@ -23,12 +22,14 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
-    <header className="w-full mx-auto px-4 shadow fixed sticky top-0 z-50 sm:px-20">
+    <header className="w-full mx-auto px-4 shadow sticky top-0 z-50 sm:px-20">
       <div className="md:flex md:items-center justify-between">
         <div className="flex flex-row justify-between">
+          <Link href="/">
           <div className="md:block md:py-5">
             <h1 className="text-2xl font-bold">Imani Escrow Services</h1>
           </div>
+          </Link>
           <div className="md:hidden">
             <button onClick={() => setNavbar(!navbar)}>
               {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
