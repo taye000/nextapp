@@ -1,10 +1,9 @@
-import Link from "next/link";
 import React from "react";
 
 const about = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
-      <div>
+      <div className="border rounded-md shadow-md p-6">
         <div className="flex justify-center">
           <h1 className="font-bold text-2xl">About Us</h1>
         </div>

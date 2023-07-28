@@ -3,7 +3,7 @@ import React from "react";
 const account = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
-      <div className="flex flex-col ">
+      <div className="flex flex-col">
         <div className="flex justify-center">
           <h1 className="font-bold text-2xl">Your Account</h1>
         </div>

@@ -12,6 +12,7 @@ interface NavItem {
 
 const navItems: Array<NavItem> = [
   { label: "Home", page: "/" },
+  { label: "Account", page: "/account" },
   { label: "About", page: "about" },
   { label: "Contact", page: "contact" },
   { label: "FAQ's", page: "faq" },
