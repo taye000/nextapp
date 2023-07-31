@@ -11,7 +11,7 @@ const Hero = () => {
           </h1>
           <p className="max-w-sm text-center text-gray-700 md:text-left">
             Helping small businesses and individuals to transact safely and
-            securely.
+            securely, by leveraging our superior escrow services.
           </p>
           <div className="flex flex-col gap-4 md:gap-12 md:flex-row ">
             <Link

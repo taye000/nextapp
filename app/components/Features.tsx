@@ -9,7 +9,8 @@ const Features = () => {
             What Imani Escrow offers.
           </h2>
           <p className="max-w-sm text-center text-gray-700 md:text-left">
-            Secure your online purchases with our Escrow services.
+            Secure your online purchases with our Escrow services, and have ease
+            of mind as you transact in the digital world.
           </p>
         </div>
         <div className="flex flex-col space-y-8 md:w-1/2">
