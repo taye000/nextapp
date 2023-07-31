@@ -78,6 +78,28 @@ const Features = () => {
               </p>
             </div>
           </div>
+          <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
+            <div className="rounded-l-full bg-blue-200 md:bg-transparent">
+              <div className="flex items-center space-x-2">
+                <div className="px-4 py-2 text-white rounded-full md:py-1 bg-blue-800">
+                  04
+                </div>
+                <h3 className="text-base font-bold md:mb-4 md:hidden">
+                  Buyer confirms the item.{" "}
+                </h3>
+              </div>
+            </div>
+            <div>
+              <h3 className="hidden mb-4 text-lg font-bold md:block">
+                Buyer confirms the item.
+              </h3>
+              <p className="text-gray-700">
+                The buyer will confirm the item has been received as was
+                expected, and mark the order as complete. The funds will then be
+                released to the seller.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
