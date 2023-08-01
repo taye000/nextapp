@@ -2,24 +2,20 @@ import React from "react";
 
 const account = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between mt-5">
-      <div className="flex flex-col">
-        <div className="flex justify-center">
-          <h1 className="font-bold text-2xl">Your Account</h1>
+    <main className="min-h-screen justify-between mt-5">
+      <div className="grid gap-4 p-4 lg:grid-cols-5">
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 bg-white lg:col:span-2">
+          <div className="flex flex-col w-full pb-4">
+            <p className="text-2xl font-bold">$4,000</p>
+            <p className="text-gray-500">Monthly Revenue</p>
+          </div>
         </div>
-        <ul>
-          <li>UserID: ISS455yh</li>
-          <li>Username: TaylorMade</li>
-          <li>Email: TaylorMade@service.com</li>
-          <li>Phone: +254712000000</li>
-          <li>Payment Mode: M-PESA</li>
-        </ul>
-        <button
-          type="submit"
-          className="bg-blue-700 rounded-full text-white p-3 mt-4 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500"
-        >
-          Update
-        </button>
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 bg-white lg:col:span-2">
+        <div className="flex flex-col w-full pb-4">
+        <p className="text-2xl font-bold">100</p>
+            <p className="text-gray-500">Number of orders</p>
+        </div>
+        </div>
       </div>
     </main>
   );
