@@ -32,6 +32,11 @@ const account = () => {
           </p>
         </div>
       </div>
+      <div className="border rounded-md shadow-md p-6 m-4">
+        <div>
+          <h2 className="text-2xl font-bold text-center">Orders</h2>
+        </div>
+      </div>
     </main>
   );
 };
