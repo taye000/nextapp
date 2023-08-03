@@ -36,6 +36,38 @@ const account = () => {
         <div>
           <h2 className="text-2xl font-bold text-center">Orders</h2>
         </div>
+        <div>
+          <table className="table-fixed w-full">
+            <thead>
+              <tr>
+                <th className="px-2 py-2">Order ID</th>
+                <th className="px-4 py-2">Item Desc</th>
+                <th className="px-4 py-2">Seller ID</th>
+                <th className="px-4 py-2">Amount</th>
+                <th className="px-4 py-2">Mode</th>
+                <th className="px-4 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border">
+                <td className="px-4 py-2">10DE</td>
+                <td className="px-4 py-2">Samsung Phone</td>
+                <td className="px-4 py-2">712SDE</td>
+                <td className="px-4 py-2">20,000</td>
+                <td className="px-4 py-2">M-PESA</td>
+                <td className="px-4 py-2">Pending</td>
+              </tr>
+              <tr className="border">
+                <td className="px-4 py-2">45DE</td>
+                <td className="px-4 py-2">Ipad 11"</td>
+                <td className="px-4 py-2">456SFE</td>
+                <td className="px-4 py-2">30,000</td>
+                <td className="px-4 py-2">M-PESA</td>
+                <td className="px-4 py-2">Pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   );
