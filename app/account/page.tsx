@@ -4,7 +4,7 @@ const account = () => {
   return (
     <main className="min-h-screen justify-between mt-5">
       <div className="grid gap-4 p-4 lg:grid-cols-3">
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 bg-white lg:col:span-2">
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">$4,000</p>
             <p className="text-gray-500">YTD Revenue</p>
@@ -13,7 +13,7 @@ const account = () => {
             <span className="text-green-700 text-lg">+10%</span>
           </p>
         </div>
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 bg-white lg:col:span-2">
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">100</p>
             <p className="text-gray-500">Number of orders</p>
@@ -22,7 +22,7 @@ const account = () => {
             <span className="text-green-700 text-lg">+5%</span>
           </p>
         </div>
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 bg-white lg:col:span-2">
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-2xl font-bold">10</p>
             <p className="text-gray-500">Daily Sales</p>
@@ -36,37 +36,32 @@ const account = () => {
         <div>
           <h2 className="text-2xl font-bold text-center">Orders</h2>
         </div>
-        <div>
-          <table className="table-fixed w-full">
-            <thead>
-              <tr>
-                <th className="px-2 py-2">Order ID</th>
-                <th className="px-4 py-2">Item Desc</th>
-                <th className="px-4 py-2">Seller ID</th>
-                <th className="px-4 py-2">Amount</th>
-                <th className="px-4 py-2">Mode</th>
-                <th className="px-4 py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border">
-                <td className="px-4 py-2">10DE</td>
-                <td className="px-4 py-2">Samsung Phone</td>
-                <td className="px-4 py-2">712SDE</td>
-                <td className="px-4 py-2">20,000</td>
-                <td className="px-4 py-2">M-PESA</td>
-                <td className="px-4 py-2">Pending</td>
-              </tr>
-              <tr className="border">
-                <td className="px-4 py-2">45DE</td>
-                <td className="px-4 py-2">Ipad 11"</td>
-                <td className="px-4 py-2">456SFE</td>
-                <td className="px-4 py-2">30,000</td>
-                <td className="px-4 py-2">M-PESA</td>
-                <td className="px-4 py-2">Pending</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="p-4">
+          <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
+            <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
+              <span>Order ID</span>
+              <span className="sm:text-left text-right">Item Desc</span>
+              <span className="hidden md:grid">Seller ID</span>
+              <span className="sm:text-left text-right">Amount</span>
+              <span className="hidden md:grid">Mode</span>
+              <span className="sm:text-left text-right">Status</span>
+            </div>
+            <ul>
+              {data.map((order, id) => (
+                <li
+                  key={id}
+                  className="bg-gray-100 hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                >
+                  <div className="flex">
+                    <div className="pl-4">
+                      <p className="text-gray-800 font-bold">${order.amount.toLocaleString()}</p>
+                      <p>{order.description}</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </main>
