@@ -40,25 +40,43 @@ const account = () => {
         <div className="p-4">
           <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
             <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
-              <span>Order ID</span>
-              <span className="sm:text-left text-right">Item Desc</span>
-              <span className="hidden md:grid">Seller ID</span>
-              <span className="sm:text-left text-right">Amount</span>
-              <span className="hidden md:grid">Mode</span>
-              <span className="sm:text-left text-right">Status</span>
+              <span className=" font-bold">Order ID</span>
+              <span className="sm:text-left font-bold text-right">
+                Item Desc
+              </span>
+              <span className="hidden font-bold md:grid">Seller ID</span>
+              <span className="sm:text-left font-bold text-right">Amount</span>
+              <span className="hidden font-bold md:grid">Mode</span>
+              <span className="sm:text-left font-bold text-right">Status</span>
             </div>
             <ul>
               {data.map((order, id) => (
                 <li
                   key={id}
-                  className="bg-gray-100 hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                  className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
                 >
                   <div className="flex">
                     <div className="pl-4">
-                      <p className="text-gray-800 font-bold">${order.amount.toLocaleString()}</p>
-                      <p>{order.description}</p>
+                      <p>Order No. {order.id}</p>
                     </div>
                   </div>
+                  <p className="font-bold">{order.description}</p>
+                  <p>{order.sellerID}</p>
+                  <p className="font-bold">${order.amount.toLocaleString()}</p>
+                  <p>{order.mode}</p>
+                  <p className="sm:text-left text-right">
+                    <span
+                      className={
+                        order.status === "Completed"
+                          ? "bg-blue-400 p-2 rounded-lg"
+                          : order.status === "Processing"
+                          ? "bg-green-400 p-2 rounded-lg"
+                          : "bg-red-400 p-2 rounded-lg"
+                      }
+                    >
+                      {order.status}
+                    </span>
+                  </p>
                 </li>
               ))}
             </ul>

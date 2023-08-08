@@ -4,7 +4,7 @@ export const data = [
       description: 'Iphone X',
       sellerID: '5f0b4d9b2f3a2c3b6c4d5e6f',
       amount: 2795.95,
-      status: 'On Hold',
+      status: 'Cancelled',
       mode: 'M-Pesa',
       date: '15 Minutes ago',
     },
