@@ -13,40 +13,40 @@ const account = () => {
       <div>
         <h2 className="text-2xl p-4 font-bold text-left">Profile</h2>
       </div>
-      <div className="p-4">
-        <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
-        <div className="p-2 text-right">
-          <button className="bg-gray-300 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">
-            Change Image  <i className="fas fa-edit"></i>
-          </button>
+      <div className="p-2">
+        <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
+          <div className="p-2 text-right">
+            <button className="bg-gray-300 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">
+              Change Image <i className="fas fa-edit"></i>
+            </button>
           </div>
           <div>
-            <Image src="/imanilogo.png"
-            width={150}
-            height={150}
-            alt="profile"
-            className="rounded-full p-4" />
+            <Image
+              src="/imanilogo.png"
+              width={150}
+              height={150}
+              alt="profile"
+              className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+            />
           </div>
-          <div className="flex flex-col p-4 justify-between md:flex-row">
+          <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md p-2">
-            <AiOutlineCheckCircle/>
-            <p className="text-2xl p-4 font-bold">Taylor Gitari</p>
+              <AiOutlineCheckCircle />
+              <p className="text-2xl p-2 font-bold">Taylor Gitari</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
-              <AiOutlineMail/>
-              <p className="text-lg p-4 font-bold">taylorgitari@gmail.com
-              </p>
+              <AiOutlineMail />
+              <p className="text-lg p-2 font-bold">taylorgitari@gmail.com</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
-              <AiOutlinePhone/>
-              <p className="text-lg p-4 font-bold">+254 712 345 678
-              </p>
+              <AiOutlinePhone />
+              <p className="text-lg p-2 font-bold">+254 712 345 678</p>
             </div>
           </div>
-          <div className="p-4">
-          <button className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
-            Edit Profile  <i className="fas fa-edit"></i>
-          </button>
+          <div className="p-2">
+            <button className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
+              Edit Profile <i className="fas fa-edit"></i>
+            </button>
           </div>
         </div>
       </div>
