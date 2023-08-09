@@ -15,10 +15,19 @@ const account = () => {
       </div>
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
-          <div className="p-2 text-right">
-            <button className="bg-gray-300 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">
+          
+          <div className="relative p-[5%]">
+            <Image
+              src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
+              alt="profile image"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          <div className="p-2">
+            <button className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
               Change Image <i className="fas fa-edit"></i>
             </button>
+          </div>
           </div>
           <div>
             <Image
