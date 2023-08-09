@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import {
   AiOutlineTwitter,
@@ -69,7 +68,7 @@ const Footer = () => {
                   className="flex-1 px-4 rounded-full focus:outline-none"
                   placeholder="Enter your email"
                 ></input>
-                <button className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
+                <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
                   Go
                 </button>
               </div>

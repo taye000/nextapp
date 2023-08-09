@@ -77,7 +77,7 @@ const Navbar = () => {
         </div>
         <Link
           href="/signup"
-          className="hidden p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
+          className="hidden p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 md:block"
         >
           Get Started
         </Link>
