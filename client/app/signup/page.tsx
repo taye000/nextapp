@@ -10,11 +10,25 @@ const signup = () => {
         </div>
         <div>
           <form className="flex flex-col space-y-4">
+          <input
+              type="name"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+            />
             <input
               type="email"
               name="email"
               id="email"
               placeholder="Enter your email"
+              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+            />
+            <input
+              type="phonenumber"
+              name="phonenumber"
+              id="phonenumber"
+              placeholder="Enter your phonenumber"
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
