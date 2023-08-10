@@ -109,7 +109,7 @@ export const MpesaCallbackURL = async (req: Request, res: Response) => {
 
     console.log(response);
     if (transaction) {
-      transaction.status = ITransactionStatus.SUCCESS;
+      transaction.status = ITransactionStatus.COMPLETED;
       await transaction.save();
     }
 
@@ -215,7 +215,7 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
       res.status(404).json({ msg: "transaction not found" });
     }
 
-    const status = ITransactionStatus.SUCCESS;
+    const status = ITransactionStatus.COMPLETED;
 
     await Transaction.findByIdAndUpdate(req.params.id, {
       status,

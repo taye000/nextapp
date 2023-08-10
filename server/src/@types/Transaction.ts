@@ -5,11 +5,10 @@ export interface ITransaction {
   phone?: string;
   userId: Schema.Types.ObjectId;
   amount: number;
-  walletAddress: string;
-  checkoutId: string;
-  accountNumber: string;
-  tokenName: string;
-  txHash: string;
+  mode: string;
+  item: string;
+  orderId: string;
+  accountNumber?: string;
   assigned?: Schema.Types.ObjectId;
   status?: string;
 }

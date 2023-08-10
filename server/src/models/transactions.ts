@@ -2,9 +2,9 @@ import { Schema, model, Model } from "mongoose";
 import { ITransaction } from "../@types";
 
 export enum ITransactionStatus {
-  SUCCESS = "success",
+  COMPLETED = "completed",
   PENDING = "pending",
-  FAILED = "failed",
+  CANCELLED = "cancelled",
 }
 //an interface that describes attributes the model should have
 interface TransactioModel extends Model<ITransaction> {
@@ -22,26 +22,22 @@ const TransactionSchema = new Schema<ITransaction, TransactioModel>(
       trim: true,
       required: true,
     },
-    walletAddress: {
+    mode: {
       type: String,
       trim: true,
       required: true,
     },
-    tokenName: {
+    item: {
       type: String,
       trim: true,
       required: true,
       max: 50,
     },
-    checkoutId: {
+    orderId: {
       type: String,
       trim: true,
     },
     accountNumber: {
-      type: String,
-      trim: true,
-    },
-    txHash: {
       type: String,
       trim: true,
     },
