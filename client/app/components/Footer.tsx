@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   AiOutlineTwitter,
   AiOutlineLinkedin,
@@ -7,6 +8,28 @@ import {
 } from "react-icons/ai";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/api/subscribers/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw Error(json.message);
+      // Clear the form fields
+      setEmail("");
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <footer
       id="main-footer"
@@ -18,62 +41,64 @@ const Footer = () => {
             Copyright &copy; 2023 Imani Escrow Services
           </div>
           <div className="flex flex-col justify-between md:flex md:space-x-4 md:flex-row">
-          <div className="flex justify-between space-x-4">
-            <a
-              href="https://twitter.com/taye000"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <AiOutlineTwitter
-                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                size={30}
-              />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/taylor-gitari-15b290133/"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <AiOutlineLinkedin
-                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                size={30}
-              />
-            </a>
-            <a
-              href="https://instagram.com/taylor.gitari?igshid=OGQ5ZDc2ODk2ZA=="
-              rel="noreferrer"
-              target="_blank"
-            >
-              <AiOutlineInstagram
-                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                size={30}
-              />
-            </a>
-            <a
-              href="https://www.facebook.com/taylor.abbruzzi/"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <AiOutlineFacebook
-                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                size={30}
-              />
-            </a>
-          </div>
-          <div className="flex flex-col justify-between mt-4">
-            <form>
-              <div className="flex space-x-3">
-                <input
-                  type="text"
-                  className="flex-1 px-4 rounded-full focus:outline-none"
-                  placeholder="Enter your email"
-                ></input>
-                <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
-                  Go
-                </button>
-              </div>
-            </form>
-          </div>
+            <div className="flex justify-between space-x-4">
+              <a
+                href="https://twitter.com/taye000"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <AiOutlineTwitter
+                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  size={30}
+                />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/taylor-gitari-15b290133/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <AiOutlineLinkedin
+                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  size={30}
+                />
+              </a>
+              <a
+                href="https://instagram.com/taylor.gitari?igshid=OGQ5ZDc2ODk2ZA=="
+                rel="noreferrer"
+                target="_blank"
+              >
+                <AiOutlineInstagram
+                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  size={30}
+                />
+              </a>
+              <a
+                href="https://www.facebook.com/taylor.abbruzzi/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <AiOutlineFacebook
+                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  size={30}
+                />
+              </a>
+            </div>
+            <div className="flex flex-col justify-between mt-4">
+              <form onSubmit={handleSubmit}>
+                <div className="flex space-x-3">
+                  <input
+                    type="text"
+                    className="flex-1 px-4 rounded-full focus:outline-none"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></input>
+                  <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
+                    Go
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
           <div className="hidden text-white  md:block">
             Copyright &copy; 2023 Imani Escrow Services

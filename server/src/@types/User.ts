@@ -32,3 +32,9 @@ declare global {
     }
   }
 }
+
+export interface ISubscriber {
+  id?: string;
+  email: string;
+  is_active?: boolean;
+}

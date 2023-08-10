@@ -12,72 +12,70 @@ export const createTransactionController = async (
   req: Request,
   res: Response
 ) => {
-  let { phone, amount, walletAddress, tokenName } = req.body;
+  let { userId, amount, mode, item } = req.body;
 
   const user = await User.findById(req.currentUser!.id);
+  let phone = user?.phoneNumber;
 
   if (!user) {
     return res.status(401).json({ msg: "Unauthorised access." });
   }
-  if (!phone.trim()) {
-    return res.status(400).json({ phone: "phone No. is required" });
+  if (!userId.trim()) {
+    return res.status(400).json({ userId: "userId No. is required" });
   }
   if (!amount.trim()) {
     return res.status(400).json({ amount: "amount is required" });
   }
-  if (!walletAddress.trim()) {
-    return res.status(400).json({ walletAddress: "walletAddress is required" });
+  if (!mode.trim()) {
+    return res.status(400).json({ mode: "mode is required" });
   }
-  if (!tokenName.trim()) {
-    return res.status(400).json({ tokenName: "tokenName is required" });
+  if (!item.trim()) {
+    return res.status(400).json({ item: "item is required" });
   }
 
+  // Mpesa payment
+
+  // let message = "";
+
+  // const mpesaWrapper = new MpesaWrapper({
+  //   consumerKey: process.env.MPESA_CONSUMER_KEY!,
+  //   consumerSecret: process.env.MPESA_SECRET_KEY!,
+  //   shortCode: process.env.MPESA_SHORT_CODE!,
+  //   initiatorName: process.env.MPESA_INITIATOR_NAME!,
+  //   lipaNaMpesaShortCode: process.env.MPESA_LIPA_NA_MPESA_SHORT_CODE!,
+  //   lipaNaMpesaShortPass: process.env.MPESA_LIPA_NA_MPESA_SHORT_PASS!,
+  // });
+  
+  // phone = `254${phone}`;
+  
+  // const accountNo = accountNumber();
+  
+  // const callbackUrl = `https://6be1-41-84-159-230.in.ngrok.io/api/transactions/callback-url`;
+  // const mpesaResponse: any = await mpesaWrapper.stkPush({
+  //   phone,
+  //   amount,
+  //   accountNumber: accountNo,
+  //   callbackUrl,
+  // });
+  
+  // if (mpesaResponse.error) {
+  //   message = mpesaResponse.error;
+  //   return res.status(400).json({ status: false, message });
+  // } else {
+  //   message = "success";
+  // }
+
+  // create the transactions here
   try {
-    let message = "";
-
-    const mpesaWrapper = new MpesaWrapper({
-      consumerKey: process.env.MPESA_CONSUMER_KEY!,
-      consumerSecret: process.env.MPESA_SECRET_KEY!,
-      shortCode: process.env.MPESA_SHORT_CODE!,
-      initiatorName: process.env.MPESA_INITIATOR_NAME!,
-      lipaNaMpesaShortCode: process.env.MPESA_LIPA_NA_MPESA_SHORT_CODE!,
-      lipaNaMpesaShortPass: process.env.MPESA_LIPA_NA_MPESA_SHORT_PASS!,
-    });
-
-    phone = `254${phone}`;
-
-    const accountNo = accountNumber();
-
-    const callbackUrl = `https://6be1-41-84-159-230.in.ngrok.io/api/transactions/callback-url`;
-    const mpesaResponse: any = await mpesaWrapper.stkPush({
-      phone,
-      amount,
-      accountNumber: accountNo,
-      callbackUrl,
-    });
-
-    if (mpesaResponse.error) {
-      message = mpesaResponse.error;
-      return res.status(400).json({ status: false, message });
-    } else {
-      message = "success";
-    }
-    // create the transactions here
-
     await Transaction.create({
-      phone: mpesaResponse.phone,
-      amount: mpesaResponse.amount,
-      walletAddress: walletAddress,
-      userId: req.currentUser!.id,
-      tokenName: tokenName,
-      checkoutId: mpesaResponse.checkoutId,
+      userId: userId,
+      currentUserId: req.currentUser!.id,
+      item: item,
       status: ITransactionStatus.PENDING,
     });
     return res.status(201).json({
       status: true,
-      message,
-      msg: "New STKPush Transaction Initiated Successfully. You will receive a prompt on your phone to complete the transaction.",
-      mpesaResponse,
+      msg: "Transaction Initiated Successfully.",
     });
   } catch (error: any) {
     return res
