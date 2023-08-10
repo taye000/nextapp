@@ -5,6 +5,7 @@ import {
   MpesaCallbackURL,
   getUserTransaction,
   getUserTransactions,
+  getTransactions,
 } from "../../controllers/transaction";
 
 const router = Router();
@@ -16,10 +17,16 @@ router.get(
   getUserTransaction
 );
 router.get(
-  "/get-transactions",
+  "/get-user-transactions",
   validateRequest,
   validateToken,
   getUserTransactions
+);
+
+router.get(
+  "/get-transactions",
+  validateRequest,
+  getTransactions
 );
 
 router.post(

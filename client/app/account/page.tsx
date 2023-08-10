@@ -1,13 +1,83 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
-import { data } from "../data/data";
+import Link from "next/link";
+import { getToken } from "../utils/tokenUtils";
+import { ITransaction, IUser } from "../utils/types";
 
 const account = () => {
+  const token = getToken();
+  const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    name: "",
+    email: "",
+    phoneNumber: "",});
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/transactions/get-user-transactions",
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("token", token);
+        
+        if (!response.ok) {
+          throw new Error("error fetching Transactions");
+        }
+        const data = await response.json();
+        console.log("fetched data", data.transactions);
+
+        //update Transactions
+        setTransactions(data.transactions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTransactions();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/currentuser",
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching user data");
+        }
+        const userData = await response.json();
+        console.log("Fetched user data:", userData);
+  
+        // Update user state with fetched data
+        setUser(userData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+
   return (
     <main className="min-h-screen justify-between mt-5">
       <div>
@@ -15,19 +85,19 @@ const account = () => {
       </div>
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
-          
           <div className="relative p-[5%]">
             <Image
               src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
               alt="profile image"
               fill
+              priority={false}
               style={{ objectFit: "cover" }}
             />
-          <div className="p-2">
-            <button className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
-              Change Image <i className="fas fa-edit"></i>
-            </button>
-          </div>
+            <div className="p-2">
+              <button className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
+                Change Image <i className="fas fa-edit"></i>
+              </button>
+            </div>
           </div>
           <div>
             <Image
@@ -41,21 +111,21 @@ const account = () => {
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md p-2">
               <AiOutlineCheckCircle />
-              <p className="text-2xl p-2 font-bold">Taylor Gitari</p>
+              <p className="text-2xl p-2 font-bold">{user.name}</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
               <AiOutlineMail />
-              <p className="text-lg p-2 font-bold">taylorgitari@gmail.com</p>
+              <p className="text-lg p-2 font-bold">{user.email}</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
               <AiOutlinePhone />
-              <p className="text-lg p-2 font-bold">+254 712 345 678</p>
+              <p className="text-lg p-2 font-bold">{user.phoneNumber}</p>
             </div>
           </div>
           <div className="p-2">
-            <button className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
-              Edit Profile <i className="fas fa-edit"></i>
-            </button>
+            <Link href={"/account/editprofile"}  className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
+              Edit Profile
+            </Link>
           </div>
         </div>
       </div>
@@ -104,37 +174,46 @@ const account = () => {
               <span className="hidden font-bold md:grid">Mode</span>
               <span className="sm:text-left font-bold text-right">Status</span>
             </div>
-            <ul>
-              {data.map((order, id) => (
-                <li
-                  key={id}
-                  className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
-                >
-                  <div className="flex">
-                    <div className="pl-4">
-                      <p>Order No. {order.id}</p>
+            
+            {transactions.length > 0 ? (
+              <ul>
+                {transactions.map((transaction, id) => (
+                  <li
+                    key={id}
+                    className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                  >
+                    <div className="flex">
+                      <div className="pl-4">
+                        <p>Order No. {transaction.id}</p>
+                      </div>
                     </div>
-                  </div>
-                  <p className="font-bold">{order.description}</p>
-                  <p>{order.sellerID}</p>
-                  <p className="font-bold">${order.amount.toLocaleString()}</p>
-                  <p>{order.mode}</p>
-                  <p className="sm:text-left text-right">
-                    <span
-                      className={
-                        order.status === "Completed"
-                          ? "bg-blue-400 p-2 rounded-lg"
-                          : order.status === "Processing"
-                          ? "bg-green-400 p-2 rounded-lg"
-                          : "bg-red-400 p-2 rounded-lg"
-                      }
-                    >
-                      {order.status}
-                    </span>
-                  </p>
-                </li>
-              ))}
-            </ul>
+                    <p className="font-bold">{transaction.item}</p>
+                    <p>{transaction.userId}</p>
+                    <p className="font-bold">
+                      ${transaction.amount}
+                    </p>
+                    <p>{transaction.mode}</p>
+                    <p className="sm:text-left text-right">
+                      <span
+                        className={
+                          transaction.status === "completed"
+                            ? "bg-blue-400 p-2 rounded-lg"
+                            : transaction.status === "pending"
+                            ? "bg-green-400 p-2 rounded-lg"
+                            : "bg-red-400 p-2 rounded-lg"
+                        }
+                      >
+                        {transaction.status}
+                      </span>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex justify-center items-center">
+                <p className="text-2xl">No transactions yet</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

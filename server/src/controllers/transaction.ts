@@ -14,12 +14,12 @@ export const createTransactionController = async (
 ) => {
   let { userId, amount, mode, item } = req.body;
 
-  const user = await User.findById(req.currentUser!.id);
-  let phone = user?.phoneNumber;
+  // const user = await User.findById(req.currentUser!.id);
+  // let phone = user?.phoneNumber;
 
-  if (!user) {
-    return res.status(401).json({ msg: "Unauthorised access." });
-  }
+  // if (!user) {
+  //   return res.status(401).json({ msg: "Unauthorised access." });
+  // }
   if (!userId.trim()) {
     return res.status(400).json({ userId: "userId No. is required" });
   }
@@ -67,14 +67,17 @@ export const createTransactionController = async (
 
   // create the transactions here
   try {
-    await Transaction.create({
-      userId: userId,
-      currentUserId: req.currentUser!.id,
-      item: item,
+    let transaction = await Transaction.create({
+      userId,
+      mode,
+      amount,
+      // currentUserId: req.currentUser!.id,
+      item,
       status: ITransactionStatus.PENDING,
     });
     return res.status(201).json({
       status: true,
+      transaction,
       msg: "Transaction Initiated Successfully.",
     });
   } catch (error: any) {

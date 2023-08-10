@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import React, { useState } from "react";
+import { storeToken } from "../utils/tokenUtils";
 
 const signin = () => {
   const [email, setEmail] = useState("");
@@ -21,10 +22,19 @@ const signin = () => {
       });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
+
+      //save the token in the browser
+      storeToken(json.token);
+
       // Clear the form fields
       setEmail("");
       setPassword("");
+
       console.log(json);
+
+      // Redirect to the home page
+      window.location.href = "/account";
+
     } catch (error) {
       console.error(error);
     }
