@@ -1,7 +1,39 @@
-import Link from "next/link";
-import React from "react";
+"use client"
+import React, {useState} from "react";
 
 const seller = () => {
+  const [userId, setUserId] = useState("");
+  const [amount, setAmount] = useState("");
+  const [paymentMode, setPaymentMode] = useState("");
+  const [item, setItem] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/api/transactions/create-transaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          amount,
+          paymentMode,
+          item,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw Error(json.message);
+      // Clear the form fields
+      setUserId("");
+      setAmount("");
+      setPaymentMode("");
+      setItem("");
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
       <div className="border rounded-md shadow-md p-6">
@@ -9,12 +41,14 @@ const seller = () => {
           <h1 className="font-bold text-2xl">Seller Form</h1>
         </div>
         <div>
-          <form className="flex flex-col space-y-4">
+          <form onSubmit={handleSubmit}
+          className="flex flex-col space-y-4">
             <input
               type="userId"
               name="userId"
               id="userId"
               placeholder="Buyer's ID"
+              value={userId} onChange={(e) => setUserId(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
@@ -22,6 +56,7 @@ const seller = () => {
               name="item"
               id="item"
               placeholder="Item Description"
+              value={item} onChange={(e) => setItem(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
@@ -29,6 +64,7 @@ const seller = () => {
               name="amount"
               id="amount"
               placeholder="Amount"
+              value={amount} onChange={(e) => setAmount(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
@@ -36,6 +72,7 @@ const seller = () => {
               name="paymentMode"
               id="paymentMode"
               placeholder="Mode of Payment"
+              value={paymentMode} onChange={(e) => setPaymentMode(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <button type="submit" className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
