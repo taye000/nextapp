@@ -4,9 +4,9 @@ exports.ITransactionStatus = void 0;
 const mongoose_1 = require("mongoose");
 var ITransactionStatus;
 (function (ITransactionStatus) {
-    ITransactionStatus["SUCCESS"] = "success";
+    ITransactionStatus["COMPLETED"] = "completed";
     ITransactionStatus["PENDING"] = "pending";
-    ITransactionStatus["FAILED"] = "failed";
+    ITransactionStatus["CANCELLED"] = "cancelled";
 })(ITransactionStatus = exports.ITransactionStatus || (exports.ITransactionStatus = {}));
 const TransactionSchema = new mongoose_1.Schema({
     phone: {
@@ -18,26 +18,22 @@ const TransactionSchema = new mongoose_1.Schema({
         trim: true,
         required: true,
     },
-    walletAddress: {
+    mode: {
         type: String,
         trim: true,
         required: true,
     },
-    tokenName: {
+    item: {
         type: String,
         trim: true,
         required: true,
         max: 50,
     },
-    checkoutId: {
+    orderId: {
         type: String,
         trim: true,
     },
     accountNumber: {
-        type: String,
-        trim: true,
-    },
-    txHash: {
         type: String,
         trim: true,
     },
