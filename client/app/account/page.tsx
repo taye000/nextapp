@@ -7,18 +7,15 @@ import {
   AiOutlineCheckCircle,
 } from "react-icons/ai";
 import Link from "next/link";
-import { getToken } from "../utils/tokenUtils";
+import { getCookie } from "../utils/tokenUtils";
 import { ITransaction, IUser } from "../utils/types";
 
 const account = () => {
-  const token = getToken();
-  const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
-  const [user, setUser] = useState<IUser>({
-    id: "",
-    name: "",
-    email: "",
-    phoneNumber: "",});
+  // get the stored cookie from local storage
+  const cookie = getCookie();
 
+  const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
+  
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -27,13 +24,11 @@ const account = () => {
           {
             method: "GET",
             headers: {
-              "Authorization": `Bearer ${token}`,
+              "Authorization": `Bearer ${cookie}`,
               "Content-Type": "application/json",
             },
           }
         );
-        console.log("token", token);
-        
         if (!response.ok) {
           throw new Error("error fetching Transactions");
         }
@@ -49,6 +44,12 @@ const account = () => {
     fetchTransactions();
   }, []);
 
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    name: "",
+    email: "",
+    phoneNumber: "",});
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -57,7 +58,7 @@ const account = () => {
           {
             method: "GET",
             headers: {
-              "Authorization": `Bearer ${token}`,
+              "Authorization": `Bearer ${cookie}`,
               "Content-Type": "application/json",
             },
           }
@@ -66,10 +67,10 @@ const account = () => {
           throw new Error("Error fetching user data");
         }
         const userData = await response.json();
-        console.log("Fetched user data:", userData);
+        console.log("Fetched user data:", userData.user);
   
         // Update user state with fetched data
-        setUser(userData);
+        setUser(userData.user);
       } catch (error) {
         console.error(error);
       }

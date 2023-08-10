@@ -2,7 +2,6 @@ import { Router } from "express";
 import { validateRequest, validateToken } from "../../middleware";
 import {
   createTransactionController,
-  MpesaCallbackURL,
   getUserTransaction,
   getUserTransactions,
   getTransactions,
@@ -35,7 +34,5 @@ router.post(
   validateToken,
   createTransactionController
 );
-
-router.post("/callback-url", MpesaCallbackURL);
 
 module.exports = router;

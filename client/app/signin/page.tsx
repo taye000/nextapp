@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import React, { useState } from "react";
-import { storeToken } from "../utils/tokenUtils";
+import { storeCookie } from "../utils/tokenUtils";
 
 const signin = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +24,9 @@ const signin = () => {
       if (!res.ok) throw Error(json.message);
 
       //save the token in the browser
-      storeToken(json.token);
+      storeCookie(json.cookie);
+      console.log("cookie", json.cookie);
+      
 
       // Clear the form fields
       setEmail("");

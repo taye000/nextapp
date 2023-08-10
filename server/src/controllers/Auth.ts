@@ -91,6 +91,8 @@ export const signin = async (req: Request, res: Response) => {
     let sanitizedUser = {
       id: user.id,
       email: user.email,
+      phoneNumber: user.phoneNumber,
+      name: user.name,
     };
     //payload for generating jwt token
     const payload = {
