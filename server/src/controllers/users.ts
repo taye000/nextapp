@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 
 //create a new user
 export const signUp = async (req: any, res: any) => {
-  const { email, password } = req.body;
+  const { email, password, confirmPassword } = req.body;
 
   if (!email.trim()) {
     return res.status(400).json({ email: "email is required" });
@@ -17,12 +17,20 @@ export const signUp = async (req: any, res: any) => {
   if (!password.trim()) {
     return res.status(400).json({ password: "Password is required" });
   }
+  if (!confirmPassword.trim()) {
+    return res.status(400).json({ confirmPassword: "Password confirmation is required" });
+  }
 
   try {
     //check if user email already exist in db
     const emailExists = await User.findOne({ email });
     if (emailExists)
       return res.status(400).json({ email: "User email already exists" });
+
+      //check if user password and confirm password match
+      if (password !== confirmPassword) {
+        return res.status(400).json({ confirmPassword: "Password and Confirm Password do not match" })
+      }
 
     //create new user
     const createUser = await User.create({
@@ -36,6 +44,13 @@ export const signUp = async (req: any, res: any) => {
     if (!newUser) {
       return res.status(404).json({ msg: "User Not Found", success: false });
     }
+
+    //remove password from newUser
+    let sanitizedUser = {
+      id: newUser.id,
+      email: newUser.email,
+    };
+
     //payload for generating jwt token
     const payload = {
       id: newUser.id,
@@ -56,7 +71,7 @@ export const signUp = async (req: any, res: any) => {
       .json({
         success: true,
         msg: "New User Created Successfully.",
-        newUser,
+        sanitizedUser,
         cookie: req.session?.jwt,
       });
   } catch (error: any) {

@@ -87,6 +87,11 @@ export const signin = async (req: Request, res: Response) => {
     if (!passwordMatch) {
       return res.status(400).json({ msg: "Password Incorrect" });
     }
+    //remove password from newUser
+    let sanitizedUser = {
+      id: user.id,
+      email: user.email,
+    };
     //payload for generating jwt token
     const payload = {
       id: user.id,
@@ -107,7 +112,7 @@ export const signin = async (req: Request, res: Response) => {
       success: true,
       msg: "User signed in successfully",
       cookie: req.session?.jwt,
-      user,
+      sanitizedUser,
     });
   } catch (error: any) {
     res.status(500).json({ msg: "Internal server error", success: false });
