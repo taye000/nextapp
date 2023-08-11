@@ -48,6 +48,7 @@ const account = () => {
     id: "",
     name: "",
     email: "",
+    photo: "",
     phoneNumber: "",});
 
   useEffect(() => {
@@ -94,20 +95,25 @@ const account = () => {
               priority={false}
               style={{ objectFit: "cover" }}
             />
-            <div className="p-2">
-              <button className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
-                Change Image <i className="fas fa-edit"></i>
-              </button>
-            </div>
           </div>
           <div>
+            {user.photo !== undefined ? (
             <Image
-              src="/imanilogo.png"
+              src={user.photo}
               width={150}
               height={150}
               alt="profile"
               className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
             />
+          ) : (
+            <Image
+              src="/avatar.jpg"
+              width={150}
+              height={150}
+              alt="profile"
+              className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+            />
+            )}
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md p-2">
@@ -142,7 +148,7 @@ const account = () => {
         </div>
         <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
-            <p className="text-2xl font-bold">100</p>
+            <p className="text-2xl font-bold">{transactions.length}</p>
             <p className="text-gray-500">Number of orders</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">

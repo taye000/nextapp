@@ -6,11 +6,16 @@ import {
   AiOutlinePhone,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
+import { getCookie } from "../../utils/tokenUtils";
+import { IUser } from "../../utils/types";
 
 const editprofile = () => {
+    // get the stored cookie from local storage
+    const cookie = getCookie();
+    
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,12 +23,13 @@ const editprofile = () => {
       const res = await fetch("http://localhost:5000/api/users/updateprofile", {
         method: "POST",
         headers: {
+          "Authorization": `Bearer ${cookie}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
           email,
-          phonenumber,
+          phoneNumber,
         }),
       });
       const json = await res.json();
@@ -31,12 +37,47 @@ const editprofile = () => {
       // Clear the form fields
       setName("");
       setEmail("");
-      setPhonenumber("");
+      setPhoneNumber("");
       console.log(json);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    name: "",
+    email: "",
+    phoneNumber: "",});
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/currentuser",
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${cookie}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching user data");
+        }
+        const userData = await response.json();
+        console.log("Fetched user data:", userData.user);
+  
+        // Update user state with fetched data
+        setUser(userData.user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   return (
     <main className="min-h-screen justify-between mt-5">
@@ -71,15 +112,15 @@ const editprofile = () => {
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md p-2">
               <AiOutlineCheckCircle />
-              <p className="text-2xl p-2 font-bold">Taylor Gitari</p>
+              <p className="text-2xl p-2 font-bold">{user.name}</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
               <AiOutlineMail />
-              <p className="text-lg p-2 font-bold">taylorgitari@gmail.com</p>
+              <p className="text-lg p-2 font-bold">{user.email}</p>
             </div>
             <div className="border rounded-md shadow-md p-2">
               <AiOutlinePhone />
-              <p className="text-lg p-2 font-bold">+254 712 345 678</p>
+              <p className="text-lg p-2 font-bold">{user.phoneNumber}</p>
             </div>
           </div>
         </div>
@@ -122,7 +163,7 @@ const editprofile = () => {
                 type="name"
                 name="name"
                 id="name"
-                placeholder="Enter your name"
+                placeholder={user.name ? user.name : "Enter your name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
@@ -134,7 +175,7 @@ const editprofile = () => {
               type="email"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder= {user.email ? user.email : "Enter your email"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
@@ -146,9 +187,9 @@ const editprofile = () => {
               type="phonenumber"
               name="phonenumber"
               id="phonenumber"
-              placeholder="Enter your phonenumber"
-              value={phonenumber}
-              onChange={(e) => setPhonenumber(e.target.value)}
+              placeholder= {user.phoneNumber ? user.phoneNumber : "Enter your phonenumber"}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             </div>

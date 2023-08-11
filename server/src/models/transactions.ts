@@ -7,11 +7,11 @@ export enum ITransactionStatus {
   CANCELLED = "cancelled",
 }
 //an interface that describes attributes the model should have
-interface TransactioModel extends Model<ITransaction> {
+interface TransactionModel extends Model<ITransaction> {
   build(attrs: ITransaction): ITransaction;
 }
 
-const TransactionSchema = new Schema<ITransaction, TransactioModel>(
+const TransactionSchema = new Schema<ITransaction, TransactionModel>(
   {
     phone: {
       type: String,
@@ -41,11 +41,11 @@ const TransactionSchema = new Schema<ITransaction, TransactioModel>(
       type: String,
       trim: true,
     },
-    userId: {
+    clientId: {
       type: String,
       trim: true,
     },
-    assigned: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },

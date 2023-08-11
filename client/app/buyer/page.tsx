@@ -7,7 +7,7 @@ const buyer = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
-  const [userId, setUserId] = useState("");
+  const [clientId, setclientId] = useState("");
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState("");
   const [item, setItem] = useState("");
@@ -24,7 +24,7 @@ const buyer = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId,
+            clientId,
             amount,
             item,
             mode,
@@ -34,7 +34,7 @@ const buyer = () => {
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
       // Clear the form fields
-      setUserId("");
+      setclientId("");
       setAmount("");
       setMode("");
       setItem("");
@@ -89,12 +89,12 @@ const buyer = () => {
         <div>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
-              type="userId"
-              name="userId"
-              id="userId"
+              type="clientId"
+              name="clientId"
+              id="clientId"
               placeholder="Seller's ID"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              value={clientId}
+              onChange={(e) => setclientId(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
