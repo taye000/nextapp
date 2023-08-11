@@ -8,9 +8,9 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "icon-library.com",
+        hostname: "res.cloudinary.com",
         port: "",
-        pathname: "/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        pathname: "/taye000/**",
       },
     ],
   },

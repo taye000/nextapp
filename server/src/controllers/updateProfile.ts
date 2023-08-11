@@ -20,7 +20,9 @@ export const updateProfilePhoto = async (req: Request, res: Response) => {
       res.status(401).json({ msg: "Unauthorized access" });
     }
     const photo = req?.file?.path;
-    await User.findByIdAndUpdate(req?.userId, {
+    console.log("photo", photo);
+    
+    await User.findByIdAndUpdate(req?.currentUser?.id, {
       photo,
     });
     res

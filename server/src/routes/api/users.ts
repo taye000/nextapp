@@ -5,6 +5,7 @@ import {
   signUp,
   verifyUserLoginByOTP,
   getCurrentUser,
+  upload,
 } from "../../controllers";
 import { validateRequest, validateToken } from "../../middleware";
 import {
@@ -42,6 +43,7 @@ router.post(
   "/updateprofilephoto",
   validateRequest,
   validateToken,
+  upload.single("photo"),
   updateProfilePhoto
 );
 
