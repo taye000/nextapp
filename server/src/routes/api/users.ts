@@ -1,11 +1,11 @@
 import { Router } from "express";
 import {
   signin,
-  logout,
   signUp,
   verifyUserLoginByOTP,
   getCurrentUser,
   upload,
+  signout,
 } from "../../controllers";
 import { validateRequest, validateToken } from "../../middleware";
 import {
@@ -22,10 +22,7 @@ router.get("/currentuser", validateRequest, validateToken, getCurrentUser);
 router.post("/signup", validateRequest, signUp);
 router.post("/signin", validateRequest, signin);
 router.post("/verifyuser", validateRequest, verifyUserLoginByOTP);
-router.post("/signout",
- validateRequest,
- validateToken,
-  logout);
+router.post("/signout", validateRequest, validateToken, signout);
 router.post("/requestpasswordreset", validateRequest, requestPasswordReset);
 router.post("/passwordreset", validateRequest, passwordReset);
 router.post(
@@ -34,11 +31,7 @@ router.post(
   validateToken,
   currentUserResetPassword
 );
-router.post("/updateprofile", 
-validateRequest,
- validateToken,
- updateProfile
- );
+router.post("/updateprofile", validateRequest, validateToken, updateProfile);
 router.post(
   "/updateprofilephoto",
   validateRequest,

@@ -1,8 +1,21 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { getCookie } from "../utils/tokenUtils";
 
 const signup = () => {
+  // initialize useRouter
+  const router = useRouter();
+
+  // get the stored cookie from local storage
+  const cookie = getCookie();
+
+  // check if user is logged in
+  if (cookie) {
+    router.push("/account");
+  }
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");

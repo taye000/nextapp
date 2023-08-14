@@ -5,64 +5,6 @@ import { PasswordManager, randomCode } from "../utils";
 import { config } from "../config/config";
 import { formatPhoneNumber, mailer, sms } from "../helpers";
 
-export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  if (!email.trim()) {
-    return res.status(400).json({ msg: "Email is required" });
-  }
-  if (!password.trim()) {
-    return res.status(400).json({ msg: "Password is required" });
-  }
-
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ msg: "Email Not Found", success: false });
-  }
-  try {
-    //check password
-    const passwordMatch = await PasswordManager.compare(
-      user.password,
-      password
-    );
-    if (!passwordMatch) {
-      return res.status(400).json({ msg: "Password Incorrect" });
-    }
-    //generate otp
-    const otp = await randomCode();
-    //update user otp
-    const updatedUser = await User.findByIdAndUpdate(
-      user?.id,
-      {
-        passwordReset: { is_changed: true },
-        otp: otp,
-      },
-      { new: true }
-    );
-    //save user
-    await user.save();
-
-    let message = `Your OTP from P2P is: ${otp}.`;
-
-    //send otp via email
-    mailer(message, user.email);
-
-    if (user.phoneNumber) {
-      let phone = formatPhoneNumber(user.phoneNumber, "KE");
-      //send otp via sms
-      sms(phone, message);
-    }
-
-    res.status(200).json({
-      otp,
-      success: true,
-      msg: "Successful accessed your account, use OTP sent to your email & phone to proceed.",
-      user: updatedUser,
-    });
-  } catch (error: any) {
-    res.status(500).json({ msg: "Internal server error", success: false });
-  }
-};
 
 export const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -242,7 +184,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 };
 
 // sign out of the system
-export const logout = async (req: Request, res: Response) => {
+export const signout = async (req: Request, res: Response) => {
   req.session = null;
   res.status(200).json({ success: true, msg: "Sign out successful." });
 };

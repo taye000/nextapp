@@ -22,7 +22,7 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
-    <header className="w-full mx-auto px-4 shadow sticky top-0 z-50 sm:px-20">
+    <header className="w-full mx-auto px-4 shadow top-0 z-50 sm:px-20">
       <div className="md:flex md:items-center justify-between">
         <div className="flex flex-row justify-between">
           <Link href="/">
