@@ -45,15 +45,53 @@ const editprofile = () => {
       console.error(error);
     }
   };
+
+  // function to fetch user data from DB
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/currentuser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
+      }
+      const userData = await response.json();
+      console.log("Fetched user data:", userData.user);
+
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+    // useEffect to Fetch user data on page load
+    useEffect(() => {
+      fetchUserData();
+    }, []);
+
   const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    const selectedFile = e.target.files && e.target.files[0];
+    if (!selectedFile) return;
+
     try {
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
       const res = await fetch("http://localhost:5000/api/users/updateprofilephoto", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,
         },
-        body: new FormData,
+        body: formData,
       });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
@@ -61,6 +99,10 @@ const editprofile = () => {
       // Clear the form fields
       setPhoto("");
       console.log(json);
+
+      // Fetch user data to update the user state after photo update
+      fetchUserData();
+      
     } catch (error) {
       console.error(error);
     }
@@ -73,35 +115,6 @@ const editprofile = () => {
     photo: "",
     phoneNumber: "",
   });
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/users/currentuser",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${cookie}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching user data");
-        }
-        const userData = await response.json();
-        console.log("Fetched user data:", userData.user);
-
-        // Update user state with fetched data
-        setUser(userData.user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
 
   return (
     <main className="min-h-screen justify-between mt-5">
@@ -144,7 +157,8 @@ const editprofile = () => {
             )}
             <input
             type="file"
-            accept="photo/*"
+            accept="image/*"
+            name="photo"
             className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
             onChange={(e) => handlePhotoUpload(e)}
             ></input>
