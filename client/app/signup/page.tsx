@@ -18,6 +18,7 @@ const signup = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [account_type, setAccount_type] = useState("");
@@ -33,18 +34,19 @@ const signup = () => {
         body: JSON.stringify({
           name,
           email,
+          phoneNumber,
           password,
           confirmPassword,
           account_type
         }),
       });
-      console.log(name, email, password, confirmPassword, account_type);
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
       // Clear the form fields
       setName("");
       setEmail("");
+      setPhoneNumber("");
       setPassword("");
       setConfirmPassword("");
       console.log(json);
@@ -80,6 +82,15 @@ const signup = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+            />
+            <input
+              type="phoneNumber"
+              name="phoneNumber"
+              id="phoneNumber"
+              placeholder="Enter your phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
             />
             <input
