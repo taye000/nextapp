@@ -14,7 +14,7 @@ export interface IUser {
   name?: string;
   email: string;
   phoneNumber?: string;
-  photo?: string;
+  photo?: any;
   location?: string;
   account_type?: string;
   is_admin?: boolean;

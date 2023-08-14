@@ -52,14 +52,12 @@ const editprofile = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          photo:photo
-        }),
+        body: new FormData,
       });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
+
       // Clear the form fields
       setPhoto("");
       console.log(json);
@@ -146,7 +144,7 @@ const editprofile = () => {
             )}
             <input
             type="file"
-            accept="image/*"
+            accept="photo/*"
             className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
             onChange={(e) => handlePhotoUpload(e)}
             ></input>
