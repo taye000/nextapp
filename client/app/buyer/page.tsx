@@ -1,11 +1,24 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { IUser } from "../utils/types";
 import { getCookie } from "../utils/tokenUtils";
 
 const buyer = () => {
+  // initialize useRouter
+  const router = useRouter();
+
   // get the stored cookie from local storage
   const cookie = getCookie();
+
+  // check if user is logged in
+  useEffect(() => {
+    if (!cookie) {
+      router.push("/signin");
+    }
+    // Fetch user data
+    fetchUserData();
+  }, []);
 
   const [clientId, setclientId] = useState("");
   const [amount, setAmount] = useState("");
@@ -20,7 +33,7 @@ const buyer = () => {
         {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${cookie}`,
+            Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -51,35 +64,31 @@ const buyer = () => {
     phoneNumber: "",
   });
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/users/currentuser",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${cookie}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching user data");
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/currentuser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
         }
-        const userData = await response.json();
-        console.log("Fetched user data:", userData.user);
-
-        // Update user state with fetched data
-        setUser(userData.user);
-      } catch (error) {
-        console.error(error);
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
       }
-    };
+      const userData = await response.json();
+      console.log("Fetched user data:", userData.user);
 
-    fetchUserData();
-  }, []);
-  
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
       <div className="border rounded-md shadow-md p-6">

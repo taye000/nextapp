@@ -7,78 +7,85 @@ import {
   AiOutlineCheckCircle,
 } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
 import { ITransaction, IUser } from "../utils/types";
 
 const account = () => {
+  // initialize useRouter
+  const router = useRouter();
+
   // get the stored cookie from local storage
   const cookie = getCookie();
 
-  const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
-  
+  // check if user is logged in
   useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/transactions/get-user-transactions",
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${cookie}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("error fetching Transactions");
-        }
-        const data = await response.json();
-        console.log("fetched data", data.transactions);
-
-        //update Transactions
-        setTransactions(data.transactions);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (!cookie) {
+      router.push("/signin");
+    }
+    // Fetch user data and transactions
+    fetchUserData();
     fetchTransactions();
   }, []);
+
+  const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
 
   const [user, setUser] = useState<IUser>({
     id: "",
     name: "",
     email: "",
     photo: "",
-    phoneNumber: "",});
+    phoneNumber: "",
+  });
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/users/currentuser",
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${cookie}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching user data");
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/currentuser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
         }
-        const userData = await response.json();
-        console.log("Fetched user data:", userData.user);
-  
-        // Update user state with fetched data
-        setUser(userData.user);
-      } catch (error) {
-        console.error(error);
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
       }
-    };
-  
-    fetchUserData();
-  }, []);
+      const userData = await response.json();
+      console.log("Fetched user data:", userData.user);
+
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const fetchTransactions = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/transactions/get-user-transactions",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transactions");
+      }
+      const data = await response.json();
+      console.log("fetched data", data.transactions);
+
+      //update Transactions
+      setTransactions(data.transactions);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <main className="min-h-screen justify-between mt-5">
@@ -98,21 +105,21 @@ const account = () => {
           </div>
           <div>
             {user.photo !== undefined ? (
-            <Image
-              src={user.photo}
-              width={150}
-              height={150}
-              alt="profile"
-              className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
-            />
-          ) : (
-            <Image
-              src="/avatar.jpg"
-              width={150}
-              height={150}
-              alt="profile"
-              className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
-            />
+              <Image
+                src={user.photo}
+                width={150}
+                height={150}
+                alt="profile"
+                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+              />
+            ) : (
+              <Image
+                src="/avatar.jpg"
+                width={150}
+                height={150}
+                alt="profile"
+                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+              />
             )}
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
@@ -130,7 +137,10 @@ const account = () => {
             </div>
           </div>
           <div className="p-2">
-            <Link href={"/account/editprofile"}  className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
+            <Link
+              href={"/account/editprofile"}
+              className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+            >
               Edit Profile
             </Link>
           </div>
@@ -181,7 +191,7 @@ const account = () => {
               <span className="hidden font-bold md:grid">Mode</span>
               <span className="sm:text-left font-bold text-right">Status</span>
             </div>
-            
+
             {transactions.length > 0 ? (
               <ul>
                 {transactions.map((transaction, id) => (
@@ -196,9 +206,7 @@ const account = () => {
                     </div>
                     <p className="font-bold">{transaction.item}</p>
                     <p>{transaction.userId}</p>
-                    <p className="font-bold">
-                      ${transaction.amount}
-                    </p>
+                    <p className="font-bold">${transaction.amount}</p>
                     <p>{transaction.mode}</p>
                     <p className="sm:text-left text-right">
                       <span

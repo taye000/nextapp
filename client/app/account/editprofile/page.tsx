@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   AiOutlineMail,
@@ -11,8 +12,20 @@ import { getCookie } from "../../utils/tokenUtils";
 import { IUser } from "../../utils/types";
 
 const editprofile = () => {
+  // initialize useRouter
+  const router = useRouter();
+
   // get the stored cookie from local storage
   const cookie = getCookie();
+
+  // check if user is logged in
+  useEffect(() => {
+    if (!cookie) {
+      router.push("/signin");
+    }
+    // Fetch user data
+    fetchUserData();
+  }, []);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -71,11 +84,6 @@ const editprofile = () => {
       console.error(error);
     }
   };
-  
-    // useEffect to Fetch user data on page load
-    useEffect(() => {
-      fetchUserData();
-    }, []);
 
   const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -86,13 +94,16 @@ const editprofile = () => {
       const formData = new FormData();
       formData.append("photo", selectedFile);
 
-      const res = await fetch("http://localhost:5000/api/users/updateprofilephoto", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${cookie}`,
-        },
-        body: formData,
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/users/updateprofilephoto",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+          },
+          body: formData,
+        }
+      );
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
@@ -102,7 +113,6 @@ const editprofile = () => {
 
       // Fetch user data to update the user state after photo update
       fetchUserData();
-      
     } catch (error) {
       console.error(error);
     }
@@ -156,22 +166,18 @@ const editprofile = () => {
               />
             )}
             <input
-            type="file"
-            accept="image/*"
-            name="photo"
-            className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
-            onChange={(e) => handlePhotoUpload(e)}
+              type="file"
+              accept="image/*"
+              name="photo"
+              className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
+              onChange={(e) => handlePhotoUpload(e)}
             ></input>
-            <a
-                href="#"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <RiEditBoxLine
-                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                  size={30}
-                />
-              </a>
+            <a href="#" rel="noreferrer" target="_blank">
+              <RiEditBoxLine
+                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                size={30}
+              />
+            </a>
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md p-2">
