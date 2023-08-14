@@ -89,7 +89,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-full mx-auto px-4 shadow top-0 z-50 sm:px-20">
+    <main className="w-full mx-auto px-4 shadow top-0 z-50 sm:px-20">
       <div className="md:flex md:items-center justify-between">
         <div className="flex flex-row justify-between">
           <Link href="/">
@@ -171,7 +171,7 @@ const Navbar = () => {
           className="block hamburger md:hidden focus:outline-none"
         ></button>
       </div>
-    </header>
+    </main>
   );
 };
 

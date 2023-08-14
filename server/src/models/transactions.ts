@@ -42,8 +42,8 @@ const TransactionSchema = new Schema<ITransaction, TransactionModel>(
       trim: true,
     },
     clientId: {
-      type: String,
-      trim: true,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     userId: {
       type: Schema.Types.ObjectId,

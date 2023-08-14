@@ -6,10 +6,13 @@ import { sign } from "jsonwebtoken";
 
 //create a new user
 export const signUp = async (req: any, res: any) => {
-  const { email, password, confirmPassword } = req.body;
+  const { name, email, phoneNumber, password, confirmPassword } = req.body;
 
   if (!email.trim()) {
     return res.status(400).json({ email: "email is required" });
+  }
+  if (!name.trim()) {
+    return res.status(400).json({ name: "name is required" });
   }
   if (!validator.isEmail(email)) {
     return res.status(400).json({ email: "Please enter a valid email" });
@@ -34,7 +37,9 @@ export const signUp = async (req: any, res: any) => {
 
     //create new user
     const createUser = await User.create({
+      name,
       email,
+      phoneNumber,
       password,
     });
     //save user
@@ -48,7 +53,9 @@ export const signUp = async (req: any, res: any) => {
     //remove password from newUser
     let sanitizedUser = {
       id: newUser.id,
+      name: newUser.name,
       email: newUser.email,
+      phoneNumber: newUser.phoneNumber,
     };
 
     //payload for generating jwt token

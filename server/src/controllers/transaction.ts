@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Transaction, { ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
 
-const accountNumber = () => {
+const orderId = () => {
   return Math.random().toString(35).substring(2, 7);
 };
 
@@ -20,9 +20,6 @@ export const createTransactionController = async (
   if (!user) {
     return res.status(401).json({ msg: "Unauthorised access." });
   }
-  // if (!clientId.trim()) {
-  //   return res.status(400).json({ clientId: "clientId is required" });
-  // }
   if (!amount.trim()) {
     return res.status(400).json({ amount: "amount is required" });
   }
@@ -33,9 +30,10 @@ export const createTransactionController = async (
   // create the transactions here
   try {
     let transaction = await Transaction.create({
-      clientId,
+      orderId: orderId(),
       mode,
       amount,
+      clientId,
       userId: req.currentUser!.id,
       item,
       status: ITransactionStatus.PENDING,

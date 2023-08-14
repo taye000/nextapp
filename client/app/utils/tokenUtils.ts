@@ -5,7 +5,11 @@ export const storeCookie = (cookie: string) => {
   
   // Function to retrieve the cookie from localStorage
   export const getCookie = () => {
-    return localStorage.getItem("cookie");
+    if (typeof window !== "undefined") {
+
+      return localStorage.getItem("cookie");
+    }
+    return null;
   };
   
   // Function to remove the cookie from localStorage

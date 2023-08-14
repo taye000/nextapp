@@ -102,7 +102,7 @@ const account = () => {
             />
           </div>
           <div>
-            {user.photo !== undefined ? (
+            {user.photo ? (
               <Image
                 src={user.photo}
                 width={150}

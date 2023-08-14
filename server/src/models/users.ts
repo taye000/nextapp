@@ -36,7 +36,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     },
     photo: {
       type: String,
-      default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      default: "",
     },
     account_type: {
       type: String,
