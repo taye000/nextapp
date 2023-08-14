@@ -12,6 +12,7 @@ import {
   passwordReset,
   updateProfile,
   updateProfilePhoto,
+  updateCoverphoto,
   requestPasswordReset,
   currentUserResetPassword,
 } from "../../controllers";
@@ -38,6 +39,13 @@ router.post(
   validateToken,
   upload.single("photo"),
   updateProfilePhoto
+);
+router.post(
+  "/updatecoverphoto",
+  validateRequest,
+  validateToken,
+  upload.single("photo"),
+  updateCoverphoto
 );
 
 module.exports = router;

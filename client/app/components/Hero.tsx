@@ -13,20 +13,6 @@ const Hero = () => {
             Helping small businesses and individuals to transact safely and
             securely, by leveraging our superior escrow services.
           </p>
-          <div className="flex flex-col gap-4 md:gap-12 md:flex-row ">
-            <Link
-              href="/buyer"
-              className="p-3 px-6 pt-2 text-center text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
-            >
-              Buyer
-            </Link>
-            <Link
-              href="/seller"
-              className="p-3 px-6 pt-2 text-center text-white bg-blue-800 rounded-full baseline hover:bg-blue-500 md:block"
-            >
-              Seller
-            </Link>
-          </div>
         </div>
         <div className="md:w-1/2">
           <img src="/imanilogo.png" className="rounded-lg md:rounded-lg"></img>

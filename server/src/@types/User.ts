@@ -7,6 +7,7 @@ export interface IUser {
   phoneNumber?: string;
   password: string;
   photo?: string;
+  coverPhoto?: string;
   location?: string;
   account_type?: string;
   is_admin?: boolean;

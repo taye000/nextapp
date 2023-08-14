@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 
 //create a new user
 export const signUp = async (req: any, res: any) => {
-  const { name, email, phoneNumber, password, confirmPassword } = req.body;
+  const { name, email, phoneNumber, password, confirmPassword, account_type } = req.body;
 
   if (!email.trim()) {
     return res.status(400).json({ email: "email is required" });
@@ -34,21 +34,17 @@ export const signUp = async (req: any, res: any) => {
       if (password !== confirmPassword) {
         return res.status(400).json({ confirmPassword: "Password and Confirm Password do not match" })
       }
-
-    //create new user
-    const createUser = await User.create({
-      name,
-      email,
-      phoneNumber,
-      password,
-    });
+      
+      //create new user
+      const createUser = await User.create({
+        name,
+        email,
+        phoneNumber,
+        password,
+        account_type,
+      });
     //save user
     let newUser = await createUser.save();
-
-    // sign in the new user
-    if (!newUser) {
-      return res.status(404).json({ msg: "User Not Found", success: false });
-    }
 
     //remove password from newUser
     let sanitizedUser = {
@@ -56,21 +52,7 @@ export const signUp = async (req: any, res: any) => {
       name: newUser.name,
       email: newUser.email,
       phoneNumber: newUser.phoneNumber,
-    };
-
-    //payload for generating jwt token
-    const payload = {
-      id: newUser.id,
-      email: newUser.email,
-    };
-    //generate token
-    const token = sign(payload, config.JWT_SECRET, {
-      expiresIn: config.JWT_SECRET_EXPIRY,
-    });
-
-    //cookie session
-    req.session = {
-      jwt: token,
+      account_type: newUser.account_type,
     };
 
     res
@@ -79,7 +61,6 @@ export const signUp = async (req: any, res: any) => {
         success: true,
         msg: "New User Created Successfully.",
         sanitizedUser,
-        cookie: req.session?.jwt,
       });
   } catch (error: any) {
     res.status(400).json({ error: error.message });

@@ -38,8 +38,13 @@ const UserSchema = new Schema<IUser, UserModel>(
       type: String,
       default: "",
     },
+    coverPhoto: {
+      type: String,
+      default: "",
+    },
     account_type: {
       type: String,
+      default: "",
     },
     is_admin: {
       type: Boolean,

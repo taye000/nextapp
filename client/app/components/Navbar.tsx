@@ -1,22 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getCookie, removeCookie } from "../utils/tokenUtils";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { RiMoonFill, RiSunLine } from "react-icons/ri";
+import { getCookie, removeCookie } from "../utils/tokenUtils";
 
 interface NavItem {
   label: string;
   page: string;
+  path: string;
 }
 
 const navItems: Array<NavItem> = [
-  { label: "About", page: "about" },
-  { label: "Contact", page: "contact" },
-  { label: "Account", page: "account" },
-  { label: "FAQ's", page: "faq" },
+  { label: "About", page: "about", path: "/about" },
+  { label: "Contact", page: "contact", path: "/contact" },
+  { label: "Account", page: "account", path: "/account" },
+  { label: "FAQ's", page: "faq", path: "/faq" },
 ];
 const Navbar = () => {
   // initialize useRouter
@@ -83,6 +84,8 @@ const Navbar = () => {
       removeCookie();
       // Redirect to signin page
       router.push("/signin");
+      // Update user state with fetched data
+      fetchUserData();
     } catch (error) {
       console.error(error);
     }
@@ -114,7 +117,7 @@ const Navbar = () => {
                 return (
                   <Link
                     key={index}
-                    href={item.page}
+                    href={item.path}
                     className={
                       "block lg:inline-block text-blue-900  hover:text-blue-500"
                     }

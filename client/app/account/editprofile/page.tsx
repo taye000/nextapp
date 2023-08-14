@@ -7,7 +7,6 @@ import {
   AiOutlinePhone,
   AiOutlineCheckCircle,
 } from "react-icons/ai";
-import { RiEditBoxLine } from "react-icons/ri";
 import { getCookie } from "../../utils/tokenUtils";
 import { IUser } from "../../utils/types";
 
@@ -54,6 +53,9 @@ const editprofile = () => {
       setEmail("");
       setPhoneNumber("");
       console.log(json);
+
+      // Fetch user data to update the user state after photo update
+      fetchUserData();
     } catch (error) {
       console.error(error);
     }
@@ -117,37 +119,86 @@ const editprofile = () => {
     }
   };
 
+  const handleCoverPhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const selectedFile = e.target.files && e.target.files[0];
+    if (!selectedFile) return;
+
+    try {
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
+      const res = await fetch(
+        "http://localhost:5000/api/users/updatecoverphoto",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+          },
+          body: formData,
+        }
+      );
+      const json = await res.json();
+      if (!res.ok) throw Error(json.message);
+
+      // Clear the form fields
+      setPhoto("");
+      console.log(json);
+
+      // Fetch user data to update the user state after cover photo update
+      fetchUserData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const [user, setUser] = useState<IUser>({
     id: "",
     name: "",
     email: "",
     photo: "",
+    coverPhoto: "",
     phoneNumber: "",
   });
 
   return (
     <main className="min-h-screen justify-between mt-5">
       <div>
-        <h2 className="text-2xl p-4 font-bold text-left">Profile</h2>
+        <h2 className="text-2xl p-4 font-bold text-left">Edit Profile</h2>
       </div>
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
           <div className="relative p-[5%]">
-            <Image
-              src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
-              alt="profile image"
-              fill
-              priority={false}
-              style={{ objectFit: "cover" }}
-            />
+            {user.coverPhoto ? (
+              <Image
+                src={user.coverPhoto}
+                width={150}
+                height={150}
+                alt="profile"
+                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+              />
+            ) : (
+              <Image
+                src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
+                alt="cover image"
+                fill
+                priority={false}
+                style={{ objectFit: "cover" }}
+              />
+            )}
             <div className="p-2">
-              <button className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
-                Change Image <i className="fas fa-edit"></i>
-              </button>
+              <label className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
+                Change Image
+                <input type="file"
+                  accept="image/*"
+                  name="coverPhoto"
+                  className="hidden"
+                onChange={handleCoverPhotoUpload}></input>
+              </label>
             </div>
           </div>
           <div className="relative">
-            {user.photo !== undefined ? (
+            {user.photo ? (
               <Image
                 src={user.photo}
                 width={150}
@@ -171,25 +222,19 @@ const editprofile = () => {
               className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
               onChange={(e) => handlePhotoUpload(e)}
             ></input>
-            <a href="#" rel="noreferrer" target="_blank">
-              <RiEditBoxLine
-                className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
-                size={30}
-              />
-            </a>
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
-            <div className="border rounded-md shadow-md p-2">
+            <div className="border rounded-md shadow-md pl-2 flex items-center">
               <AiOutlineCheckCircle />
-              <p className="text-2xl p-2 font-bold">{user.name}</p>
+              <p className="text-2xl px-2 font-bold">{user.name}</p>
             </div>
-            <div className="border rounded-md shadow-md p-2">
+            <div className="border rounded-md shadow-md pl-2 flex items-center">
               <AiOutlineMail />
-              <p className="text-lg p-2 font-bold">{user.email}</p>
+              <p className="text-lg px-2 font-bold">{user.email}</p>
             </div>
-            <div className="border rounded-md shadow-md p-2">
+            <div className="border rounded-md shadow-md pl-2 flex items-center">
               <AiOutlinePhone />
-              <p className="text-lg p-2 font-bold">{user.phoneNumber}</p>
+              <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
             </div>
           </div>
         </div>

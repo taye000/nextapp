@@ -33,6 +33,26 @@ export const updateProfilePhoto = async (req: Request, res: Response) => {
   }
 };
 
+//update cover photo controller
+export const updateCoverphoto = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.currentUser?.id);
+    if (!user) {
+      res.status(401).json({ msg: "Unauthorized access" });
+    }
+    const coverPhoto = req?.file?.path;
+    
+    await User.findByIdAndUpdate(req?.currentUser?.id, {
+      coverPhoto,
+    });
+    res
+      .status(200)
+      .json({ success: true, msg: "cover photo updated successfully" });
+  } catch (error) {
+    res.send({ msg: "Error uploading cover photo" });
+  }
+};
+
 export const updateProfile = async (req: Request, res: Response) => {
   const { name, email, phoneNumber, photo, location } = req.body;
   try {
