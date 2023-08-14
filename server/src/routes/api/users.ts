@@ -5,7 +5,7 @@ import {
   verifyUserLoginByOTP,
   getCurrentUser,
   upload,
-  signout,
+  logout,
 } from "../../controllers";
 import { validateRequest, validateToken } from "../../middleware";
 import {
@@ -22,7 +22,7 @@ router.get("/currentuser", validateRequest, validateToken, getCurrentUser);
 router.post("/signup", validateRequest, signUp);
 router.post("/signin", validateRequest, signin);
 router.post("/verifyuser", validateRequest, verifyUserLoginByOTP);
-router.post("/signout", validateRequest, validateToken, signout);
+router.post("/signout", validateRequest, validateToken, logout);
 router.post("/requestpasswordreset", validateRequest, requestPasswordReset);
 router.post("/passwordreset", validateRequest, passwordReset);
 router.post(

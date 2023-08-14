@@ -80,7 +80,6 @@ const seller = () => {
         throw new Error("Error fetching user data");
       }
       const userData = await response.json();
-      console.log("Fetched user data:", userData.user);
 
       // Update user state with fetched data
       setUser(userData.user);

@@ -184,7 +184,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 };
 
 // sign out of the system
-export const signout = async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   req.session = null;
   res.status(200).json({ success: true, msg: "Sign out successful." });
 };

@@ -54,7 +54,6 @@ const account = () => {
         throw new Error("Error fetching user data");
       }
       const userData = await response.json();
-      console.log("Fetched user data:", userData.user);
 
       // Update user state with fetched data
       setUser(userData.user);
@@ -78,7 +77,6 @@ const account = () => {
         throw new Error("error fetching Transactions");
       }
       const data = await response.json();
-      console.log("fetched data", data.transactions);
 
       //update Transactions
       setTransactions(data.transactions);
