@@ -167,7 +167,35 @@ const account = () => {
           </div>
         </div>
       </div>
-
+      <div className="grid gap-4 p-4 lg:grid-cols-3">
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+          <div className="flex flex-col w-full pb-4">
+            <p className="text-2xl font-bold">$4,000</p>
+            <p className="text-gray-500">YTD Revenue</p>
+          </div>
+          <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
+            <span className="text-green-700 text-lg">+10%</span>
+          </p>
+        </div>
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+          <div className="flex flex-col w-full pb-4">
+            <p className="text-2xl font-bold">{transactions.length}</p>
+            <p className="text-gray-500">Number of orders</p>
+          </div>
+          <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
+            <span className="text-green-700 text-lg">+5%</span>
+          </p>
+        </div>
+        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+          <div className="flex flex-col w-full pb-4">
+            <p className="text-2xl font-bold">{transactions.length}</p>
+            <p className="text-gray-500">Daily Sales</p>
+          </div>
+          <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
+            <span className="text-green-700 text-lg">+2%</span>
+          </p>
+        </div>
+      </div>
       <div className="border rounded-md shadow-md p-6 m-4">
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold text-left">Orders</h2>
@@ -218,7 +246,7 @@ const account = () => {
                     {user.account_type === "Seller" ? (
                       <div className="p-2 md:flex md:justify-start">
                         <Link
-                          href={`/transactions/${transaction.id}`}
+                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                           className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
                         >
                           Process

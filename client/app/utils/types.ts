@@ -2,6 +2,7 @@ export interface ITransaction {
   id?: string;
   phone?: string;
   userId: string;
+  clientId: string;
   amount: number;
   mode: string;
   item: string;

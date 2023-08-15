@@ -129,7 +129,7 @@ const transactions = () => {
                     {user.account_type === "Seller" ? (
                       <div className="p-2 md:flex md:justify-start">
                         <Link
-                          href={`/transactions/${transaction.id}`}
+                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                           className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
                         >
                           Process
