@@ -14,7 +14,7 @@ export const createTransactionController = async (
   let { clientId, amount, mode, item } = req.body;
 
   const user = await User.findById(req.currentUser!.id);
-  
+
   let phone = user?.phoneNumber;
 
   if (!user) {
@@ -76,7 +76,9 @@ export const getUserTransactions = async (req: Request, res: Response) => {
   const userId = req.currentUser?.id;
 
   try {
-    const transactions = await Transaction.find({ userId }); // Retrieve only transactions that belong to the signed-in user
+    const transactions = await Transaction.find({
+      $or: [{ userId }, { clientId: userId }],
+    }); // Retrieve transactions that match either the user ID or the client ID
     res.status(200).json({ transactions });
   } catch (error: any) {
     res.status(404).json({ msg: error.message });
