@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../utils/tokenUtils";
-import { ITransaction, IUser } from "../utils/types";
+import { ITransaction } from "../utils/types";
 
 const transactions = () => {
   // initialize useRouter

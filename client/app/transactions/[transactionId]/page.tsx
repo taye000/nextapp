@@ -34,10 +34,7 @@ const transactionDetail = () => {
     id: "",
     name: "",
     email: "",
-    photo: "",
     account_type: "",
-    coverPhoto: "",
-    phoneNumber: "",
   });
 
   const fetchUserData = async () => {

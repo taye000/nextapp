@@ -88,13 +88,15 @@ export const getUserTransactions = async (req: Request, res: Response) => {
 // controller to get a single transaction of signed-in user
 export const getUserTransaction = async (req: Request, res: Response) => {
   try {
-    const userId = req.currentUser?.id;
+    const id = req.params?.id;
     const transaction = await Transaction.findOne({
-      clientId: userId
-    }); // Retrieve the transaction that matches both the user ID and the transaction ID
+      _id: id,
+    });
     if (!transaction) {
       return res.status(404).json({ msg: "Transaction not found" });
     }
+    console.log("transaction", transaction);
+    
     res.status(200).json({ transaction });
   } catch (error: any) {
     res.status(500).json({ msg: error.message });
