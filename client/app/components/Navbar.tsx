@@ -33,7 +33,7 @@ const Navbar = () => {
     }
     // Fetch user data
     fetchUserData();
-  }, []);
+  }, [cookie]);
 
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;

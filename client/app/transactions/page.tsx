@@ -18,45 +18,11 @@ const transactions = () => {
       router.push("/signin");
     }
     // Fetch user data and transactions
-    fetchUserData();
     fetchTransactions();
   }, []);
 
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
 
-  const [user, setUser] = useState<IUser>({
-    id: "",
-    name: "",
-    email: "",
-    photo: "",
-    account_type: "",
-    coverPhoto: "",
-    phoneNumber: "",
-  });
-
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Error fetching user data");
-      }
-      const userData = await response.json();
-
-      // Update user state with fetched data
-      setUser(userData.user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const fetchTransactions = async () => {
     try {
       const response = await fetch(

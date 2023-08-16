@@ -10,7 +10,6 @@ const transactionDetail = () => {
 
   const searchParams = useSearchParams();
   const transactionId = searchParams.get("transactionId");
-  console.log("transactionId", transactionId);
 
   // get the stored cookie from local storage
   const cookie = getCookie();
