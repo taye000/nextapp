@@ -82,14 +82,13 @@ const transactions = () => {
 
   return (
     <main className="min-h-screen justify-between mt-5">
-      <div className="p-2"></div>
       <div className="border rounded-md shadow-md p-6 m-4">
         <div>
           <h2 className="text-2xl font-bold text-left">Orders</h2>
         </div>
         <div className="p-4">
           <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
-            <div className="my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
+            <div className="my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
               <span className=" font-bold">Order ID</span>
               <span className="sm:text-left font-bold text-right">
                 Item Desc
@@ -98,6 +97,10 @@ const transactions = () => {
               <span className="sm:text-left font-bold text-right">Amount</span>
               <span className="hidden font-bold md:grid">Mode</span>
               <span className="sm:text-left font-bold text-right">Status</span>
+
+              {user.account_type === "Seller" && (
+                <span className="hidden font-bold md:grid">Action</span>
+              )}
             </div>
 
             {transactions.length > 0 ? (
@@ -105,32 +108,41 @@ const transactions = () => {
                 {transactions.map((transaction, id) => (
                   <li
                     key={id}
-                    className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                    className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
                   >
-                    <Link
-                      href={`/transactions/get-transaction?transactionId=${transaction.id}`}
-                      className="md:flex"
-                    >
-                      <p>{transaction.id}</p>
-                      <p className="font-bold">{transaction.item}</p>
-                      <p>{transaction.userId}</p>
-                      <p className="font-bold">${transaction.amount}</p>
-                      <p>{transaction.mode}</p>
+                    <div className="flex">
+                      <div className="pl-4">
+                        <p>Order No. {transaction.id}</p>
+                      </div>
+                    </div>
+                    <p className="font-bold">{transaction.item}</p>
+                    <p>{transaction.userId}</p>
+                    <p className="font-bold">${transaction.amount}</p>
+                    <p>{transaction.mode}</p>
 
-                      <p className="sm:text-left font-bold text-right">
-                        <span
-                          className={
-                            transaction.status === "completed"
-                              ? "bg-blue-400 p-2 rounded-lg"
-                              : transaction.status === "pending"
-                              ? "bg-yellow-400 p-2 rounded-lg"
-                              : "bg-red-400 p-2 rounded-lg"
-                          }
+                    <p className="sm:text-left font-bold text-right">
+                      <span
+                        className={
+                          transaction.status === "completed"
+                            ? "bg-blue-400 p-2 rounded-lg"
+                            : transaction.status === "pending"
+                            ? "bg-yellow-400 p-2 rounded-lg"
+                            : "bg-red-400 p-2 rounded-lg"
+                        }
+                      >
+                        {transaction.status}
+                      </span>
+                    </p>
+                    {user.account_type === "Seller" && (
+                      <div className="p-2 md:flex md:justify-start">
+                        <Link
+                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
+                          className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
                         >
-                          {transaction.status}
-                        </span>
-                      </p>
-                    </Link>
+                          Process
+                        </Link>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
