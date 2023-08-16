@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getCookie } from "../../utils/tokenUtils";
 import { ITransaction } from "../../utils/types";
+import Link from "next/link";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -41,7 +42,6 @@ const transactionDetail = () => {
           },
         }
       );
-      console.log("response", response);
       if (!response.ok) {
         throw new Error("error fetching Transaction");
       }
@@ -50,7 +50,31 @@ const transactionDetail = () => {
       //update Transactions
       setTransaction(data.transaction);
 
-      console.log("transaction", data, data.transaction);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
+      }
+      const data = await response.json();
+
+      //update Transactions
+      setTransaction(data.transaction);
+
     } catch (error) {
       console.error(error);
     }
@@ -62,9 +86,12 @@ const transactionDetail = () => {
         <h2 className="text-2xl p-4 font-bold text-left">Order Detail</h2>
       </div>
       <div className="border rounded-md shadow-md p-6 m-4">
-        <div>
+        <div className="flex justify-between">
           <h2 className="text-2xl font-bold text-left">
             Order Id : {transaction?.id}
+          </h2>
+          <h2 className="text-2xl font-bold text-left">
+            Buyer Id : {transaction?.clientId}
           </h2>
         </div>
         <div className="p-4">
@@ -94,6 +121,14 @@ const transactionDetail = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="p-2 md:flex md:justify-center">
+          <button
+            onClick={handleConfirmation}
+            className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+          >
+            I Confirm this item has been delivered!
+          </button>
         </div>
       </div>
     </main>

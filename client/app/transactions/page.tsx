@@ -1,12 +1,11 @@
-"use client"
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
-import { getCookie } from '../utils/tokenUtils';
-import { ITransaction, IUser } from '../utils/types';
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { getCookie } from "../utils/tokenUtils";
+import { ITransaction, IUser } from "../utils/types";
 
 const transactions = () => {
-
   // initialize useRouter
   const router = useRouter();
 
@@ -83,8 +82,7 @@ const transactions = () => {
 
   return (
     <main className="min-h-screen justify-between mt-5">
-      <div className="p-2">
-      </div> 
+      <div className="p-2"></div>
       <div className="border rounded-md shadow-md p-6 m-4">
         <div>
           <h2 className="text-2xl font-bold text-left">Orders</h2>
@@ -99,14 +97,7 @@ const transactions = () => {
               <span className="hidden font-bold md:grid">Seller ID</span>
               <span className="sm:text-left font-bold text-right">Amount</span>
               <span className="hidden font-bold md:grid">Mode</span>
-
-              {user.account_type === "Seller" ? (
-                <span className="hidden font-bold md:grid">Action</span>
-              ) : (
-                <span className="sm:text-left font-bold text-right">
-                  Status
-                </span>
-              )}
+              <span className="sm:text-left font-bold text-right">Status</span>
             </div>
 
             {transactions.length > 0 ? (
@@ -116,27 +107,17 @@ const transactions = () => {
                     key={id}
                     className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-6 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
                   >
-                    <div className="flex">
-                      <div className="pl-4">
-                        <p>Order No. {transaction.id}</p>
-                      </div>
-                    </div>
-                    <p className="font-bold">{transaction.item}</p>
-                    <p>{transaction.userId}</p>
-                    <p className="font-bold">${transaction.amount}</p>
-                    <p>{transaction.mode}</p>
+                    <Link
+                      href={`/transactions/get-transaction?transactionId=${transaction.id}`}
+                      className="md:flex"
+                    >
+                      <p>{transaction.id}</p>
+                      <p className="font-bold">{transaction.item}</p>
+                      <p>{transaction.userId}</p>
+                      <p className="font-bold">${transaction.amount}</p>
+                      <p>{transaction.mode}</p>
 
-                    {user.account_type === "Seller" ? (
-                      <div className="p-2 md:flex md:justify-start">
-                        <Link
-                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
-                          className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
-                        >
-                          Process
-                        </Link>
-                      </div>
-                    ) : (
-                      <p className="sm:text-left text-right">
+                      <p className="sm:text-left font-bold text-right">
                         <span
                           className={
                             transaction.status === "completed"
@@ -149,7 +130,7 @@ const transactions = () => {
                           {transaction.status}
                         </span>
                       </p>
-                    )}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -163,6 +144,6 @@ const transactions = () => {
       </div>
     </main>
   );
-}
+};
 
-export default transactions
+export default transactions;

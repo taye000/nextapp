@@ -5,9 +5,17 @@ import {
   getUserTransaction,
   getUserTransactions,
   getTransactions,
+  updateTransactionStatus,
 } from "../../controllers/transaction";
 
 const router = Router();
+
+router.post(
+  "/update-transaction/:id",
+  validateRequest,
+  validateToken,
+  updateTransactionStatus
+);
 
 router.get(
   "/get-transaction/:id",
@@ -15,6 +23,7 @@ router.get(
   validateToken,
   getUserTransaction
 );
+
 router.get(
   "/get-user-transactions",
   validateRequest,
