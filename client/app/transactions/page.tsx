@@ -29,6 +29,7 @@ const transactions = () => {
     name: "",
     email: "",
     photo: "",
+    account_type: "",
     coverPhoto: "",
     phoneNumber: "",
   });
@@ -97,10 +98,7 @@ const transactions = () => {
               <span className="sm:text-left font-bold text-right">Amount</span>
               <span className="hidden font-bold md:grid">Mode</span>
               <span className="sm:text-left font-bold text-right">Status</span>
-
-              {user.account_type === "Seller" && (
-                <span className="hidden font-bold md:grid">Action</span>
-              )}
+              <span className="hidden font-bold md:grid">Action</span>
             </div>
 
             {transactions.length > 0 ? (
@@ -133,16 +131,14 @@ const transactions = () => {
                         {transaction.status}
                       </span>
                     </p>
-                    {user.account_type === "Seller" && (
-                      <div className="p-2 md:flex md:justify-start">
-                        <Link
-                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
-                          className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
-                        >
-                          Process
-                        </Link>
-                      </div>
-                    )}
+                    <div className="p-2 md:flex md:justify-start">
+                      <Link
+                        href={`/transactions/get-transaction?transactionId=${transaction.id}`}
+                        className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
+                      >
+                        View
+                      </Link>
+                    </div>
                   </li>
                 ))}
               </ul>

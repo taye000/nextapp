@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getCookie } from "../../utils/tokenUtils";
-import { ITransaction } from "../../utils/types";
-import Link from "next/link";
+import { ITransaction, IUser } from "../../utils/types";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -16,11 +15,15 @@ const transactionDetail = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  const [transaction, setTransaction] = useState<ITransaction | null>(null);
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
       router.push("/signin");
     }
+
+    fetchUserData();
 
     //fetch transaction
     if (transactionId) {
@@ -28,7 +31,39 @@ const transactionDetail = () => {
     }
   }, [transactionId]);
 
-  const [transaction, setTransaction] = useState<ITransaction | null>(null);
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    name: "",
+    email: "",
+    photo: "",
+    account_type: "",
+    coverPhoto: "",
+    phoneNumber: "",
+  });
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/currentuser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
+      }
+      const userData = await response.json();
+
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchTransaction = async () => {
     try {
@@ -49,7 +84,8 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
-
+      console.log("transactionId", transactionId);
+      console.log("data tx", data.transaction);
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +110,6 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
-
     } catch (error) {
       console.error(error);
     }
@@ -90,8 +125,22 @@ const transactionDetail = () => {
           <h2 className="text-2xl font-bold text-left">
             Order Id : {transaction?.id}
           </h2>
+          <p className="sm:text-left font-bold text-right">
+            <span
+              className={
+                transaction?.status === "completed"
+                  ? "bg-blue-400 p-2 rounded-lg"
+                  : transaction?.status === "pending"
+                  ? "bg-yellow-400 p-2 rounded-lg"
+                  : "bg-red-400 p-2 rounded-lg"
+              }
+            >
+              {transaction?.status}
+            </span>
+          </p>
           <h2 className="text-2xl font-bold text-left">
-            Buyer Id : {transaction?.clientId}
+            {user.account_type === "Seller" ? "Buyer Id" : "Seller Id"} :{" "}
+            {transaction?.clientId}
           </h2>
         </div>
         <div className="p-4">
