@@ -6,6 +6,7 @@ export interface ITransaction {
   amount: number;
   mode: string;
   item: string;
+  customerStatus: string;
   orderId?: string;
   accountNumber?: string;
   status?: string;

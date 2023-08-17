@@ -11,4 +11,5 @@ export interface ITransaction {
   orderId?: string;
   accountNumber?: string;
   status?: string;
+  customerStatus?: string;
 }

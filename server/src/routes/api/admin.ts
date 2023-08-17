@@ -10,7 +10,6 @@ import {
   getTransactions,
   updateTransactionAssigned,
   updateTransactionStatus,
-  updateTransactionTxHash,
 } from "../../controllers/transaction";
 import {
   adminSignUp,
@@ -103,12 +102,5 @@ router.post(
   updateTransactionStatus
 );
 
-router.post(
-  "/update-transaction-tx-hash/:id",
-  validateRequest,
-  validateToken,
-  validateAdmin,
-  updateTransactionTxHash
-);
 
 module.exports = router;

@@ -2,9 +2,9 @@ import { Schema, model, Model } from "mongoose";
 import { ITransaction } from "../@types";
 
 export enum ITransactionStatus {
-  COMPLETED = "completed",
   PENDING = "pending",
-  CANCELLED = "cancelled",
+  COMPLETED = "completed",
+  APPEALED = "appealed",
 }
 //an interface that describes attributes the model should have
 interface TransactionModel extends Model<ITransaction> {
@@ -50,6 +50,10 @@ const TransactionSchema = new Schema<ITransaction, TransactionModel>(
       ref: "User",
     },
     status: {
+      type: Schema.Types.Mixed,
+      default: ITransactionStatus.PENDING,
+    },
+    customerStatus: {
       type: Schema.Types.Mixed,
       default: ITransactionStatus.PENDING,
     },

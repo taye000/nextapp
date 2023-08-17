@@ -15,6 +15,7 @@ const transactionDetail = () => {
   const cookie = getCookie();
 
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
+  const [comment, setComment] = useState("");
 
   // check if user is logged in
   useEffect(() => {
@@ -80,19 +81,47 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
-      console.log("transactionId", transactionId);
-      console.log("data tx", data.transaction);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleConfirmation = async () => {
+  const handleDeliveryConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/transactions/update-transaction-status/${transactionId}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
+      }
+      const data = await response.json();
+
+      //update Transaction
+      let transaction = data.transaction;
+      transaction.comment = comment;
+
+      console.log("transaction", transaction);
+      console.log("setComment", setComment);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // TODO: fix this
+  const handleSubmit = async () => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
@@ -111,16 +140,43 @@ const transactionDetail = () => {
     }
   };
 
+    // TODO: fix this
+    const handleAppeal = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${cookie}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("error fetching Transaction");
+        }
+        const data = await response.json();
+  
+        //update Transactions
+        setTransaction(data.transaction);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
   return (
     <main className="min-h-screen justify-between mt-5">
       <div>
         <h2 className="text-2xl p-4 font-bold text-left">Order Detail</h2>
       </div>
       <div className="border rounded-md shadow-md p-6 m-4">
-        <div className="flex justify-between">
+        <div className="flex flex-col p-2 md:flex-row justify-between">
           <h2 className="text-2xl font-bold text-left">
             Order Id : {transaction?.id}
           </h2>
+          <div className="flex flex-col md:flex md:flex-col sm:flex sm:flex-col">
+          <div className="p-4">
           <p className="sm:text-left font-bold text-right">
             <span
               className={
@@ -131,9 +187,26 @@ const transactionDetail = () => {
                   : "bg-red-400 p-2 rounded-lg"
               }
             >
-              {transaction?.status}
+              Seller Confirmation: {transaction?.status}
             </span>
           </p>
+          </div>
+          <div className="p-4">
+          <p className="sm:text-left font-bold text-right">
+            <span
+              className={
+                transaction?.status === "completed"
+                  ? "bg-blue-400 p-2 rounded-lg"
+                  : transaction?.status === "pending"
+                  ? "bg-yellow-400 p-2 rounded-lg"
+                  : "bg-red-400 p-2 rounded-lg"
+              }
+            >
+              Buyer Confirmation: {transaction?.customerStatus}
+            </span>
+          </p>
+          </div>
+          </div>
           <h2 className="text-2xl font-bold text-left">
             {user.account_type === "Seller" ? "Buyer Id" : "Seller Id"} :{" "}
             {transaction?.clientId}
@@ -143,7 +216,7 @@ const transactionDetail = () => {
           <div className="grid gap-4 p-4 lg:grid-cols-3">
             <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-                <span className="text-green-700 text-lg">Item</span>
+                <span className="text-green-700 text-lg font-bold">Item</span>
               </p>
               <div className="flex flex-col w-full p-4 pb-4 md:flex md:justify-center">
                 <p className="text-2xl font-bold">{transaction?.item}</p>
@@ -151,7 +224,7 @@ const transactionDetail = () => {
             </div>
             <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-                <span className="text-green-700 text-lg">Mode</span>
+                <span className="text-green-700 text-lg font-bold">Mode</span>
               </p>
               <div className="flex flex-col w-full p-4 pb-4 md:flex md:justify-center">
                 <p className="text-2xl font-bold">{transaction?.mode}</p>
@@ -159,7 +232,7 @@ const transactionDetail = () => {
             </div>
             <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-                <span className="text-green-700 text-lg">Amount</span>
+                <span className="text-green-700 text-lg font-bold">Amount</span>
               </p>
               <div className="flex flex-col w-full p-4 pb-4 md:flex md:justify-center">
                 <p className="text-2xl font-bold">{transaction?.amount}</p>
@@ -167,14 +240,46 @@ const transactionDetail = () => {
             </div>
           </div>
         </div>
-        <div className="p-2 md:flex md:justify-center">
-          <button
-            onClick={handleConfirmation}
-            className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
-          >
-            I Confirm this item has been delivered!
-          </button>
+        {transaction?.status !== "completed" && (
+
+        <div className="p-2 m-4 md:flex md:justify-center">
+          <div className="p-2">
+            <button
+              onClick={handleAppeal}
+              className="bg-red-800 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg"
+            >
+              Appeal!
+            </button>
+          </div>
+          <div className="p-2">
+            <button
+              onClick={handleDeliveryConfirmation}
+              className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+            >
+              I Confirm this item has been delivered!
+            </button>
+          </div>
         </div>
+          )}
+      </div>
+      <div>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+      <input
+            type="comment"
+            name="comment"
+            id="comment"
+            placeholder="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+            />
+            <button
+              type="submit"
+              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500"
+            >
+              Submit
+            </button>
+          </form>
       </div>
     </main>
   );

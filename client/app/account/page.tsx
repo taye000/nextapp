@@ -86,6 +86,11 @@ const account = () => {
     }
   };
 
+  const totalSales = transactions.reduce(
+    (total, transaction) => total + transaction.amount,
+    0
+  );
+
   return (
     <main className="min-h-screen justify-between mt-5">
       <div>
@@ -170,29 +175,30 @@ const account = () => {
       <div className="grid gap-4 p-4 lg:grid-cols-3">
         <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
-            <p className="text-2xl font-bold">$4,000</p>
             <p className="text-gray-500">YTD Revenue</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">+10%</span>
+            <span className="text-green-700 text-lg">+{totalSales}</span>
           </p>
         </div>
         <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
-            <p className="text-2xl font-bold">{transactions.length}</p>
             <p className="text-gray-500">Number of orders</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">+5%</span>
+            <span className="text-green-700 text-lg">
+              +{transactions.length}
+            </span>
           </p>
         </div>
         <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
-            <p className="text-2xl font-bold">{transactions.length}</p>
             <p className="text-gray-500">Daily Sales</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">+2%</span>
+            <span className="text-green-700 text-lg">
+              +{transactions.length}
+            </span>
           </p>
         </div>
       </div>
@@ -236,15 +242,11 @@ const account = () => {
                       key={id}
                       className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
                     >
-                      <div className="flex">
-                        <div className="pl-4">
-                          <p>Order No. {transaction.id}</p>
-                        </div>
-                      </div>
-                      <p className="font-bold">{transaction.item}</p>
-                      <p>{transaction.userId}</p>
-                      <p className="font-bold">${transaction.amount}</p>
-                      <p>{transaction.mode}</p>
+                      <p className="truncate">{transaction.id}</p>
+                      <p className="font-bold truncate">{transaction.item}</p>
+                      <p className="truncate">{transaction.userId}</p>
+                      <p className="font-bold truncate">${transaction.amount}</p>
+                      <p className="truncate">{transaction.mode}</p>
 
                       <p className="sm:text-left font-bold text-right">
                         <span

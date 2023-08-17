@@ -95,8 +95,6 @@ export const getUserTransaction = async (req: Request, res: Response) => {
     if (!transaction) {
       return res.status(404).json({ msg: "Transaction not found" });
     }
-    console.log("transaction", transaction);
-    
     res.status(200).json({ transaction });
   } catch (error: any) {
     res.status(500).json({ msg: error.message });
@@ -160,27 +158,26 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
   }
 };
 
-//controller to update a transaction hash
-export const updateTransactionTxHash = async (req: Request, res: Response) => {
-  const { txHash } = req.body;
+//controller to update a transaction
+export const updateTransaction = async (req: Request, res: Response) => {
+  const { comment } = req.body;
   try {
-    const user = await User.findById(req.currentUser?.id);
-    if (!user) {
-      res.status(401).json({ msg: "Unauthorized access" });
-    }
-    // get the transaction id from the request body
-    const transaction = await Transaction.findById(req.params.id);
-    if (!transaction) {
-      res.status(404).json({ msg: "transaction not found" });
-    }
 
-    await Transaction.findByIdAndUpdate(req.params.id, {
-      txHash,
+    let updatedFields: any = {};
+
+    if (comment) updatedFields.comment = comment;
+
+    const updatedtransaction = await User.findByIdAndUpdate(
+      req?.currentUser?.id,
+      updatedFields,
+      { new: true }
+    );
+    return res.status(200).json({
+      success: true,
+      msg: "Transaction updated successfully",
+      response: updatedtransaction,
     });
-    res
-      .status(200)
-      .json({ success: true, msg: "Transaction updated successfully" });
-  } catch (error) {
-    res.status(500).json({ msg: "Error updating transaction", error });
+  } catch (error: any) {
+    return res.status(500).json({ msg: "error updating transaction", error });
   }
 };

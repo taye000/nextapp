@@ -6,12 +6,20 @@ import {
   getUserTransactions,
   getTransactions,
   updateTransactionStatus,
+  updateTransaction,
 } from "../../controllers/transaction";
 
 const router = Router();
 
 router.post(
   "/update-transaction/:id",
+  validateRequest,
+  validateToken,
+  updateTransaction
+);
+
+router.post(
+  "/update-transaction-status/:id",
   validateRequest,
   validateToken,
   updateTransactionStatus

@@ -74,15 +74,11 @@ const transactions = () => {
                     key={id}
                     className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
                   >
-                    <div className="flex">
-                      <div className="pl-4">
-                        <p>Order No. {transaction.id}</p>
-                      </div>
-                    </div>
-                    <p className="font-bold">{transaction.item}</p>
-                    <p>{transaction.userId}</p>
-                    <p className="font-bold">${transaction.amount}</p>
-                    <p>{transaction.mode}</p>
+                    <p className="truncate">{transaction.id}</p>
+                    <p className="font-bold truncate">{transaction.item}</p>
+                    <p className="truncate">{transaction.userId}</p>
+                    <p className="font-bold truncate">${transaction.amount}</p>
+                    <p className="truncate">{transaction.mode}</p>
 
                     <p className="sm:text-left font-bold text-right">
                       <span
