@@ -84,10 +84,10 @@ const transactions = () => {
                       <span
                         className={
                           transaction.status === "completed"
-                            ? "bg-blue-400 p-2 rounded-lg"
+                            ? "bg-blue-800 p-2 rounded-lg"
                             : transaction.status === "pending"
                             ? "bg-yellow-400 p-2 rounded-lg"
-                            : "bg-red-400 p-2 rounded-lg"
+                            : "bg-red-600 p-2 rounded-lg"
                         }
                       >
                         {transaction.status}

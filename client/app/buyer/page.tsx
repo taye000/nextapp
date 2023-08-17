@@ -103,7 +103,7 @@ const buyer = () => {
               placeholder="Seller's ID"
               value={clientId}
               onChange={(e) => setclientId(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="amount"
@@ -112,7 +112,7 @@ const buyer = () => {
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="mode"
@@ -121,7 +121,7 @@ const buyer = () => {
               placeholder="Mode of Payment"
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="item"
@@ -130,7 +130,7 @@ const buyer = () => {
               placeholder="Item Description"
               value={item}
               onChange={(e) => setItem(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <button
               type="submit"

@@ -181,10 +181,10 @@ const transactionDetail = () => {
             <span
               className={
                 transaction?.status === "completed"
-                  ? "bg-blue-400 p-2 rounded-lg"
+                  ? "bg-blue-800 p-2 rounded-lg"
                   : transaction?.status === "pending"
                   ? "bg-yellow-400 p-2 rounded-lg"
-                  : "bg-red-400 p-2 rounded-lg"
+                  : "bg-red-600 p-2 rounded-lg"
               }
             >
               Seller Confirmation: {transaction?.status}
@@ -196,10 +196,10 @@ const transactionDetail = () => {
             <span
               className={
                 transaction?.status === "completed"
-                  ? "bg-blue-400 p-2 rounded-lg"
+                  ? "bg-blue-800 p-2 rounded-lg"
                   : transaction?.status === "pending"
                   ? "bg-yellow-400 p-2 rounded-lg"
-                  : "bg-red-400 p-2 rounded-lg"
+                  : "bg-red-600 p-2 rounded-lg"
               }
             >
               Buyer Confirmation: {transaction?.customerStatus}
@@ -246,7 +246,7 @@ const transactionDetail = () => {
           <div className="p-2">
             <button
               onClick={handleAppeal}
-              className="bg-red-800 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg"
+              className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
             >
               Appeal!
             </button>
@@ -262,23 +262,24 @@ const transactionDetail = () => {
         </div>
           )}
       </div>
-      <div>
+      <div className="border rounded-md shadow-md p-6 m-4">
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-      <input
-            type="comment"
+      <textarea
             name="comment"
             id="comment"
             placeholder="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+            className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
+            <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500"
+              className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
             >
               Submit
             </button>
+            </div>
           </form>
       </div>
     </main>

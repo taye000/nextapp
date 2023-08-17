@@ -73,7 +73,7 @@ const signup = () => {
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="email"
@@ -82,7 +82,7 @@ const signup = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="phoneNumber"
@@ -91,7 +91,7 @@ const signup = () => {
               placeholder="Enter your phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="password"
@@ -100,7 +100,7 @@ const signup = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <input
               type="password"
@@ -109,7 +109,7 @@ const signup = () => {
               placeholder="Confirm your password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <label className=" text-gray-600 font-bold py-2 px-4 rounded-lg">
             <input
@@ -118,7 +118,7 @@ const signup = () => {
               id="account_type"
               value="Buyer"
               onChange={(e) => setAccount_type(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             /> Buyer
             <input
               type="radio"
@@ -126,7 +126,7 @@ const signup = () => {
               id="account_type"
               value="Seller"
               onChange={(e) => setAccount_type(e.target.value)}
-              className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             /> Seller
             </label>
             <button

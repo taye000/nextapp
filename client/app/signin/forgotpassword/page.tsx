@@ -39,9 +39,9 @@ const forgotpassword = () => {
               id="email"
               placeholder="Enter your email"
               value={email} onChange={(e) => setEmail(e.target.value)}
-              className="lleft-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
-            <button type="submit" className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
+            <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-500">
               Continue
             </button>
           </form>
