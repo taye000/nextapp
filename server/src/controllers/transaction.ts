@@ -154,6 +154,28 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
     res.status(500).json({ msg: "Error updating transaction", error });
   }
 };
+//controller to update a transaction status
+export const updateCustomerTransactionStatus = async (req: Request, res: Response) => {
+  try {
+    // get the transaction id from the request body
+    const transaction = await Transaction.findById(req.params.id);
+
+    if (!transaction) {
+      res.status(404).json({ msg: "transaction not found" });
+    }
+
+    const customerStatus = ITransactionStatus.COMPLETED;
+
+    await Transaction.findByIdAndUpdate(req.params.id, {
+      customerStatus: customerStatus,
+    });
+    res
+      .status(200)
+      .json({ success: true, msg: "Transaction updated successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Error updating transaction", error });
+  }
+};
 
 //controller to update a transaction
 export const updateTransaction = async (req: Request, res: Response) => {
