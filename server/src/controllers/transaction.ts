@@ -135,12 +135,9 @@ export const updateTransactionAssigned = async (
 //controller to update a transaction status
 export const updateTransactionStatus = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.currentUser?.id);
-    if (!user) {
-      res.status(401).json({ msg: "Unauthorized access" });
-    }
     // get the transaction id from the request body
     const transaction = await Transaction.findById(req.params.id);
+
     if (!transaction) {
       res.status(404).json({ msg: "transaction not found" });
     }
@@ -148,7 +145,7 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
     const status = ITransactionStatus.COMPLETED;
 
     await Transaction.findByIdAndUpdate(req.params.id, {
-      status,
+      status: status,
     });
     res
       .status(200)
