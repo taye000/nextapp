@@ -162,14 +162,12 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
 export const updateTransaction = async (req: Request, res: Response) => {
   const { comment } = req.body;
   try {
-
-    let updatedFields: any = {};
-
-    if (comment) updatedFields.comment = comment;
-
-    const updatedtransaction = await User.findByIdAndUpdate(
-      req?.currentUser?.id,
-      updatedFields,
+    // get the transaction id from the request body and update
+    const updatedtransaction = await Transaction.findByIdAndUpdate(
+      req.params.id,
+      {
+        comment: comment,
+      },
       { new: true }
     );
     return res.status(200).json({

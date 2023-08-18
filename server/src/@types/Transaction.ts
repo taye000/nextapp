@@ -9,6 +9,7 @@ export interface ITransaction {
   item: string;
   userId: Schema.Types.ObjectId;
   orderId?: string;
+  comment?: string;
   accountNumber?: string;
   status?: string;
   customerStatus?: string;
