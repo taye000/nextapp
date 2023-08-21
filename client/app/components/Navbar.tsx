@@ -150,7 +150,7 @@ const Navbar = () => {
           <div className="flex flex-row justify-between">
             <Link href={"/account"}>
               <div className="p-2 md:block md:items-center md:p-2">
-                <p className="font-bold text-blue-900">Welcome, {user.name}</p>
+                <p className="font-bold hover:text-blue-600 text-blue-900">Welcome, {user.name}</p>
               </div>
             </Link>
             <button
