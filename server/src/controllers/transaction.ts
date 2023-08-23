@@ -198,3 +198,26 @@ export const updateTransaction = async (req: Request, res: Response) => {
     return res.status(500).json({ msg: "error updating transaction", error });
   }
 };
+
+// controller to appeal a transaction
+export const appealTransaction =async (req:Request, res:Response) => {
+  try {
+    // get the transaction id from the request body
+    const transaction = await Transaction.findById(req.params.id);
+
+    if (!transaction) {
+      res.status(404).json({ msg: "transaction not found" });
+    }
+
+    const appeal = "true";
+
+    await Transaction.findByIdAndUpdate(req.params.id, {
+      appeal: appeal,
+    });
+    res
+      .status(200)
+      .json({ success: true, msg: "Transaction updated successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Error updating transaction", error });
+  }
+}

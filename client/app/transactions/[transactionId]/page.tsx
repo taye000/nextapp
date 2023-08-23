@@ -91,7 +91,7 @@ const transactionDetail = () => {
       const response = await fetch(
         `http://localhost:5000/api/transactions/update-transaction-status/${transactionId}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
@@ -105,10 +105,8 @@ const transactionDetail = () => {
 
       //update Transaction
       let transaction = data.transaction;
-      transaction.comment = comment;
-
+      
       console.log("transaction", transaction);
-      console.log("setComment", setComment);
       
     } catch (error) {
       console.error(error);
@@ -119,7 +117,7 @@ const transactionDetail = () => {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
+        `http://localhost:5000/api/transactions/appeal-transaction/${transactionId}`,
         {
           method: "POST",
           headers: {
@@ -127,11 +125,11 @@ const transactionDetail = () => {
             "Content-Type": "application/json",
           },
         }
-      );
-      if (!response.ok) {
-        throw new Error("error fetching Transaction");
-      }
-      const data = await response.json();
+        );
+        if (!response.ok) {
+          throw new Error("error fetching Transaction");
+        }
+        const data = await response.json();
 
       //update Transactions
       setTransaction(data.transaction);

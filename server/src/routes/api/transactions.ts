@@ -6,6 +6,7 @@ import {
   getUserTransactions,
   getTransactions,
   updateTransactionStatus,
+  appealTransaction,
   updateTransaction,
   updateCustomerTransactionStatus,
 } from "../../controllers/transaction";
@@ -17,6 +18,13 @@ router.post(
   validateRequest,
   validateToken,
   updateTransaction
+);
+
+router.post(
+  "/appeal-transaction/:id",
+  validateRequest,
+  validateToken,
+  appealTransaction
 );
 
 router.post(

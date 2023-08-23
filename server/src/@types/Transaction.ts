@@ -7,6 +7,7 @@ export interface ITransaction {
   amount: number;
   mode: string;
   item: string;
+  appeal: string;
   userId: Schema.Types.ObjectId;
   orderId?: string;
   comment?: string;
