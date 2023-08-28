@@ -18,8 +18,6 @@ const transactionDetail = () => {
   const [comment, setComment] = useState("");
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  console.log("apiUrl", apiUrl);
-  
 
   // check if user is logged in
   useEffect(() => {

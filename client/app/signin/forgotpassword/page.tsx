@@ -3,10 +3,13 @@ import React, {useState} from "react";
 
 const forgotpassword = () => {
   const [email, setEmail] = useState("");
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/users/requestpasswordreset", {
+      const res = await fetch(`${apiUrl}/users/requestpasswordreset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

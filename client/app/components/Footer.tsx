@@ -9,10 +9,13 @@ import {
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/subscribers/subscribe", {
+      const res = await fetch(`${apiUrl}/subscribers/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

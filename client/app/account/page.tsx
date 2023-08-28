@@ -18,6 +18,9 @@ const account = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  //access api url
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -42,7 +45,7 @@ const account = () => {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
+        `${apiUrl}/users/currentuser`,
         {
           method: "GET",
           headers: {
@@ -65,7 +68,7 @@ const account = () => {
   const fetchTransactions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/transactions/get-user-transactions",
+        `${apiUrl}/transactions/get-user-transactions`,
         {
           method: "GET",
           headers: {

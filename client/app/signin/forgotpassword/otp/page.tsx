@@ -5,10 +5,13 @@ const otp = () => {
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/users/passwordreset", {
+      const res = await fetch(`${apiUrl}/users/passwordreset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

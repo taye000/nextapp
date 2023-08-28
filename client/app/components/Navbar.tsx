@@ -26,6 +26,8 @@ const Navbar = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -47,7 +49,7 @@ const Navbar = () => {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
+        `${apiUrl}/users/currentuser`,
         {
           method: "GET",
           headers: {
@@ -70,7 +72,7 @@ const Navbar = () => {
 
   const handleSignout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/users/signout", {
+      const response = await fetch(`${apiUrl}/users/signout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,

@@ -17,6 +17,8 @@ const editprofile = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -34,7 +36,7 @@ const editprofile = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/users/updateprofile", {
+      const res = await fetch(`${apiUrl}/users/updateprofile`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,
@@ -65,7 +67,7 @@ const editprofile = () => {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
+        `${apiUrl}/users/currentuser`,
         {
           method: "GET",
           headers: {
@@ -96,7 +98,7 @@ const editprofile = () => {
       formData.append("photo", selectedFile);
 
       const res = await fetch(
-        "http://localhost:5000/api/users/updateprofilephoto",
+        `${apiUrl}/users/updateprofilephoto`,
         {
           method: "POST",
           headers: {
@@ -129,7 +131,7 @@ const editprofile = () => {
       formData.append("photo", selectedFile);
 
       const res = await fetch(
-        "http://localhost:5000/api/users/updatecoverphoto",
+        `${apiUrl}/users/updatecoverphoto`,
         {
           method: "POST",
           headers: {

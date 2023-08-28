@@ -11,6 +11,8 @@ const buyer = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -29,7 +31,7 @@ const buyer = () => {
     e.preventDefault();
     try {
       const res = await fetch(
-        "http://localhost:5000/api/transactions/create-transaction",
+        `${apiUrl}/transactions/create-transaction`,
         {
           method: "POST",
           headers: {
@@ -67,7 +69,7 @@ const buyer = () => {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
+        `${apiUrl}/users/currentuser`,
         {
           method: "GET",
           headers: {

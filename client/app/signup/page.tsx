@@ -11,6 +11,8 @@ const signup = () => {
   // get the stored cookie from local storage
   const cookie = getCookie();
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   // check if user is logged in
   if (cookie) {
     router.push("/account");
@@ -26,7 +28,7 @@ const signup = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/users/signup", {
+      const res = await fetch(`${apiUrl}/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
