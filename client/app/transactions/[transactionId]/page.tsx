@@ -96,7 +96,7 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({status:"completed"})
+          body: JSON.stringify({ status: "completed" }),
         }
       );
       if (!response.ok) {
@@ -106,15 +106,13 @@ const transactionDetail = () => {
 
       //update Transaction
       let transaction = data.transaction;
-      
+
       console.log("transaction", transaction);
-      
     } catch (error) {
       console.error(error);
     }
   };
 
-  // TODO: fix this
   const handleAppeal = async () => {
     try {
       const response = await fetch(
@@ -125,13 +123,13 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({appeal: "true"})
+          body: JSON.stringify({ appeal: "true" }),
         }
-        );
-        if (!response.ok) {
-          throw new Error("error fetching Transaction");
-        }
-        const data = await response.json();
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
+      }
+      const data = await response.json();
 
       //update Transactions
       setTransaction(data.transaction);
@@ -140,30 +138,32 @@ const transactionDetail = () => {
     }
   };
 
-    // TODO: fix this
-    const handleSubmit = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${cookie}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("error fetching Transaction");
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ comment }),
         }
-        const data = await response.json();
-  
-        //update Transactions
-        setTransaction(data.transaction);
-      } catch (error) {
-        console.error(error);
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
       }
-    };
+      const data = await response.json();
+      const updatedTransaction = data.transaction;
+
+      //update Transactions
+      setTransaction(updatedTransaction);
+      setComment("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <main className="min-h-screen justify-between mt-5">
@@ -176,36 +176,36 @@ const transactionDetail = () => {
             Order Id : {transaction?.id}
           </h2>
           <div className="flex flex-col md:flex md:flex-col sm:flex sm:flex-col">
-          <div className="p-4">
-          <p className="sm:text-left font-bold text-right">
-            <span
-              className={
-                transaction?.status === "completed"
-                  ? "bg-blue-800 p-2 rounded-lg"
-                  : transaction?.status === "pending"
-                  ? "bg-yellow-400 p-2 rounded-lg"
-                  : "bg-red-600 p-2 rounded-lg"
-              }
-            >
-              Seller Confirmation: {transaction?.status}
-            </span>
-          </p>
-          </div>
-          <div className="p-4">
-          <p className="sm:text-left font-bold text-right">
-            <span
-              className={
-                transaction?.status === "completed"
-                  ? "bg-blue-800 p-2 rounded-lg"
-                  : transaction?.status === "pending"
-                  ? "bg-yellow-400 p-2 rounded-lg"
-                  : "bg-red-600 p-2 rounded-lg"
-              }
-            >
-              Buyer Confirmation: {transaction?.customerStatus}
-            </span>
-          </p>
-          </div>
+            <div className="p-4">
+              <p className="sm:text-left font-bold text-right">
+                <span
+                  className={
+                    transaction?.status === "completed"
+                      ? "bg-blue-800 p-2 rounded-lg"
+                      : transaction?.status === "pending"
+                      ? "bg-yellow-400 p-2 rounded-lg"
+                      : "bg-red-600 p-2 rounded-lg"
+                  }
+                >
+                  Seller Confirmation: {transaction?.status}
+                </span>
+              </p>
+            </div>
+            <div className="p-4">
+              <p className="sm:text-left font-bold text-right">
+                <span
+                  className={
+                    transaction?.status === "completed"
+                      ? "bg-blue-800 p-2 rounded-lg"
+                      : transaction?.status === "pending"
+                      ? "bg-yellow-400 p-2 rounded-lg"
+                      : "bg-red-600 p-2 rounded-lg"
+                  }
+                >
+                  Buyer Confirmation: {transaction?.customerStatus}
+                </span>
+              </p>
+            </div>
           </div>
           <h2 className="text-2xl font-bold text-left">
             {user.account_type === "Seller" ? "Buyer Id" : "Seller Id"} :{" "}
@@ -241,46 +241,45 @@ const transactionDetail = () => {
           </div>
         </div>
         {transaction?.status !== "completed" && (
-
-        <div className="p-2 m-4 md:flex md:justify-center">
-          <div className="p-2">
-            <button
-              onClick={handleAppeal}
-              className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
-            >
-              Appeal!
-            </button>
+          <div className="p-2 m-4 md:flex md:justify-center">
+            <div className="p-2">
+              <button
+                onClick={handleAppeal}
+                className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+              >
+                Appeal!
+              </button>
+            </div>
+            <div className="p-2">
+              <button
+                onClick={handleDeliveryConfirmation}
+                className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+              >
+                I Confirm this item has been delivered!
+              </button>
+            </div>
           </div>
-          <div className="p-2">
-            <button
-              onClick={handleDeliveryConfirmation}
-              className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
-            >
-              I Confirm this item has been delivered!
-            </button>
-          </div>
-        </div>
-          )}
+        )}
       </div>
       <div className="border rounded-md shadow-md p-6 m-4">
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-      <textarea
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <textarea
             name="comment"
             id="comment"
             placeholder="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-            />
-            <div className="flex justify-center">
+          />
+          <div className="flex justify-center">
             <button
               type="submit"
               className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
             >
               Submit
             </button>
-            </div>
-          </form>
+          </div>
+        </form>
       </div>
     </main>
   );
