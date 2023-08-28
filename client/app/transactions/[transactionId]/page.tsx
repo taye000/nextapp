@@ -115,7 +115,7 @@ const transactionDetail = () => {
   };
 
   // TODO: fix this
-  const handleSubmit = async () => {
+  const handleAppeal = async () => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/transactions/appeal-transaction/${transactionId}`,
@@ -125,6 +125,7 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({appeal: "true"})
         }
         );
         if (!response.ok) {
@@ -140,7 +141,7 @@ const transactionDetail = () => {
   };
 
     // TODO: fix this
-    const handleAppeal = async () => {
+    const handleSubmit = async () => {
       try {
         const response = await fetch(
           `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
