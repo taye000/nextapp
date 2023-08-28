@@ -17,6 +17,10 @@ const transactionDetail = () => {
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
   const [comment, setComment] = useState("");
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  console.log("apiUrl", apiUrl);
+  
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -41,7 +45,7 @@ const transactionDetail = () => {
   const fetchUserData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/currentuser",
+        `${apiUrl}/users/currentuser`,
         {
           method: "GET",
           headers: {
@@ -65,7 +69,7 @@ const transactionDetail = () => {
   const fetchTransaction = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/transactions/get-transaction/${transactionId}`,
+        `${apiUrl}/transactions/get-transaction/${transactionId}`,
         {
           method: "GET",
           headers: {
@@ -89,7 +93,7 @@ const transactionDetail = () => {
   const handleDeliveryConfirmation = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/transactions/update-transaction-status/${transactionId}`,
+        `${apiUrl}/transactions/update-transaction-status/${transactionId}`,
         {
           method: "POST",
           headers: {
@@ -116,7 +120,7 @@ const transactionDetail = () => {
   const handleAppeal = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/transactions/appeal-transaction/${transactionId}`,
+        `${apiUrl}/transactions/appeal-transaction/${transactionId}`,
         {
           method: "POST",
           headers: {
@@ -141,7 +145,7 @@ const transactionDetail = () => {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/transactions/update-transaction/${transactionId}`,
+        `${apiUrl}/transactions/update-transaction/${transactionId}`,
         {
           method: "POST",
           headers: {
