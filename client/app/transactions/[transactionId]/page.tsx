@@ -96,6 +96,7 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({status:"completed"})
         }
       );
       if (!response.ok) {
