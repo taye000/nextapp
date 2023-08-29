@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -34,7 +35,7 @@ const Navbar = () => {
     }
     // Fetch user data
     fetchUserData();
-  }, [cookie]);
+  }, []);
 
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
@@ -156,7 +157,7 @@ const Navbar = () => {
             </Link>
             <button
               onClick={handleSignout}
-              className="p-3 px-6 pt-2 text-red-400 rounded-full baseline hover:bg-gray-300 md:block"
+              className="p-3 px-6 pt-2 text-red-400 baseline hover:underline md:block"
             >
               Sign Out
             </button>
