@@ -15,6 +15,9 @@ const transactionDetail = () => {
   const cookie = getCookie();
 
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
+  const [sellerTxStatus, setSellerTxStatus] = useState(false);
+  const [buyerTxStatus, setBuyerTxStatus] = useState(false);
+
   const [comment, setComment] = useState("");
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -42,23 +45,21 @@ const transactionDetail = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/users/currentuser`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/users/currentuser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Error fetching user data");
       }
-      const userData = await response.json();
+      const userResponse = await response.json();
+      const userData = userResponse.user;
 
       // Update user state with fetched data
-      setUser(userData.user);
+      setUser(userData);
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +89,32 @@ const transactionDetail = () => {
     }
   };
 
-  const handleDeliveryConfirmation = async () => {
+  const handleCustomerConfirmation = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/transactions/update-transaction-status/${transactionId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ customerStatus: "completed" }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
+      }
+      const data = await response.json();
+
+      //update Transaction
+      setBuyerTxStatus(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSellerConfirmation = async () => {
     try {
       const response = await fetch(
         `${apiUrl}/transactions/update-transaction-status/${transactionId}`,
@@ -107,9 +133,7 @@ const transactionDetail = () => {
       const data = await response.json();
 
       //update Transaction
-      let transaction = data.transaction;
-
-      console.log("transaction", transaction);
+      setSellerTxStatus(true);
     } catch (error) {
       console.error(error);
     }
@@ -197,9 +221,9 @@ const transactionDetail = () => {
               <p className="sm:text-left font-bold text-right">
                 <span
                   className={
-                    transaction?.status === "completed"
+                    transaction?.customerStatus === "completed"
                       ? "bg-blue-800 p-2 rounded-lg"
-                      : transaction?.status === "pending"
+                      : transaction?.customerStatus === "pending"
                       ? "bg-yellow-400 p-2 rounded-lg"
                       : "bg-red-600 p-2 rounded-lg"
                   }
@@ -243,45 +267,56 @@ const transactionDetail = () => {
           </div>
         </div>
         {transaction?.status !== "completed" && (
-          <div className="p-2 m-4 md:flex md:justify-center">
-            <div className="p-2">
-              <button
-                onClick={handleAppeal}
-                className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
-              >
-                Appeal!
-              </button>
+          <div>
+            <div className="p-2 m-4 md:flex md:justify-center">
+              <div className="p-2">
+                <button
+                  onClick={handleAppeal}
+                  className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+                >
+                  Appeal!
+                </button>
+              </div>
+              <div className="p-2">
+                {user.account_type === "Seller" ? (
+                  <button
+                    onClick={handleSellerConfirmation}
+                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    I, the Seller Confirm Delivery!
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleCustomerConfirmation}
+                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    I, the Buyer confirm Delivery!
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="p-2">
-              <button
-                onClick={handleDeliveryConfirmation}
-                className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
-              >
-                I Confirm this item has been delivered!
-              </button>
+            <div className="border rounded-md shadow-md p-6 m-4">
+              <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                <textarea
+                  name="comment"
+                  id="comment"
+                  placeholder="comment"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                />
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}
-      </div>
-      <div className="border rounded-md shadow-md p-6 m-4">
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <textarea
-            name="comment"
-            id="comment"
-            placeholder="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-          />
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
       </div>
     </main>
   );
