@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -22,11 +21,11 @@ const navItems: Array<NavItem> = [
 const Navbar = () => {
   // initialize useRouter
   const router = useRouter();
+  
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // get the stored cookie from local storage
   const cookie = getCookie();
-
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // check if user is logged in
   useEffect(() => {
