@@ -46,16 +46,13 @@ const account = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/users/currentuser`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/users/currentuser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Error fetching user data");
       }
@@ -238,47 +235,58 @@ const account = () => {
                 </span>
                 <span className="hidden font-bold md:grid">Mode</span>
                 <span className="sm:text-left font-bold text-right">
-                  Status
+                  Buyer
                 </span>
 
-                <span className="hidden font-bold md:grid">Action</span>
+                <span className="hidden font-bold md:grid">Seller</span>
               </div>
 
               {transactions.length > 0 ? (
                 <ul>
                   {transactions.map((transaction, id) => (
-                    <li
-                      key={id}
-                      className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                    <Link
+                      href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                     >
-                      <p className="truncate">{transaction.id}</p>
-                      <p className="font-bold truncate">{transaction.item}</p>
-                      <p className="truncate">{transaction.userId}</p>
-                      <p className="font-bold truncate">${transaction.amount}</p>
-                      <p className="truncate">{transaction.mode}</p>
+                      <li
+                        key={id}
+                        className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                      >
+                        <p className="truncate">{transaction.id}</p>
+                        <p className="font-bold truncate">{transaction.item}</p>
+                        <p className="truncate">{transaction.userId}</p>
+                        <p className="font-bold truncate">
+                          ${transaction.amount}
+                        </p>
+                        <p className="truncate">{transaction.mode}</p>
 
-                      <p className="sm:text-left font-bold text-right">
-                        <span
-                          className={
-                            transaction.status === "completed"
-                              ? "bg-blue-800 p-2 rounded-lg"
-                              : transaction.status === "pending"
-                              ? "bg-yellow-400 p-2 rounded-lg"
-                              : "bg-red-600 p-2 rounded-lg"
-                          }
-                        >
-                          {transaction.status}
-                        </span>
-                      </p>
-                      <div className="p-2 md:flex md:justify-start">
-                        <Link
-                          href={`/transactions/get-transaction?transactionId=${transaction.id}`}
-                          className="bg-green-800 hover:bg-green-500 text-white font-bold p-2 rounded-lg"
-                        >
-                          View
-                        </Link>
-                      </div>
-                    </li>
+                        <p className="sm:text-left font-bold text-right">
+                          <span
+                            className={
+                              transaction.customerStatus === "completed"
+                                ? "bg-blue-800 p-2 rounded-lg"
+                                : transaction.customerStatus === "pending"
+                                ? "bg-yellow-400 p-2 rounded-lg"
+                                : "bg-red-600 p-2 rounded-lg"
+                            }
+                          >
+                            {transaction.customerStatus}
+                          </span>
+                        </p>
+                        <p className="sm:text-left font-bold text-right">
+                          <span
+                            className={
+                              transaction.status === "completed"
+                                ? "bg-blue-800 p-2 rounded-lg"
+                                : transaction.status === "pending"
+                                ? "bg-yellow-400 p-2 rounded-lg"
+                                : "bg-red-600 p-2 rounded-lg"
+                            }
+                          >
+                            {transaction.status}
+                          </span>
+                        </p>
+                      </li>
+                    </Link>
                   ))}
                 </ul>
               ) : (
