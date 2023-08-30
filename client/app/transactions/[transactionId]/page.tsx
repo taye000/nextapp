@@ -161,6 +161,9 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
+      setSellerAppealClicked(true);
+
+      fetchTransaction();
     } catch (error) {
       console.error(error);
     }
@@ -186,6 +189,9 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
+      setBuyerAppealClicked(true);
+
+      fetchTransaction();
     } catch (error) {
       console.error(error);
     }
@@ -315,6 +321,7 @@ const transactionDetail = () => {
                   </button>
                 </div>
               </div>
+              {sellerAppealClicked && (
               <div className="border rounded-md shadow-md p-6 m-4">
                 <form
                   onSubmit={handleSubmit}
@@ -338,6 +345,7 @@ const transactionDetail = () => {
                   </div>
                 </form>
               </div>
+              )}
             </div>
           )}
 
@@ -362,6 +370,7 @@ const transactionDetail = () => {
                   </button>
                 </div>
               </div>
+              {buyerAppealClicked && (
               <div className="border rounded-md shadow-md p-6 m-4">
                 <form
                   onSubmit={handleSubmit}
@@ -385,6 +394,7 @@ const transactionDetail = () => {
                   </div>
                 </form>
               </div>
+              )}
             </div>
           )}
       </div>
