@@ -15,8 +15,10 @@ const transactionDetail = () => {
   const cookie = getCookie();
 
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
-  const [sellerTxStatus, setSellerTxStatus] = useState(false);
-  const [buyerTxStatus, setBuyerTxStatus] = useState(false);
+  const [sellerConfirmationVisible, setSellerConfirmationVisible] =
+    useState(true);
+  const [buyerConfirmationVisible, setBuyerConfirmationVisible] =
+    useState(true);
 
   const [comment, setComment] = useState("");
 
@@ -107,8 +109,9 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
-      //update Transaction
-      setBuyerTxStatus(true);
+      setTransaction(data.transaction);
+
+      setBuyerConfirmationVisible(false);
     } catch (error) {
       console.error(error);
     }
@@ -132,8 +135,9 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
-      //update Transaction
-      setSellerTxStatus(true);
+      setTransaction(data.transaction);
+
+      setSellerConfirmationVisible(false);
     } catch (error) {
       console.error(error);
     }
@@ -266,57 +270,100 @@ const transactionDetail = () => {
             </div>
           </div>
         </div>
-        {transaction?.status !== "completed" && (
-          <div>
-            <div className="p-2 m-4 md:flex md:justify-center">
-              <div className="p-2">
-                <button
-                  onClick={handleAppeal}
-                  className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
-                >
-                  Appeal!
-                </button>
-              </div>
-              <div className="p-2">
-                {user.account_type === "Seller" ? (
+
+        {user.account_type === "Seller" &&
+          transaction?.status !== "completed" && (
+            <div>
+              <div className="p-2 m-4 md:flex md:justify-center">
+                <div className="p-2">
+                  <button
+                    onClick={handleAppeal}
+                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Appeal!
+                  </button>
+                </div>
+                <div className="p-2">
                   <button
                     onClick={handleSellerConfirmation}
                     className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
                   >
                     I, the Seller Confirm Delivery!
                   </button>
-                ) : (
+                </div>
+              </div>
+              <div className="border rounded-md shadow-md p-6 m-4">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col space-y-4"
+                >
+                  <textarea
+                    name="comment"
+                    id="comment"
+                    placeholder="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                  />
+                  <div className="flex justify-center">
+                    <button
+                      type="submit"
+                      className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
+        {user.account_type === "Buyer" &&
+          transaction?.customerStatus !== "completed" && (
+            <div>
+              <div className="p-2 m-4 md:flex md:justify-center">
+                <div className="p-2">
+                  <button
+                    onClick={handleAppeal}
+                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Appeal!
+                  </button>
+                </div>
+                <div className="p-2">
                   <button
                     onClick={handleCustomerConfirmation}
                     className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
                   >
                     I, the Buyer confirm Delivery!
                   </button>
-                )}
+                </div>
+              </div>
+              <div className="border rounded-md shadow-md p-6 m-4">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col space-y-4"
+                >
+                  <textarea
+                    name="comment"
+                    id="comment"
+                    placeholder="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                  />
+                  <div className="flex justify-center">
+                    <button
+                      type="submit"
+                      className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
-            <div className="border rounded-md shadow-md p-6 m-4">
-              <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                <textarea
-                  name="comment"
-                  id="comment"
-                  placeholder="comment"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-                />
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+          )}
       </div>
     </main>
   );
