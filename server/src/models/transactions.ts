@@ -48,6 +48,9 @@ const TransactionSchema = new Schema<ITransaction, TransactionModel>(
     appeal: {
       type: Schema.Types.Mixed,
     },
+    customerAppeal: {
+      type: Schema.Types.Mixed,
+    },
     clientId: {
       type: Schema.Types.ObjectId,
       ref: "User",

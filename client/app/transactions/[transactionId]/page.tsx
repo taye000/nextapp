@@ -15,10 +15,10 @@ const transactionDetail = () => {
   const cookie = getCookie();
 
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
-  const [sellerConfirmationVisible, setSellerConfirmationVisible] =
-    useState(true);
-  const [buyerConfirmationVisible, setBuyerConfirmationVisible] =
-    useState(true);
+  const [buyerAppealClicked, setBuyerAppealClicked] =
+    useState(false);
+    const [sellerAppealClicked, setSellerAppealClicked] =
+    useState(false);
 
   const [comment, setComment] = useState("");
 
@@ -111,7 +111,6 @@ const transactionDetail = () => {
 
       setTransaction(data.transaction);
 
-      setBuyerConfirmationVisible(false);
     } catch (error) {
       console.error(error);
     }
@@ -137,7 +136,6 @@ const transactionDetail = () => {
 
       setTransaction(data.transaction);
 
-      setSellerConfirmationVisible(false);
     } catch (error) {
       console.error(error);
     }
@@ -154,6 +152,31 @@ const transactionDetail = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ appeal: "true" }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching Transaction");
+      }
+      const data = await response.json();
+
+      //update Transactions
+      setTransaction(data.transaction);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCustomerAppeal = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/transactions/appeal-transaction/${transactionId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ customerAppeal: "true" }),
         }
       );
       if (!response.ok) {
@@ -324,7 +347,7 @@ const transactionDetail = () => {
               <div className="p-2 m-4 md:flex md:justify-center">
                 <div className="p-2">
                   <button
-                    onClick={handleAppeal}
+                    onClick={handleCustomerAppeal}
                     className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
                   >
                     Appeal!
