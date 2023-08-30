@@ -25,8 +25,13 @@ const transactions = () => {
 
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
 
+  const [loading, setLoading] = useState(false);
+
   const fetchTransactions = async () => {
     try {
+      //set loading to true beore fetching the data
+      setLoading(true);
+
       const response = await fetch(
         `${apiUrl}/transactions/get-user-transactions`,
         {
@@ -42,8 +47,9 @@ const transactions = () => {
       }
       const data = await response.json();
 
-      //update Transactions
+      //update Transactions & clear loading
       setTransactions(data.transactions);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
