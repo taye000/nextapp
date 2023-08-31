@@ -105,42 +105,22 @@ const account = () => {
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
           <div className="relative p-[5%]">
-            {user.coverPhoto ? (
-              <Image
-                src={user.coverPhoto}
-                width={150}
-                height={150}
-                alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
-              />
-            ) : (
-              <Image
-                src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
-                alt="cover image"
-                fill
-                priority={false}
-                style={{ objectFit: "cover" }}
-              />
-            )}
+            <Image
+              src={user.coverPhoto || "/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"}
+              alt="cover image"
+              fill
+              priority={false}
+              style={{ objectFit: "cover" }}
+            />
           </div>
-          <div>
-            {user.photo ? (
-              <Image
-                src={user.photo}
-                width={150}
-                height={150}
+          <div className="relative">
+            <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
+              <img
+                src={user.photo || "/avatar.jpg"}
                 alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+                className="rounded-full object-cover object-center w-full h-full"
               />
-            ) : (
-              <Image
-                src="/avatar.jpg"
-                width={150}
-                height={150}
-                alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
-              />
-            )}
+            </div>
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md pl-2 flex items-center">
@@ -234,18 +214,16 @@ const account = () => {
                   Amount
                 </span>
                 <span className="hidden font-bold md:grid">Mode</span>
-                <span className="sm:text-left font-bold text-right">
-                  Buyer
-                </span>
+                <span className="sm:text-left font-bold text-right">Buyer</span>
 
                 <span className="hidden font-bold md:grid">Seller</span>
               </div>
 
               {loading ? (
                 <div className="flex justify-center items-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
-              </div>
-            ) : (
+                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
+                </div>
+              ) : (
                 <ul>
                   {transactions.map((transaction, id) => (
                     <Link

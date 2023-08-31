@@ -90,6 +90,7 @@ const Footer = () => {
               <form onSubmit={handleSubmit}>
                 <div className="flex space-x-3">
                   <input
+                    required
                     type="text"
                     className="flex-1 px-4 rounded-full focus:outline-none"
                     placeholder="Enter your email"

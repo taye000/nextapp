@@ -32,10 +32,12 @@ const editprofile = () => {
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await fetch(`${apiUrl}/users/updateprofile`, {
         method: "POST",
         headers: {
@@ -58,6 +60,7 @@ const editprofile = () => {
 
       // Fetch user data to update the user state after photo update
       fetchUserData();
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -66,16 +69,13 @@ const editprofile = () => {
   // function to fetch user data from DB
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/users/currentuser`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/users/currentuser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Error fetching user data");
       }
@@ -97,16 +97,13 @@ const editprofile = () => {
       const formData = new FormData();
       formData.append("photo", selectedFile);
 
-      const res = await fetch(
-        `${apiUrl}/users/updateprofilephoto`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-          },
-          body: formData,
-        }
-      );
+      const res = await fetch(`${apiUrl}/users/updateprofilephoto`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        },
+        body: formData,
+      });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
@@ -130,16 +127,13 @@ const editprofile = () => {
       const formData = new FormData();
       formData.append("photo", selectedFile);
 
-      const res = await fetch(
-        `${apiUrl}/users/updatecoverphoto`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-          },
-          body: formData,
-        }
-      );
+      const res = await fetch(`${apiUrl}/users/updatecoverphoto`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+        },
+        body: formData,
+      });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
@@ -191,39 +185,31 @@ const editprofile = () => {
             <div className="p-2">
               <label className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
                 Change Image
-                <input type="file"
+                <input
+                  type="file"
                   accept="image/*"
                   name="coverPhoto"
-                  className="hidden"
-                onChange={handleCoverPhotoUpload}></input>
+                  className="hidden md:cursor-pointer"
+                  onChange={handleCoverPhotoUpload}
+                ></input>
               </label>
             </div>
           </div>
           <div className="relative">
-            {user.photo ? (
-              <Image
-                src={user.photo}
-                width={150}
-                height={150}
+            <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
+              <img
+                src={ user.photo || "/avatar.jpg"}
                 alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+                className="rounded-full object-cover object-center w-full h-full"
               />
-            ) : (
-              <Image
-                src="/avatar.jpg"
-                width={150}
-                height={150}
-                alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
-              />
-            )}
+            </div>
             <input
               type="file"
               accept="image/*"
               name="photo"
               className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
-              onChange={(e) => handlePhotoUpload(e)}
-            ></input>
+              onChange={handlePhotoUpload}
+            />
           </div>
           <div className="flex flex-col p-2 justify-between md:flex-row">
             <div className="border rounded-md shadow-md pl-2 flex items-center">
@@ -287,18 +273,24 @@ const editprofile = () => {
               />
             </div>
             <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-gray-800 rounded-lg text-white m-2 py-2 px-8 md:p3 md:rounded-lg font-bold hover:bg-gray-500"
-              >
-                Discard
-              </button>
-              <button
-                type="submit"
-                className="bg-blue-800 rounded-lg text-white m-2 py-2 px-8 md:p3 md:rounded-lg font-bold hover:bg-blue-500"
-              >
-                Update
-              </button>
+              <div>
+                <button
+                  type="button"
+                  onClick={fetchUserData}
+                  className="bg-gray-800 rounded-lg text-white m-2 py-2 px-8 md:p3 md:rounded-lg font-bold hover:bg-gray-500 active:bg-gray-800"
+                >
+                  Discard
+                </button>
+              </div>
+              <div>
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="bg-blue-800 rounded-lg text-white m-2 py-2 px-8 md:p3 md:rounded-lg font-bold hover:bg-blue-500 active:bg-blue-900"
+                >
+                  Update
+                </button>
+              </div>
             </div>
           </form>
         </div>
