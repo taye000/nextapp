@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const navItems: Array<NavItem> = [
 const Navbar = () => {
   // initialize useRouter
   const router = useRouter();
-  
+
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // get the stored cookie from local storage
@@ -30,11 +30,10 @@ const Navbar = () => {
 
   // check if user is logged in
   useEffect(() => {
-    if (!cookie) {
-      router.push("/signin");
+    if (cookie) {
+      // Fetch user data
+      fetchUserData();
     }
-    // Fetch user data
-    fetchUserData();
   }, []);
 
   const { systemTheme, theme, setTheme } = useTheme();
@@ -48,16 +47,13 @@ const Navbar = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/users/currentuser`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/users/currentuser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Error fetching user data");
       }
@@ -149,24 +145,26 @@ const Navbar = () => {
         </div>
         {cookie ? (
           <>
-          <div className="flex flex-row justify-between">
-            <Link href={"/account"}>
-              <div className="p-2 md:block md:items-center md:p-2">
-                <p className="font-bold hover:text-blue-600 text-blue-900">Welcome, {user.name}</p>
-              </div>
-            </Link>
-            <button
-              onClick={handleSignout}
-              className="p-3 px-6 pt-2 text-red-400 baseline hover:underline md:block"
-            >
-              Sign Out
-            </button>
-          </div>
+            <div className="flex flex-row justify-between">
+              <Link href={"/account"}>
+                <div className="p-2 md:block md:items-center md:p-2">
+                  <p className="font-bold hover:text-blue-600 text-blue-900">
+                    Welcome, {user.name}
+                  </p>
+                </div>
+              </Link>
+              <button
+                onClick={handleSignout}
+                className="p-3 px-6 pt-2 text-red-400 baseline hover:underline md:block"
+              >
+                Sign Out
+              </button>
+            </div>
           </>
         ) : (
           <Link
             href="/signin"
-            className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 md:block"
+            className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 active:bg-blue-900 md:block"
           >
             Get Started
           </Link>

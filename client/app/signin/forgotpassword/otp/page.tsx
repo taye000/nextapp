@@ -64,7 +64,7 @@ const otp = () => {
               value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
-            <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-500">
+            <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900">
               Continue
             </button>
           </form>

@@ -60,7 +60,7 @@ const signin = () => {
         <div className="flex justify-center">
           <h1 className="font-bold text-2xl">Sign in</h1>
         </div>
-        <div>
+        <div className="w-full max-w-xs">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
               type="email"
@@ -69,7 +69,7 @@ const signin = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
               type="password"
@@ -82,19 +82,19 @@ const signin = () => {
             />
             <Link
               href={"/signin/forgotpassword"}
-              className="text-blue-700 text-right"
+              className="text-blue-700 text-right hover:underline"
             >
               Forgot Password
             </Link>
             <button
               type="submit"
-              className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-500"
+              className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900"
             >
               Sign in
             </button>
             <p className={`m-0 max-w-[30ch] text-sm`}>
               Don't have an account,
-              <Link href={"/signup"} className="text-blue-700">
+              <Link href={"/signup"} className="text-blue-700 hover:underline">
                 {" "}
                 Sign up
               </Link>

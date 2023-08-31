@@ -39,7 +39,7 @@ const signup = () => {
           phoneNumber,
           password,
           confirmPassword,
-          account_type
+          account_type,
         }),
       });
       const json = await res.json();
@@ -84,7 +84,7 @@ const signup = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
               type="phoneNumber"
@@ -114,32 +114,34 @@ const signup = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
             />
             <label className=" text-gray-600 font-bold py-2 px-4 rounded-lg">
-            <input
-              type="radio"
-              name="account_type"
-              id="account_type"
-              value="Buyer"
-              onChange={(e) => setAccount_type(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-            /> Buyer
-            <input
-              type="radio"
-              name="account_type"
-              id="account_type"
-              value="Seller"
-              onChange={(e) => setAccount_type(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-            /> Seller
+              <input
+                type="radio"
+                name="account_type"
+                id="account_type"
+                value="Buyer"
+                onChange={(e) => setAccount_type(e.target.value)}
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              />{" "}
+              Buyer
+              <input
+                type="radio"
+                name="account_type"
+                id="account_type"
+                value="Seller"
+                onChange={(e) => setAccount_type(e.target.value)}
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              />{" "}
+              Seller
             </label>
             <button
               type="submit"
-              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500"
+              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900"
             >
               Sign Up
             </button>
             <p className={`m-0 max-w-[30ch] text-sm`}>
               Already have an account,
-              <Link href={"/signin"} className="text-blue-700">
+              <Link href={"/signin"} className="text-blue-700 hover:underline">
                 {" "}
                 Sign in
               </Link>

@@ -74,6 +74,7 @@ const transactionsList = () => {
               <span className="sm:text-left font-bold text-right">Buyer</span>
               <span className="hidden font-bold md:grid">Seller</span>
             </div>
+            
             {loading ? (
               <div className="flex justify-center items-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
