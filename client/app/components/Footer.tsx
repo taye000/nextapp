@@ -96,7 +96,7 @@ const Footer = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   ></input>
-                  <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500">
+                  <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900 ">
                     Go
                   </button>
                 </div>

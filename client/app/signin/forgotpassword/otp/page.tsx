@@ -41,28 +41,31 @@ const otp = () => {
           <form onSubmit={handleSubmit}
           className="flex flex-col space-y-4">
             <input
+            required
               type="Code"
               name="Code"
               id="Code"
               placeholder="Enter your Recovery Code"
               value={code} onChange={(e) => setCode(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="password"
               name="password"
               id="password"
               placeholder="Enter your new password"
               value={password} onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="password"
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirm your new password"
               value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900">
               Continue

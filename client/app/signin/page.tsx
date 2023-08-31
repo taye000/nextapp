@@ -63,22 +63,24 @@ const signin = () => {
         <div className="w-full max-w-xs">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
+              required
               type="email"
               name="email"
               id="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="password"
               name="password"
               id="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <Link
               href={"/signin/forgotpassword"}

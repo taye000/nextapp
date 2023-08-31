@@ -99,44 +99,48 @@ const buyer = () => {
         <div>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
+            required
               type="clientId"
               name="clientId"
               id="clientId"
               placeholder="Seller's ID"
               value={clientId}
               onChange={(e) => setclientId(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="amount"
               name="amount"
               id="amount"
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="mode"
               name="mode"
               id="mode"
               placeholder="Mode of Payment"
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
+            required
               type="item"
               name="item"
               id="item"
               placeholder="Item Description"
               value={item}
               onChange={(e) => setItem(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <button
               type="submit"
-              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-500"
+              className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900"
             >
               Submit
             </button>
