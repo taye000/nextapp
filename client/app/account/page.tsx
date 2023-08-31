@@ -241,7 +241,11 @@ const account = () => {
                 <span className="hidden font-bold md:grid">Seller</span>
               </div>
 
-              {transactions.length > 0 ? (
+              {loading ? (
+                <div className="flex justify-center items-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
+              </div>
+            ) : (
                 <ul>
                   {transactions.map((transaction, id) => (
                     <Link
@@ -289,10 +293,6 @@ const account = () => {
                     </Link>
                   ))}
                 </ul>
-              ) : (
-                <div className="flex justify-center items-center">
-                  <p className="text-2xl">No transactions yet</p>
-                </div>
               )}
             </div>
           </div>
