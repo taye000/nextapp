@@ -94,7 +94,7 @@ const transactionDetail = () => {
   const handleCustomerConfirmation = async () => {
     try {
       const response = await fetch(
-        `${apiUrl}/transactions/update-transaction-status/${transactionId}`,
+        `${apiUrl}/transactions/update-customer-transaction-status/${transactionId}`,
         {
           method: "POST",
           headers: {
@@ -110,6 +110,8 @@ const transactionDetail = () => {
       const data = await response.json();
 
       setTransaction(data.transaction);
+
+      fetchTransaction();
 
     } catch (error) {
       console.error(error);
@@ -135,6 +137,8 @@ const transactionDetail = () => {
       const data = await response.json();
 
       setTransaction(data.transaction);
+
+      fetchTransaction();
 
     } catch (error) {
       console.error(error);
