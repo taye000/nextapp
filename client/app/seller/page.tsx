@@ -13,6 +13,30 @@ const seller = () => {
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/users/currentuser`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
+      }
+      const userData = await response.json();
+
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -20,7 +44,7 @@ const seller = () => {
     }
     // Fetch user data
     fetchUserData();
-  }, []);
+  }, [cookie]);
 
   const [clientId, setclientId] = useState("");
   const [amount, setAmount] = useState("");
@@ -65,30 +89,6 @@ const seller = () => {
     email: "",
     phoneNumber: "",
   });
-
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(
-        `${apiUrl}/users/currentuser`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Error fetching user data");
-      }
-      const userData = await response.json();
-
-      // Update user state with fetched data
-      setUser(userData.user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">

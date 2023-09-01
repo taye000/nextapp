@@ -21,16 +21,7 @@ const account = () => {
   //access api url
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  // check if user is logged in
-  useEffect(() => {
-    if (!cookie) {
-      router.push("/signin");
-    }
-    // Fetch user data and transactions
-    fetchUserData();
-    fetchTransactions();
-  }, []);
-
+  
   const [loading, setLoading] = useState(false);
 
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
@@ -64,11 +55,12 @@ const account = () => {
       console.error(error);
     }
   };
+
   const fetchTransactions = async () => {
     try {
       //set loading to true before loading
       setLoading(true);
-
+      
       const response = await fetch(
         `${apiUrl}/transactions/get-user-transactions`,
         {
@@ -91,6 +83,16 @@ const account = () => {
       console.error(error);
     }
   };
+  
+  // check if user is logged in
+  useEffect(() => {
+    if (!cookie) {
+      router.push("/signin");
+    }
+    // Fetch user data and transactions
+    fetchUserData();
+    fetchTransactions();
+  }, [cookie]);
 
   const totalSales = transactions.reduce(
     (total, transaction) => total + transaction.amount,

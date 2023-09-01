@@ -16,6 +16,28 @@ const editprofile = () => {
   
   // get the stored cookie from local storage
   const cookie = getCookie();
+  
+    // function to fetch user data from DB
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/users/currentuser`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Error fetching user data");
+        }
+        const userData = await response.json();
+  
+        // Update user state with fetched data
+        setUser(userData.user);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   // check if user is logged in
   useEffect(() => {
@@ -24,7 +46,7 @@ const editprofile = () => {
     }
     // Fetch user data
     fetchUserData();
-  }, []);
+  }, [cookie]);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -61,28 +83,6 @@ const editprofile = () => {
       // Fetch user data to update the user state after photo update
       fetchUserData();
       setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // function to fetch user data from DB
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(`${apiUrl}/users/currentuser`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${cookie}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Error fetching user data");
-      }
-      const userData = await response.json();
-
-      // Update user state with fetched data
-      setUser(userData.user);
     } catch (error) {
       console.error(error);
     }

@@ -27,15 +27,7 @@ const Navbar = () => {
 
   // get the stored cookie from local storage
   const cookie = getCookie();
-
-  // check if user is logged in
-  useEffect(() => {
-    if (cookie) {
-      // Fetch user data
-      fetchUserData();
-    }
-  }, []);
-
+  
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [navbar, setNavbar] = useState(false);
@@ -58,13 +50,21 @@ const Navbar = () => {
         throw new Error("Error fetching user data");
       }
       const userData = await response.json();
-
+      
       // Update user state with fetched data
       setUser(userData.user);
     } catch (error) {
       console.error(error);
     }
   };
+  
+    // check if user is logged in
+    useEffect(() => {
+      if (cookie) {
+        // Fetch user data
+        fetchUserData();
+      }
+    }, [cookie]);
 
   const handleSignout = async () => {
     try {
