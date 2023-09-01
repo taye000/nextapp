@@ -14,15 +14,6 @@ const transactionsList = () => {
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  // check if user is logged in
-  useEffect(() => {
-    if (!cookie) {
-      router.push("/signin");
-    }
-    // Fetch user data and transactions
-    fetchTransactions();
-  }, []);
-
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
 
   const [loading, setLoading] = useState(false);
@@ -52,8 +43,19 @@ const transactionsList = () => {
       setLoading(false);
     } catch (error) {
       console.error(error);
-    } 
+      setLoading(false);
+    }
   };
+
+  // check if user is logged in
+  useEffect(() => {
+    if (!cookie) {
+      router.push("/signin");
+    } else {
+      // Fetch user data and transactions
+      fetchTransactions();
+    }
+  }, [cookie]);
 
   return (
     <main className="min-h-screen justify-between mt-5">
@@ -74,7 +76,7 @@ const transactionsList = () => {
               <span className="sm:text-left font-bold text-right">Buyer</span>
               <span className="hidden font-bold md:grid">Seller</span>
             </div>
-            
+
             {loading ? (
               <div className="flex justify-center items-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>

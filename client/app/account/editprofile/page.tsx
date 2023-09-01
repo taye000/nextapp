@@ -13,11 +13,9 @@ import { IUser } from "../../utils/types";
 const editprofile = () => {
   // initialize useRouter
   const router = useRouter();
-
+  
   // get the stored cookie from local storage
   const cookie = getCookie();
-
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // check if user is logged in
   useEffect(() => {
@@ -27,6 +25,8 @@ const editprofile = () => {
     // Fetch user data
     fetchUserData();
   }, []);
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

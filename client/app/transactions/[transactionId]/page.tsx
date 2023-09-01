@@ -15,28 +15,12 @@ const transactionDetail = () => {
   const cookie = getCookie();
 
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
-  const [buyerAppealClicked, setBuyerAppealClicked] =
-    useState(false);
-    const [sellerAppealClicked, setSellerAppealClicked] =
-    useState(false);
+  const [buyerAppealClicked, setBuyerAppealClicked] = useState(false);
+  const [sellerAppealClicked, setSellerAppealClicked] = useState(false);
 
   const [comment, setComment] = useState("");
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  // check if user is logged in
-  useEffect(() => {
-    if (!cookie) {
-      router.push("/signin");
-    }
-
-    fetchUserData();
-
-    //fetch transaction
-    if (transactionId) {
-      fetchTransaction();
-    }
-  }, [transactionId]);
 
   const [user, setUser] = useState<IUser>({
     id: "",
@@ -90,6 +74,19 @@ const transactionDetail = () => {
       console.error(error);
     }
   };
+  // check if user is logged in
+  useEffect(() => {
+    if (!cookie) {
+      router.push("/signin");
+    }
+
+    fetchUserData();
+
+    //fetch transaction
+    if (transactionId) {
+      fetchTransaction();
+    }
+  }, [cookie, transactionId]);
 
   const handleCustomerConfirmation = async () => {
     try {
@@ -112,7 +109,6 @@ const transactionDetail = () => {
       setTransaction(data.transaction);
 
       fetchTransaction();
-
     } catch (error) {
       console.error(error);
     }
@@ -139,7 +135,6 @@ const transactionDetail = () => {
       setTransaction(data.transaction);
 
       fetchTransaction();
-
     } catch (error) {
       console.error(error);
     }
@@ -326,29 +321,29 @@ const transactionDetail = () => {
                 </div>
               </div>
               {sellerAppealClicked && (
-              <div className="border rounded-md shadow-md p-6 m-4">
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col space-y-4"
-                >
-                  <textarea
-                    name="comment"
-                    id="comment"
-                    placeholder="comment"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-                  />
-                  <div className="flex justify-center">
-                    <button
-                      type="submit"
-                      className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="border rounded-md shadow-md p-6 m-4">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col space-y-4"
+                  >
+                    <textarea
+                      name="comment"
+                      id="comment"
+                      placeholder="comment"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                    />
+                    <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
               )}
             </div>
           )}
@@ -375,29 +370,29 @@ const transactionDetail = () => {
                 </div>
               </div>
               {buyerAppealClicked && (
-              <div className="border rounded-md shadow-md p-6 m-4">
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col space-y-4"
-                >
-                  <textarea
-                    name="comment"
-                    id="comment"
-                    placeholder="comment"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-                  />
-                  <div className="flex justify-center">
-                    <button
-                      type="submit"
-                      className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="border rounded-md shadow-md p-6 m-4">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col space-y-4"
+                  >
+                    <textarea
+                      name="comment"
+                      id="comment"
+                      placeholder="comment"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                    />
+                    <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
               )}
             </div>
           )}
