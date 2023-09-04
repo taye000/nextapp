@@ -69,7 +69,7 @@ const signup = () => {
         <div>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
-            required
+              required
               type="name"
               name="name"
               id="name"
@@ -79,7 +79,7 @@ const signup = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
-            required
+              required
               type="email"
               name="email"
               id="email"
@@ -89,7 +89,7 @@ const signup = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
-            required
+              required
               type="phoneNumber"
               name="phoneNumber"
               id="phoneNumber"
@@ -99,7 +99,7 @@ const signup = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
-            required
+              required
               type="password"
               name="password"
               id="password"
@@ -109,7 +109,7 @@ const signup = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
-            required
+              required
               type="password"
               name="confirmPassword"
               id="confirmPassword"
@@ -118,26 +118,33 @@ const signup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
-            <label className=" text-gray-600 font-bold py-2 px-4 rounded-lg">
-              <input
-                type="radio"
-                name="account_type"
-                id="account_type"
-                value="Buyer"
-                onChange={(e) => setAccount_type(e.target.value)}
-                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-              />{" "}
-              Buyer
-              <input
-                type="radio"
-                name="account_type"
-                id="account_type"
-                value="Seller"
-                onChange={(e) => setAccount_type(e.target.value)}
-                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-              />{" "}
-              Seller
-            </label>
+            <div className="container">
+              Select Account Type
+              <div className="p-2">
+                <input
+                  type="radio"
+                  name="account_type"
+                  id="Buyer"
+                  value="Buyer"
+                  onChange={(e) => setAccount_type(e.target.value)}
+                  className="p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                  style={{ marginRight: "10px", width: "20px", height: "20px" }}
+                />
+                <label htmlFor="Buyer" className=" text-lg">Buyer</label>
+              </div>
+              <div className="p-2">
+                <input
+                  type="radio"
+                  name="account_type"
+                  id="Seller"
+                  value="Seller"
+                  onChange={(e) => setAccount_type(e.target.value)}
+                  className="p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+                  style={{ marginRight: "10px", width: "20px", height: "20px" }}
+                />
+                <label htmlFor="Seller" className="text-lg">Seller</label>
+              </div>
+            </div>
             <button
               type="submit"
               className="bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900"
