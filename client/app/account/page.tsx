@@ -137,7 +137,7 @@ const account = () => {
             </div>
             </div>
           </div>
-          <div className="p-2 md:flex md:flex-row md:justify-between">
+          <div className="flex flex-row p-2 md:flex md:flex-row md:justify-between">
             <div className="p-2 md:flex md:justify-center">
               <Link
                 href={"/account/editprofile"}

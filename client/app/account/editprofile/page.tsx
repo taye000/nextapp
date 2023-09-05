@@ -238,7 +238,7 @@ const editprofile = () => {
                 placeholder={user.name ? user.name : "Enter your name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
               />
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -252,7 +252,7 @@ const editprofile = () => {
                 placeholder={user.email ? user.email : "Enter your email"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
               />
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -268,7 +268,7 @@ const editprofile = () => {
                 }
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit md:static md:w-auto rounded-xl md:border md:bg-gray-200 md:p-4 md:dark:bg-zinc-800/30"
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
               />
             </div>
             <div className="flex justify-center">
