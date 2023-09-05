@@ -34,6 +34,46 @@ const account = () => {
     phoneNumber: "",
   });
 
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const [sortAlphabeticalOrder, setSortAlphabeticalOrder] = useState("asc");
+
+  const handleSortAlphabeticalOrder = () => {
+    if (sortAlphabeticalOrder === "asc") {
+      setTransactions(
+        transactions.sort((a, b) => {
+          return a.item.localeCompare(b.item);
+        })
+      );
+      setSortAlphabeticalOrder("desc");
+    } else {
+      setTransactions(
+        transactions.sort((a, b) => {
+          return b.item.localeCompare(a.item);
+        })
+      );
+      setSortAlphabeticalOrder("asc");
+    }
+  }
+
+  const handleSortAmount = () => {
+    if (sortOrder === "asc") {
+      setTransactions(
+        transactions.sort((a, b) => {
+          return a.amount - b.amount;
+        })
+      );
+      setSortOrder("desc");
+    } else {
+      setTransactions(
+        transactions.sort((a, b) => {
+          return b.amount - a.amount;
+        })
+      );
+      setSortOrder("asc");
+    }
+  }
+
   const fetchUserData = async () => {
     try {
       const response = await fetch(`${apiUrl}/users/currentuser`, {
@@ -202,11 +242,11 @@ const account = () => {
           <div className="py-2">
             <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
               <div className="my-3 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between">
-                <span className="font-bold w-1/7">Order ID</span>
-                <span className="font-bold w-1/7">Item Desc</span>
-                <span className="font-bold w-1/7">Seller ID</span>
-                <span className="font-bold w-1/7">Amount</span>
-                <span className="font-bold w-1/7">Mode</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Order ID</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Item Desc</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller ID</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAmount}>Amount</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Mode</span>
                 <span className="font-bold w-1/7">Buyer</span>
                 <span className="font-bold w-1/7">Seller</span>
               </div>
