@@ -13,31 +13,31 @@ import { IUser } from "../../utils/types";
 const editprofile = () => {
   // initialize useRouter
   const router = useRouter();
-  
+
   // get the stored cookie from local storage
   const cookie = getCookie();
-  
-    // function to fetch user data from DB
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/users/currentuser`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Error fetching user data");
-        }
-        const userData = await response.json();
-  
-        // Update user state with fetched data
-        setUser(userData.user);
-      } catch (error) {
-        console.error(error);
+
+  // function to fetch user data from DB
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/users/currentuser`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Error fetching user data");
       }
-    };
+      const userData = await response.json();
+
+      // Update user state with fetched data
+      setUser(userData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // check if user is logged in
   useEffect(() => {
@@ -159,9 +159,6 @@ const editprofile = () => {
 
   return (
     <main className="min-h-screen justify-between mt-5">
-      <div>
-        <h2 className="text-2xl p-4 font-bold text-left">Edit Profile</h2>
-      </div>
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
           <div className="relative p-[5%]">
@@ -195,34 +192,36 @@ const editprofile = () => {
               </label>
             </div>
           </div>
-          <div className="relative">
-            <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
-              <img
-                src={ user.photo || "/avatar.jpg"}
-                alt="profile"
-                className="rounded-full object-cover object-center w-full h-full"
+          <div className="flex">
+            <div className="relative">
+              <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
+                <img
+                  src={user.photo || "/avatar.jpg"}
+                  alt="profile"
+                  className="rounded-full object-cover object-center w-full h-full"
+                />
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                name="photo"
+                className="absolute inset-0 z-20 w-20 h-20 opacity-0 cursor-pointer"
+                onChange={handlePhotoUpload}
               />
             </div>
-            <input
-              type="file"
-              accept="image/*"
-              name="photo"
-              className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
-              onChange={handlePhotoUpload}
-            />
-          </div>
-          <div className="flex flex-col p-2 justify-between md:flex-row">
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlineCheckCircle />
-              <p className="text-2xl px-2 font-bold">{user.name}</p>
-            </div>
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlineMail />
-              <p className="text-lg px-2 font-bold">{user.email}</p>
-            </div>
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlinePhone />
-              <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+            <div className="flex flex-col p-2 justify-between">
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlineCheckCircle />
+                <p className="text-2xl px-2 font-bold">{user.name}</p>
+              </div>
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlineMail />
+                <p className="text-lg px-2 font-bold">{user.email}</p>
+              </div>
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlinePhone />
+                <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+              </div>
             </div>
           </div>
         </div>

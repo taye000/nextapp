@@ -101,9 +101,6 @@ const account = () => {
 
   return (
     <main className="min-h-screen justify-between mt-5">
-      <div>
-        <h2 className="text-2xl p-4 font-bold text-left">Profile</h2>
-      </div>
       <div className="p-2">
         <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
           <div className="relative p-[5%]">
@@ -115,6 +112,7 @@ const account = () => {
               style={{ objectFit: "cover" }}
             />
           </div>
+          <div className="flex">
           <div className="relative">
             <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
               <img
@@ -124,7 +122,7 @@ const account = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col p-2 justify-between md:flex-row">
+          <div className="flex flex-col p-2 justify-between">
             <div className="border rounded-md shadow-md pl-2 flex items-center">
               <AiOutlineCheckCircle />
               <p className="text-2xl px-2 font-bold">{user.name}</p>
@@ -136,6 +134,7 @@ const account = () => {
             <div className="border rounded-md shadow-md pl-2 flex items-center">
               <AiOutlinePhone />
               <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+            </div>
             </div>
           </div>
           <div className="p-2 md:flex md:flex-row md:justify-between">
