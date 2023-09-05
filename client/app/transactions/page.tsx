@@ -105,7 +105,7 @@ const transactionsList = () => {
         </div>
         <div className="py-2">
           <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
-            <div className="my-3 p-2 flex flex-wrap items-center justify-between">
+            <div className="my-3 p-2 items-center justify-between grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7">
               <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Order ID</span>
               <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>
                 Item Desc
@@ -113,8 +113,8 @@ const transactionsList = () => {
               <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller ID</span>
               <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAmount}>Amount</span>
               <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Mode</span>
-              <span className="font-bold w-1/7 px-2">Buyer</span>
-              <span className="font-bold w-1/7 px-2">Seller</span>
+              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Buyer</span>
+              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller</span>
             </div>
 
             {loading ? (
@@ -131,15 +131,15 @@ const transactionsList = () => {
                       key={id}
                       className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7"
                     >
-                      <p className="truncate w-full">{transaction.id}</p>
-                      <p className="font-bold truncate w-full">{transaction.item}</p>
-                      <p className="truncate w-full">{transaction.userId}</p>
-                      <p className="font-bold truncate w-full">
+                      <p className="truncate flex-grow">{transaction.id}</p>
+                      <p className="font-bold truncate flex-grow">{transaction.item}</p>
+                      <p className="truncate flex-grow">{transaction.userId}</p>
+                      <p className="font-bold truncate flex-grow">
                         ${transaction.amount}
                       </p>
-                      <p className="truncate w-full">{transaction.mode}</p>
+                      <p className="truncate flex-grow">{transaction.mode}</p>
 
-                      <p className="sm:text-left font-bold text-right w-full">
+                      <p className="sm:text-left font-bold text-right flex-grow">
                         <span
                           className={
                             transaction.customerStatus === "completed"
@@ -152,7 +152,7 @@ const transactionsList = () => {
                           {transaction.customerStatus}
                         </span>
                       </p>
-                      <p className="sm:text-left font-bold text-right w-full">
+                      <p className="sm:text-left font-bold text-right flex-grow">
                         <span
                           className={
                             transaction.status === "completed"

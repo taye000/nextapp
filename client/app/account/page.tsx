@@ -247,8 +247,8 @@ const account = () => {
                 <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller ID</span>
                 <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAmount}>Amount</span>
                 <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Mode</span>
-                <span className="font-bold w-1/7">Buyer</span>
-                <span className="font-bold w-1/7">Seller</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Buyer</span>
+                <span className="font-bold w-1/7 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller</span>
               </div>
 
               {loading ? (
