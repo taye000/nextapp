@@ -188,7 +188,7 @@ const account = () => {
           </p>
         </div>
       </div>
-      <div className="border rounded-md shadow-md p-6 m-4">
+      <div className="border rounded-md shadow-md p-1 py-4 m-4">
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold text-left">Orders</h2>
           <Link
@@ -199,16 +199,16 @@ const account = () => {
           </Link>
         </div>
         <div>
-          <div className="p-4">
+          <div className="py-2">
             <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
               <div className="my-3 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between">
-                <span className="font-bold">Order ID</span>
-                <span className="font-bold">Item Desc</span>
-                <span className="font-bold">Seller ID</span>
-                <span className="font-bold">Amount</span>
-                <span className="font-bold">Mode</span>
-                <span className="font-bold">Buyer</span>
-                <span className="font-bold">Seller</span>
+                <span className="font-bold w-1/7">Order ID</span>
+                <span className="font-bold w-1/7">Item Desc</span>
+                <span className="font-bold w-1/7">Seller ID</span>
+                <span className="font-bold w-1/7">Amount</span>
+                <span className="font-bold w-1/7">Mode</span>
+                <span className="font-bold w-1/7">Buyer</span>
+                <span className="font-bold w-1/7">Seller</span>
               </div>
 
               {loading ? (
@@ -216,24 +216,24 @@ const account = () => {
                   <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
                 </div>
               ) : (
-                <ul className="flex-nowrap overflow-x-auto">
+                <ul>
                   {transactions.map((transaction, id) => (
                     <Link
                       href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                     >
                       <li
                         key={id}
-                        className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between cursor-pointer"
+                        className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7"
                       >
-                        <p className="truncate">{transaction.id}</p>
-                        <p className="font-bold truncate">{transaction.item}</p>
-                        <p className="truncate">{transaction.userId}</p>
-                        <p className="font-bold truncate">
+                        <p className="truncate w-full">{transaction.id}</p>
+                        <p className="font-bold truncate w-full">{transaction.item}</p>
+                        <p className="truncate w-full">{transaction.userId}</p>
+                        <p className="font-bold truncate w-full">
                           ${transaction.amount}
                         </p>
-                        <p className="truncate">{transaction.mode}</p>
+                        <p className="truncate w-full">{transaction.mode}</p>
 
-                        <p className="sm:text-left font-bold text-right">
+                        <p className="sm:text-left w-full font-bold text-right">
                           <span
                             className={
                               transaction.customerStatus === "completed"
@@ -246,7 +246,7 @@ const account = () => {
                             {transaction.customerStatus}
                           </span>
                         </p>
-                        <p className="sm:text-left font-bold text-right">
+                        <p className="sm:text-left w-full font-bold text-right">
                           <span
                             className={
                               transaction.status === "completed"
