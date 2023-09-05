@@ -64,17 +64,17 @@ const transactionsList = () => {
           <h2 className="text-2xl font-bold text-left">Orders</h2>
         </div>
         <div className="p-4">
-          <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
-            <div className="my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
+          <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
+            <div className="my-3 p-2 grid md:grid-cols-7 sm:grid-cols-7 grid-cols-7 items-center justify-between">
               <span className=" font-bold">Order ID</span>
-              <span className="sm:text-left font-bold text-right">
+              <span className="font-bold">
                 Item Desc
               </span>
-              <span className="hidden font-bold md:grid">Seller ID</span>
-              <span className="sm:text-left font-bold text-right">Amount</span>
-              <span className="hidden font-bold md:grid">Mode</span>
-              <span className="sm:text-left font-bold text-right">Buyer</span>
-              <span className="hidden font-bold md:grid">Seller</span>
+              <span className="font-bold">Seller ID</span>
+              <span className="font-bold">Amount</span>
+              <span className="font-bold">Mode</span>
+              <span className="font-bold">Buyer</span>
+              <span className="font-bold">Seller</span>
             </div>
 
             {loading ? (
@@ -82,14 +82,14 @@ const transactionsList = () => {
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
               </div>
             ) : (
-              <ul>
+              <ul className="flex-nowrap overflow-x-auto">
                 {transactions.map((transaction, id) => (
                   <Link
                     href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                   >
                     <li
                       key={id}
-                      className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                      className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between cursor-pointer"
                     >
                       <p className="truncate">{transaction.id}</p>
                       <p className="font-bold truncate">{transaction.item}</p>

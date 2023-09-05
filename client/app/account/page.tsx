@@ -21,7 +21,6 @@ const account = () => {
   //access api url
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  
   const [loading, setLoading] = useState(false);
 
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
@@ -60,7 +59,7 @@ const account = () => {
     try {
       //set loading to true before loading
       setLoading(true);
-      
+
       const response = await fetch(
         `${apiUrl}/transactions/get-user-transactions`,
         {
@@ -83,7 +82,7 @@ const account = () => {
       console.error(error);
     }
   };
-  
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {
@@ -113,28 +112,28 @@ const account = () => {
             />
           </div>
           <div className="flex">
-          <div className="relative">
-            <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
-              <img
-                src={user.photo || "/avatar.jpg"}
-                alt="profile"
-                className="rounded-full object-cover object-center w-full h-full"
-              />
+            <div className="relative">
+              <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
+                <img
+                  src={user.photo || "/avatar.jpg"}
+                  alt="profile"
+                  className="rounded-full object-cover object-center w-full h-full"
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col p-2 justify-between">
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlineCheckCircle />
-              <p className="text-2xl px-2 font-bold">{user.name}</p>
-            </div>
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlineMail />
-              <p className="text-lg px-2 font-bold">{user.email}</p>
-            </div>
-            <div className="border rounded-md shadow-md pl-2 flex items-center">
-              <AiOutlinePhone />
-              <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
-            </div>
+            <div className="flex flex-col p-2 justify-between">
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlineCheckCircle />
+                <p className="text-2xl px-2 font-bold">{user.name}</p>
+              </div>
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlineMail />
+                <p className="text-lg px-2 font-bold">{user.email}</p>
+              </div>
+              <div className="border rounded-md shadow-md pl-2 flex items-center">
+                <AiOutlinePhone />
+                <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+              </div>
             </div>
           </div>
           <div className="flex flex-row p-2 md:flex md:flex-row md:justify-between">
@@ -199,25 +198,17 @@ const account = () => {
             See more
           </Link>
         </div>
-        <div className="border rounded-md shadow-md p-6 m-4">
-          <div>
-            <h2 className="text-2xl font-bold text-left">Orders</h2>
-          </div>
+        <div>
           <div className="p-4">
-            <div className="w-full m-auto p-4 border rounded-md overflow-y-auto">
-              <div className="my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid-cols-3 items-center justify-between cursor-pointer">
-                <span className=" font-bold">Order ID</span>
-                <span className="sm:text-left font-bold text-right">
-                  Item Desc
-                </span>
-                <span className="hidden font-bold md:grid">Seller ID</span>
-                <span className="sm:text-left font-bold text-right">
-                  Amount
-                </span>
-                <span className="hidden font-bold md:grid">Mode</span>
-                <span className="sm:text-left font-bold text-right">Buyer</span>
-
-                <span className="hidden font-bold md:grid">Seller</span>
+            <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
+              <div className="my-3 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between">
+                <span className="font-bold">Order ID</span>
+                <span className="font-bold">Item Desc</span>
+                <span className="font-bold">Seller ID</span>
+                <span className="font-bold">Amount</span>
+                <span className="font-bold">Mode</span>
+                <span className="font-bold">Buyer</span>
+                <span className="font-bold">Seller</span>
               </div>
 
               {loading ? (
@@ -225,14 +216,14 @@ const account = () => {
                   <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
                 </div>
               ) : (
-                <ul>
+                <ul className="flex-nowrap overflow-x-auto">
                   {transactions.map((transaction, id) => (
                     <Link
                       href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                     >
                       <li
                         key={id}
-                        className="hover:bg-gray-200 rounded-md my-3 p-2 grid md:grid-cols-7 sm:grid-cols-4 grid:cols-3 items-center justify-between cursor-pointer"
+                        className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between cursor-pointer"
                       >
                         <p className="truncate">{transaction.id}</p>
                         <p className="font-bold truncate">{transaction.item}</p>
