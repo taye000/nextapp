@@ -46,6 +46,60 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "allTransactions",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "clientId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "customerStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "item",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "mode",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
                 "name": "_clientId",
                 "type": "string"
@@ -89,6 +143,115 @@
         "name": "createTransaction",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAllTransactions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "clientId",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "userId",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "orderId",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "customerStatus",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "item",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "mode",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct escrow.Transaction[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            }
+        ],
+        "name": "getTransactionByOrderId",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "clientId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "customerStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "item",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "mode",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
