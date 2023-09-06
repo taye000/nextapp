@@ -1,0 +1,217 @@
+[
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "newStatus",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "newCustomerStatus",
+                "type": "string"
+            }
+        ],
+        "name": "TransactionUpdated",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_clientId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_userId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_customerStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_item",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_mode",
+                "type": "string"
+            }
+        ],
+        "name": "createTransaction",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "transactionCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "transactions",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "clientId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "customerStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "item",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "mode",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_newStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_newCustomerStatus",
+                "type": "string"
+            }
+        ],
+        "name": "updateTransactionStatus",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
