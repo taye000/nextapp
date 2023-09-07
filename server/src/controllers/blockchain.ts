@@ -1,21 +1,27 @@
-import { Contract, JsonRpcProvider, Wallet } from "ethers";
+import { Contract, JsonRpcProvider, Wallet, getAddress } from "ethers";
 import imaniescrowABI from "../../abi/imaniescrowABI.json";
 import { config } from "../config/config";
 
 // connect to the blockchain using a provider
-export const provider = new JsonRpcProvider(config.alchemyRPC);
+const provider = new JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/C03hF-P4h8wmJHdUh6CjRI0QLB_UKr5w");
+
+console.log("provider", provider);
+
 
 // create a contract instance using the ABI and the contract address
-export const imaniEscrowContract = new Contract(
+const imaniEscrowContract = new Contract(
   config.imaniEscrowAddress,
   imaniescrowABI,
   provider
-);
-
+  );
+  
 // create a signer instance using the private key
-export const signer = new Wallet(config.privateKey, provider).connect(provider);
+const signer = new Wallet(config.privateKey, provider).connect(provider);
 
-export const createTransaction = async (
+console.log("signer", signer);
+
+
+export const newTransaction = async (
   orderId: string,
   clientId: string,
   userId: string,
@@ -26,7 +32,7 @@ export const createTransaction = async (
   customerStatus: string
 ) => {
   try {
-    // const nonce = await provider.getTransactionCount(signer.address, "latest");
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
 
     const transaction = await imaniEscrowContract.createTransaction(
       orderId,
@@ -39,8 +45,14 @@ export const createTransaction = async (
       customerStatus,
     );
 
+    console.log("transaction", transaction);
+    
+
     // sign the transaction
     const signedTransaction: any = await signer.signTransaction(transaction);
+
+    console.log("signed transaction", signedTransaction);
+    
 
     // populate the transaction
     const populatedTransaction = await signer.populateTransaction(signedTransaction);

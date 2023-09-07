@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import Transaction, { ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
+import { newTransaction, getAllTransactions } from "./blockchain";
 
-const orderId = () => {
+const orderID = () => {
   return Math.random().toString(35).substring(2, 7);
 };
 
@@ -25,10 +26,12 @@ export const createTransactionController = async (
     return res.status(400).json({ item: "item is required" });
   }
 
+  let orderId = orderID();
+
   // create the transactions here
   try {
     let transaction = await Transaction.create({
-      orderId: orderId(),
+      orderId,
       mode,
       amount,
       clientId,
@@ -37,6 +40,10 @@ export const createTransactionController = async (
       status: ITransactionStatus.PENDING,
       customerStatus: ITransactionStatus.PENDING,
     });
+    
+    // write to blockchain
+    newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
+
     return res.status(201).json({
       status: true,
       transaction,
@@ -52,7 +59,7 @@ export const createTransactionController = async (
 //controller to get all transactions
 export const getTransactions = async (_req: Request, res: Response) => {
   try {
-    const transactions = await Transaction.find();
+    const transactions = await getAllTransactions();
     res.status(200).json({ transactions });
   } catch (error: any) {
     res.status(404).json({ msg: error.message });
@@ -73,7 +80,6 @@ export const getTransaction = async (id: any) => {
 // controller to get transactions of signed-in user
 export const getUserTransactions = async (req: Request, res: Response) => {
   const userId = req.currentUser?.id;
-
   try {
     const transactions = await Transaction.find({
       $or: [{ userId }, { clientId: userId }],
