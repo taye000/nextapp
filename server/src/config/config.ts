@@ -7,4 +7,6 @@ export const config = {
   PORT: process.env.PORT!,
   JWT_SECRET: process.env.JWT_SECRET!,
   JWT_SECRET_EXPIRY: 360000, //expires in 1 hour
+  alchemyRPC: process.env.ALCHEMY_RPC!,
+  imaniEscrowAddress: process.env.IMANI_ESCROW_ADDRESS!,
 };

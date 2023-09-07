@@ -7,6 +7,7 @@
     "esModuleInterop": true,
     "outDir": "build",
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
 
     "strict": true,
 
