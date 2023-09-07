@@ -15,8 +15,6 @@ export const createTransactionController = async (
 
   const user = await User.findById(req.currentUser!.id);
 
-  let phone = user?.phoneNumber;
-
   if (!user) {
     return res.status(401).json({ msg: "Unauthorised access." });
   }
@@ -37,6 +35,7 @@ export const createTransactionController = async (
       userId: req.currentUser!.id,
       item,
       status: ITransactionStatus.PENDING,
+      customerStatus: ITransactionStatus.PENDING,
     });
     return res.status(201).json({
       status: true,
