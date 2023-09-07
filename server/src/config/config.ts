@@ -9,4 +9,5 @@ export const config = {
   JWT_SECRET_EXPIRY: 360000, //expires in 1 hour
   alchemyRPC: process.env.ALCHEMY_RPC!,
   imaniEscrowAddress: process.env.IMANI_ESCROW_ADDRESS!,
+  privateKey: process.env.PRIVATE_KEY!,
 };

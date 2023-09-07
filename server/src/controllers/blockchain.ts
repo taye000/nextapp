@@ -1,16 +1,19 @@
-import { ethers } from "ethers";
+import { Contract, JsonRpcProvider, Wallet } from "ethers";
 import imaniescrowABI from "../../abi/imaniescrowABI.json";
 import { config } from "../config/config";
 
 // connect to the blockchain using a provider
-export const provider = new ethers.JsonRpcProvider(config.alchemyRPC);
+export const provider = new JsonRpcProvider(config.alchemyRPC);
 
 // create a contract instance using the ABI and the contract address
-export const imaniEscrowContract = new ethers.Contract(
+export const imaniEscrowContract = new Contract(
   config.imaniEscrowAddress,
   imaniescrowABI,
   provider
 );
+
+// create a signer instance using the private key
+export const signer = new Wallet(config.privateKey, provider).connect(provider);
 
 export const createTransaction = async (
   orderId: string,
@@ -23,6 +26,8 @@ export const createTransaction = async (
   customerStatus: string
 ) => {
   try {
+    // const nonce = await provider.getTransactionCount(signer.address, "latest");
+
     const transaction = await imaniEscrowContract.createTransaction(
       orderId,
       clientId,
@@ -31,9 +36,21 @@ export const createTransaction = async (
       item,
       mode,
       status,
-      customerStatus
+      customerStatus,
     );
-    console.log("transaction", transaction);
+
+    // sign the transaction
+    const signedTransaction: any = await signer.signTransaction(transaction);
+
+    // populate the transaction
+    const populatedTransaction = await signer.populateTransaction(signedTransaction);
+
+    // send the signed transaction to the blockchain
+    const transactionResponse = await signer.sendTransaction(
+      populatedTransaction
+    );
+
+    console.log("transaction hash", transactionResponse.hash);
     return transaction;
   } catch (error) {
     console.log("error creating tx", error);
@@ -50,7 +67,10 @@ export const updateStatus = async (orderId: string, status: string) => {
   }
 };
 
-export const updateCustomerStatus = async (orderId: string, customerStatus: string) => {
+export const updateCustomerStatus = async (
+  orderId: string,
+  customerStatus: string
+) => {
   try {
     const transaction = await imaniEscrowContract.updateCustomerStatus(
       orderId,
