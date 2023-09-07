@@ -40,6 +40,29 @@ export const createTransaction = async (
   }
 };
 
+export const updateStatus = async (orderId: string, status: string) => {
+  try {
+    const transaction = await imaniEscrowContract.updateStatus(orderId, status);
+    console.log("transaction", transaction);
+    return transaction;
+  } catch (error) {
+    console.log("error updating tx", error);
+  }
+};
+
+export const updateCustomerStatus = async (orderId: string, customerStatus: string) => {
+  try {
+    const transaction = await imaniEscrowContract.updateCustomerStatus(
+      orderId,
+      customerStatus
+    );
+    console.log("transaction", transaction);
+    return transaction;
+  } catch (error) {
+    console.log("error updating tx", error);
+  }
+};
+
 export const getTransactionByOrderId = async (orderId: string) => {
   try {
     const transaction = await imaniEscrowContract.getTransactionByOrderId(
