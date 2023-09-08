@@ -138,7 +138,7 @@ const getTransactions = async (_req, res) => {
         res.status(200).json({ transactions });
     }
     catch (error) {
-        res.status(404).json({ msg: error.message });
+        return res.status(404).json({ msg: error.message });
     }
 };
 exports.getTransactions = getTransactions;
@@ -162,7 +162,7 @@ const getUserTransactions = async (req, res) => {
         res.status(200).json({ transactions });
     }
     catch (error) {
-        res.status(404).json({ msg: error.message });
+        return res.status(404).json({ msg: error.message });
     }
 };
 exports.getUserTransactions = getUserTransactions;
@@ -194,7 +194,7 @@ const updateTransactionAssigned = async (req, res) => {
         // Get the transaction id from the request body
         const transaction = await transactions_1.default.findById(req.params.id);
         if (!transaction) {
-            res.status(404).json({ msg: "transaction not found" });
+            return res.status(404).json({ msg: "transaction not found" });
         }
         let assigned = user;
         await transactions_1.default.findByIdAndUpdate(req.params.id, {
@@ -220,7 +220,7 @@ const updateTransactionStatus = async (req, res) => {
         // get the transaction id from the request body
         const transaction = await transactions_1.default.findById(req.params.id);
         if (!transaction) {
-            res.status(404).json({ msg: "transaction not found" });
+            return res.status(404).json({ msg: "transaction not found" });
         }
         const status = transactions_1.ITransactionStatus.SUCCESS;
         await transactions_1.default.findByIdAndUpdate(req.params.id, {
@@ -246,7 +246,7 @@ const updateTransactionTxHash = async (req, res) => {
         // get the transaction id from the request body
         const transaction = await transactions_1.default.findById(req.params.id);
         if (!transaction) {
-            res.status(404).json({ msg: "transaction not found" });
+            return res.status(404).json({ msg: "transaction not found" });
         }
         await transactions_1.default.findByIdAndUpdate(req.params.id, {
             txHash,

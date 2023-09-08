@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Transaction, { ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
-import { newTransaction, getAllTransactions } from "./blockchain";
+import { newTransaction, getAllTransactions, updateStatus } from "./blockchain";
 
 const orderID = () => {
   return Math.random().toString(35).substring(2, 7);
@@ -56,13 +56,13 @@ export const createTransactionController = async (
   }
 };
 
-//controller to get all transactions
+//controller to get all transactions from the blockchain
 export const getTransactions = async (_req: Request, res: Response) => {
   try {
     const transactions = await getAllTransactions();
     res.status(200).json({ transactions });
   } catch (error: any) {
-    res.status(404).json({ msg: error.message });
+    return res.status(404).json({ msg: error.message });
   }
 };
 
@@ -86,7 +86,7 @@ export const getUserTransactions = async (req: Request, res: Response) => {
     }); // Retrieve transactions that match either the user ID or the client ID
     res.status(200).json({ transactions });
   } catch (error: any) {
-    res.status(404).json({ msg: error.message });
+    return res.status(404).json({ msg: error.message });
   }
 };
 
@@ -119,7 +119,7 @@ export const updateTransactionAssigned = async (
     // Get the transaction id from the request body
     const transaction = await Transaction.findById(req.params.id);
     if (!transaction) {
-      res.status(404).json({ msg: "transaction not found" });
+      return res.status(404).json({ msg: "transaction not found" });
     }
 
     let assigned = user;
@@ -144,7 +144,7 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
     const transaction = await Transaction.findById(req.params.id);
 
     if (!transaction) {
-      res.status(404).json({ msg: "transaction not found" });
+      return res.status(404).json({ msg: "transaction not found" });
     }
 
     const status = ITransactionStatus.COMPLETED;
@@ -152,6 +152,12 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
     await Transaction.findByIdAndUpdate(req.params.id, {
       status: status,
     });
+
+    // update the transaction status on the blockchain
+    if (transaction?.orderId){
+      updateStatus(transaction.orderId, status)
+    }
+
     res
       .status(200)
       .json({ success: true, msg: "Transaction updated successfully" });
@@ -166,7 +172,7 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
     const transaction = await Transaction.findById(req.params.id);
 
     if (!transaction) {
-      res.status(404).json({ msg: "transaction not found" });
+      return res.status(404).json({ msg: "transaction not found" });
     }
 
     const customerStatus = ITransactionStatus.COMPLETED;
@@ -174,6 +180,12 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
     await Transaction.findByIdAndUpdate(req.params.id, {
       customerStatus: customerStatus,
     });
+
+    // update the transaction status on the blockchain
+    if (transaction?.orderId){
+      updateStatus(transaction.orderId, customerStatus)
+    }
+
     res
       .status(200)
       .json({ success: true, msg: "Transaction updated successfully" });
@@ -211,7 +223,7 @@ export const appealTransaction =async (req:Request, res:Response) => {
     const transaction = await Transaction.findById(req.params.id);
 
     if (!transaction) {
-      res.status(404).json({ msg: "transaction not found" });
+      return res.status(404).json({ msg: "transaction not found" });
     }
 
     const appeal = "true";
