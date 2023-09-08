@@ -5,9 +5,6 @@ import { config } from "../config/config";
 // connect to the blockchain using a provider
 const provider = new JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/C03hF-P4h8wmJHdUh6CjRI0QLB_UKr5w");
 
-console.log("provider", provider);
-
-
 // create a contract instance using the ABI and the contract address
 const imaniEscrowContract = new Contract(
   config.imaniEscrowAddress,
@@ -17,9 +14,6 @@ const imaniEscrowContract = new Contract(
   
 // create a signer instance using the private key
 const signer = new Wallet(config.privateKey, provider).connect(provider);
-
-console.log("signer", signer);
-
 
 export const newTransaction = async (
   orderId: string,
@@ -32,7 +26,7 @@ export const newTransaction = async (
   customerStatus: string
 ) => {
   try {
-    const nonce = await provider.getTransactionCount(signer.address, "latest");
+    // const nonce = await provider.getTransactionCount(signer.address, "latest");
 
     const transaction = await imaniEscrowContract.createTransaction(
       orderId,
