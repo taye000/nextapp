@@ -9,6 +9,7 @@ import {
   appealTransaction,
   updateComment,
   updateCustomerTransactionStatus,
+  appealCustomerTransaction,
 } from "../../controllers/transaction";
 
 const router = Router();
@@ -25,6 +26,13 @@ router.post(
   validateRequest,
   validateToken,
   appealTransaction
+);
+
+router.post(
+  "/appeal-customer-transaction/:id",
+  validateRequest,
+  validateToken,
+  appealCustomerTransaction
 );
 
 router.post(

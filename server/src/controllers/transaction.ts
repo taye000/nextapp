@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Transaction, { ITransactionStatus } from "../models/transactions";
+import Transaction, { IAppealStatus, ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
 import { newTransaction, getAllTransactions, updateStatus, updateCustomerStatus } from "./blockchain";
 
@@ -202,6 +202,18 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
 export const updateComment = async (req: Request, res: Response) => {
   const { comment } = req.body;
   try {
+    // get the transaction id from the request body
+    const transaction = await Transaction.findById(req.params.id);
+
+    if (!transaction) {
+      return res.status(404).json({ msg: "transaction not found" });
+    }
+
+    // update the comment to the blockchain
+    if (transaction?.orderId){
+      await updateComment(transaction.orderId, comment)
+    }
+
     // get the transaction id from the request body and update
     const updatedtransaction = await Transaction.findByIdAndUpdate(
       req.params.id,
@@ -212,7 +224,7 @@ export const updateComment = async (req: Request, res: Response) => {
     );
     return res.status(200).json({
       success: true,
-      msg: "Transaction updated successfully",
+      msg: "Comment updated successfully",
       response: updatedtransaction,
     });
   } catch (error: any) {
@@ -230,10 +242,33 @@ export const appealTransaction =async (req:Request, res:Response) => {
       return res.status(404).json({ msg: "transaction not found" });
     }
 
-    const appeal = "true";
+    const appeal = IAppealStatus.PENDING;
 
     await Transaction.findByIdAndUpdate(req.params.id, {
       appeal: appeal,
+    });
+    res
+      .status(200)
+      .json({ success: true, msg: "Transaction updated successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "Error updating transaction", error });
+  }
+}
+
+// controller to appeal a customer's transaction
+export const appealCustomerTransaction =async (req:Request, res:Response) => {
+  try {
+    // get the transaction id from the request body
+    const transaction = await Transaction.findById(req.params.id);
+
+    if (!transaction) {
+      return res.status(404).json({ msg: "transaction not found" });
+    }
+
+    const customerAppeal = IAppealStatus.PENDING;
+
+    await Transaction.findByIdAndUpdate(req.params.id, {
+      customerAppeal: customerAppeal,
     });
     res
       .status(200)

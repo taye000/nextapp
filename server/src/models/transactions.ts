@@ -6,6 +6,11 @@ export enum ITransactionStatus {
   COMPLETED = "completed",
   APPEALED = "appealed",
 }
+export enum IAppealStatus {
+  PENDING = "pending",
+  RESOLVED = "resolved",
+  UNDER_REVIEW = "under review",
+}
 //an interface that describes attributes the model should have
 interface TransactionModel extends Model<ITransaction> {
   build(attrs: ITransaction): ITransaction;

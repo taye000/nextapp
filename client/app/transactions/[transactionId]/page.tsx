@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getCookie } from "../../utils/tokenUtils";
-import { ITransaction, IUser } from "../../utils/types";
+import { IAppealStatus, ITransaction, IUser } from "../../utils/types";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -150,7 +150,7 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ appeal: "true" }),
+          body: JSON.stringify({ appeal: IAppealStatus.PENDING }),
         }
       );
       if (!response.ok) {
@@ -178,7 +178,7 @@ const transactionDetail = () => {
             Authorization: `Bearer ${cookie}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ customerAppeal: "true" }),
+          body: JSON.stringify({ customerAppeal: IAppealStatus.PENDING }),
         }
       );
       if (!response.ok) {

@@ -3,6 +3,25 @@
         "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "newCustomerStatus",
+                "type": "string"
+            }
+        ],
+        "name": "CustomerStatusUpdated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "previousOwner",
@@ -32,69 +51,46 @@
                 "internalType": "string",
                 "name": "newStatus",
                 "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "newCustomerStatus",
-                "type": "string"
             }
         ],
-        "name": "TransactionUpdated",
+        "name": "StatusUpdated",
         "type": "event"
     },
     {
+        "anonymous": false,
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "allTransactions",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "clientId",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "userId",
-                "type": "string"
-            },
-            {
+                "indexed": false,
                 "internalType": "string",
                 "name": "orderId",
                 "type": "string"
             },
             {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
+                "indexed": false,
                 "internalType": "string",
-                "name": "status",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "customerStatus",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "item",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "mode",
+                "name": "appealStatus",
                 "type": "string"
             }
         ],
-        "stateMutability": "view",
+        "name": "appealStatus",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_appeal",
+                "type": "string"
+            }
+        ],
+        "name": "appeal",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -115,9 +111,9 @@
                 "type": "string"
             },
             {
-                "internalType": "uint256",
+                "internalType": "string",
                 "name": "_amount",
-                "type": "uint256"
+                "type": "string"
             },
             {
                 "internalType": "string",
@@ -146,55 +142,37 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getAllTransactions",
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_customerAppeal",
+                "type": "string"
+            }
+        ],
+        "name": "customerAppeal",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_userId",
+                "type": "string"
+            }
+        ],
+        "name": "getAllTransactionsByUserId",
         "outputs": [
             {
-                "components": [
-                    {
-                        "internalType": "string",
-                        "name": "clientId",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "userId",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "orderId",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "amount",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "status",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "customerStatus",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "item",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "mode",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct escrow.Transaction[]",
+                "internalType": "string[]",
                 "name": "",
-                "type": "tuple[]"
+                "type": "string[]"
             }
         ],
         "stateMutability": "view",
@@ -226,9 +204,68 @@
                 "type": "string"
             },
             {
-                "internalType": "uint256",
+                "internalType": "string",
                 "name": "amount",
-                "type": "uint256"
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "customerStatus",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "item",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "mode",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_userId",
+                "type": "string"
+            }
+        ],
+        "name": "getTransactionByOrderIdAndUserId",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "clientId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "userId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "orderId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "amount",
+                "type": "string"
             },
             {
                 "internalType": "string",
@@ -313,13 +350,23 @@
                 "type": "string"
             },
             {
-                "internalType": "uint256",
+                "internalType": "string",
                 "name": "amount",
-                "type": "uint256"
+                "type": "string"
             },
             {
                 "internalType": "string",
                 "name": "status",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "appeal",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "customerAppeal",
                 "type": "string"
             },
             {
@@ -363,12 +410,25 @@
             },
             {
                 "internalType": "string",
-                "name": "_newStatus",
+                "name": "_newCustomerStatus",
+                "type": "string"
+            }
+        ],
+        "name": "updateCustomerStatus",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_orderId",
                 "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "_newCustomerStatus",
+                "name": "_newStatus",
                 "type": "string"
             }
         ],

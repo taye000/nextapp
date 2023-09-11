@@ -27,3 +27,8 @@ export interface IUser {
     is_changed: boolean;
   };
 }
+export enum IAppealStatus {
+  PENDING = "pending",
+  RESOLVED = "resolved",
+  UNDER_REVIEW = "under review",
+}

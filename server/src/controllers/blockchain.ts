@@ -1,4 +1,4 @@
-import { Contract, JsonRpcProvider, Wallet, getAddress } from "ethers";
+import { Contract, JsonRpcProvider, Wallet } from "ethers";
 import imaniescrowABI from "../../abi/imaniescrowABI.json";
 import { config } from "../config/config";
 
@@ -86,6 +86,54 @@ export const updateCustomerStatus = async (
     return transaction;
   } catch (error) {
     console.log("error updating tx", error);
+  }
+};
+
+export const updateComment = async (
+  orderId: string,
+  comment: string
+) => {
+  try {
+    const transaction = await imaniEscrowContract.updateComment(
+      orderId,
+      comment
+    );
+    console.log("transaction", transaction);
+    return transaction;
+  } catch (error) {
+    console.log("error updating comment", error);
+  }
+};
+
+export const appealTransaction = async (
+  orderId: string,
+  appeal: string
+) => {
+  try {
+    const transaction = await imaniEscrowContract.appealTransaction(
+      orderId,
+      appeal
+    );
+    console.log("transaction", transaction);
+    return transaction;
+  } catch (error) {
+    console.log("error updating appeal status", error);
+  }
+};
+
+export const appealCustomerTransaction = async (
+  orderId: string,
+  customerAppeal: string
+) => {
+  try {
+    const transaction = await imaniEscrowContract.appealCustomerTransaction(
+      orderId,
+      customerAppeal
+    );
+    console.log("transaction", transaction);
+    return transaction;
+  } catch (error) {
+    console.log("error updating appeal status", error);
   }
 };
 
