@@ -30,6 +30,11 @@ export const createTransactionController = async (
 
   // create the transactions here
   try {
+
+    // write to blockchain
+    await newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
+
+    // write to database
     let transaction = await Transaction.create({
       orderId,
       mode,
@@ -40,9 +45,6 @@ export const createTransactionController = async (
       status: ITransactionStatus.PENDING,
       customerStatus: ITransactionStatus.PENDING,
     });
-    
-    // write to blockchain
-    newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
 
     return res.status(201).json({
       status: true,
