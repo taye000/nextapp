@@ -199,7 +199,7 @@ const transactionDetail = () => {
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        `${apiUrl}/transactions/update-transaction/${transactionId}`,
+        `${apiUrl}/transactions/update-comment/${transactionId}`,
         {
           method: "POST",
           headers: {

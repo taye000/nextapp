@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Transaction, { ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
-import { newTransaction, getAllTransactions, updateStatus } from "./blockchain";
+import { newTransaction, getAllTransactions, updateStatus, updateCustomerStatus } from "./blockchain";
 
 const orderID = () => {
   return Math.random().toString(35).substring(2, 7);
@@ -151,14 +151,15 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
 
     const status = ITransactionStatus.COMPLETED;
 
+    // update the transaction status on the blockchain
+    if (transaction?.orderId){
+      await updateStatus(transaction.orderId, status)
+    }
+
+    // update the transaction status on the database
     await Transaction.findByIdAndUpdate(req.params.id, {
       status: status,
     });
-
-    // update the transaction status on the blockchain
-    if (transaction?.orderId){
-      updateStatus(transaction.orderId, status)
-    }
 
     res
       .status(200)
@@ -179,14 +180,15 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
 
     const customerStatus = ITransactionStatus.COMPLETED;
 
+    // update the transaction status on the blockchain
+    if (transaction?.orderId){
+      await updateCustomerStatus(transaction.orderId, customerStatus)
+    }
+
+    // update the transaction status on the database
     await Transaction.findByIdAndUpdate(req.params.id, {
       customerStatus: customerStatus,
     });
-
-    // update the transaction status on the blockchain
-    if (transaction?.orderId){
-      updateStatus(transaction.orderId, customerStatus)
-    }
 
     res
       .status(200)
@@ -197,7 +199,7 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
 };
 
 //controller to update a transaction
-export const updateTransaction = async (req: Request, res: Response) => {
+export const updateComment = async (req: Request, res: Response) => {
   const { comment } = req.body;
   try {
     // get the transaction id from the request body and update
@@ -214,7 +216,7 @@ export const updateTransaction = async (req: Request, res: Response) => {
       response: updatedtransaction,
     });
   } catch (error: any) {
-    return res.status(500).json({ msg: "error updating transaction", error });
+    return res.status(500).json({ msg: "error updating comment", error });
   }
 };
 

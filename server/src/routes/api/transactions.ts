@@ -7,17 +7,17 @@ import {
   getTransactions,
   updateTransactionStatus,
   appealTransaction,
-  updateTransaction,
+  updateComment,
   updateCustomerTransactionStatus,
 } from "../../controllers/transaction";
 
 const router = Router();
 
 router.post(
-  "/update-transaction/:id",
+  "/update-comment/:id",
   validateRequest,
   validateToken,
-  updateTransaction
+  updateComment
 );
 
 router.post(
