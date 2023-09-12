@@ -7,7 +7,7 @@ import {
   getTransactions,
   updateTransactionStatus,
   appealTransaction,
-  updateComment,
+  createComment,
   updateCustomerTransactionStatus,
   appealCustomerTransaction,
 } from "../../controllers/transaction";
@@ -18,7 +18,7 @@ router.post(
   "/update-comment/:id",
   validateRequest,
   validateToken,
-  updateComment
+  createComment
 );
 
 router.post(
