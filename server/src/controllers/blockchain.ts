@@ -3,13 +3,13 @@ import imaniescrowABI from "../../abi/imaniescrowABI.json";
 import { config } from "../config/config";
 
 // connect to the blockchain using a provider
-const provider = new JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/C03hF-P4h8wmJHdUh6CjRI0QLB_UKr5w");
+export const provider = new JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/C03hF-P4h8wmJHdUh6CjRI0QLB_UKr5w");
 
 // create a signer instance using the private key
-const signer = new Wallet(config.privateKey, provider).connect(provider);
+export const signer = new Wallet(config.privateKey, provider).connect(provider);
 
 // create a contract instance using the ABI and the contract address
-const imaniEscrowContract = new Contract(
+export const imaniEscrowContract = new Contract(
   config.imaniEscrowAddress,
   imaniescrowABI,
   signer

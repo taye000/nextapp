@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Transaction, { IAppealStatus, ITransactionStatus } from "../models/transactions";
 import User from "../models/users";
-import { newTransaction, getAllTransactions, updateStatus, updateCustomerStatus } from "./blockchain";
+import { newTransaction, getAllTransactions, updateComment, updateStatus, updateCustomerStatus } from "./blockchain";
 
 const orderID = () => {
   return Math.random().toString(35).substring(2, 7);
@@ -199,7 +199,7 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
 };
 
 //controller to update a transaction
-export const updateComment = async (req: Request, res: Response) => {
+export const createComment = async (req: Request, res: Response) => {
   const { comment } = req.body;
   try {
     // get the transaction id from the request body
