@@ -44,14 +44,8 @@ export const newTransaction = async (
 
     );
 
-    console.log("transaction", transaction);
-    
-
     // sign the transaction
     const signedTransaction: any = await signer.signTransaction(transaction);
-
-    console.log("signed transaction", signedTransaction);
-    
 
     // populate the transaction
     const populatedTransaction = await signer.populateTransaction(signedTransaction);
@@ -65,16 +59,24 @@ export const newTransaction = async (
     return transaction;
   } catch (error) {
     console.log("error creating tx", error);
+    throw error;
   }
 };
 
 export const updateStatus = async (orderId: string, status: string) => {
   try {
-    const transaction = await imaniEscrowContract.updateStatus(orderId, status);
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
+
+    const transaction = await imaniEscrowContract.updateStatus(orderId, status,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      });
     console.log("transaction", transaction);
     return transaction;
   } catch (error) {
     console.log("error updating tx", error);
+    throw error;
   }
 };
 
@@ -83,14 +85,20 @@ export const updateCustomerStatus = async (
   customerStatus: string
 ) => {
   try {
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
+
     const transaction = await imaniEscrowContract.updateCustomerStatus(
       orderId,
-      customerStatus
-    );
+      customerStatus,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      });
     console.log("transaction", transaction);
     return transaction;
   } catch (error) {
     console.log("error updating tx", error);
+    throw error;
   }
 };
 
@@ -99,14 +107,20 @@ export const updateComment = async (
   comment: string
 ) => {
   try {
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
+
     const transaction = await imaniEscrowContract.updateComment(
       orderId,
-      comment
-    );
+      comment,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      });
     console.log("transaction", transaction);
     return transaction;
   } catch (error) {
     console.log("error updating comment", error);
+    throw error;
   }
 };
 
@@ -115,14 +129,21 @@ export const appealTransaction = async (
   appeal: string
 ) => {
   try {
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
+
     const transaction = await imaniEscrowContract.appealTransaction(
       orderId,
-      appeal
+      appeal,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      }
     );
     console.log("transaction", transaction);
     return transaction;
   } catch (error) {
     console.log("error updating appeal status", error);
+    throw error;
   }
 };
 
@@ -131,14 +152,21 @@ export const appealCustomerTransaction = async (
   customerAppeal: string
 ) => {
   try {
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
+
     const transaction = await imaniEscrowContract.appealCustomerTransaction(
       orderId,
-      customerAppeal
+      customerAppeal,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      }
     );
     console.log("transaction", transaction);
     return transaction;
   } catch (error) {
     console.log("error updating appeal status", error);
+    throw error;
   }
 };
 
@@ -151,6 +179,7 @@ export const getTransactionByOrderId = async (orderId: string) => {
     return transaction;
   } catch (error) {
     console.log("error getting tx by orderId", error);
+    throw error;
   }
 };
 
@@ -161,5 +190,6 @@ export const getAllTransactions = async () => {
     return transactions;
   } catch (error) {
     console.log("error getting all tx", error);
+    throw error;
   }
 };
