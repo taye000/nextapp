@@ -26,7 +26,7 @@ export const newTransaction = async (
   customerStatus: string
 ) => {
   try {
-    // const nonce = await provider.getTransactionCount(signer.address, "latest");
+    const nonce = await provider.getTransactionCount(signer.address, "latest");
 
     const transaction = await imaniEscrowContract.createTransaction(
       orderId,
@@ -37,6 +37,11 @@ export const newTransaction = async (
       mode,
       status,
       customerStatus,
+      {
+        nonce: nonce,
+        gasLimit: 3000000,
+      }
+
     );
 
     console.log("transaction", transaction);
