@@ -91,13 +91,14 @@ const Footer = () => {
                 <div className="flex space-x-3">
                   <input
                     required
-                    type="text"
-                    className="flex-1 px-4 rounded-full focus:outline-none"
+                    type="email"
+                    name="email"
+                    className="flex-1 px-4 rounded-full focus:outline-none invalid:text-red-600 focus:invalid:text-red-600 focus:invalid:border-red-500 focus:border-blue-500"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   ></input>
-                  <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900 ">
+                  <button className="bg-blue-700 rounded-full font-bold text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-600 active:bg-blue-900 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
                     Go
                   </button>
                 </div>

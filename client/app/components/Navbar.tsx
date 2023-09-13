@@ -164,7 +164,7 @@ const Navbar = () => {
         ) : (
           <Link
             href="/signin"
-            className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 active:bg-blue-900 md:block"
+            className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 active:bg-blue-900 md:block transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
           >
             Get Started
           </Link>

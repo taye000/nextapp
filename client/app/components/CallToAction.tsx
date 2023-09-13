@@ -11,7 +11,7 @@ const CallToAction = () => {
         <div>
           <Link
             href="/signup"
-            className="p-3 px-6 pt-2 text-blue-700 bg-white shadow-2xl rounded-full baseline hover:bg-gray-900 md:block active:bg-transparent"
+            className="p-3 px-6 pt-2 text-blue-700 bg-white shadow-2xl rounded-full baseline hover:bg-gray-900 md:block active:bg-transparent transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
           >
             Get Started
           </Link>
