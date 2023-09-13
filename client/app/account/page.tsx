@@ -180,7 +180,7 @@ const account = () => {
             <div className="p-2 md:flex md:justify-center">
               <Link
                 href={"/account/editprofile"}
-                className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+                className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
               >
                 Edit Profile
               </Link>
@@ -189,7 +189,7 @@ const account = () => {
               <div className="p-2 md:flex md:justify-center">
                 <Link
                   href={"/buyer"}
-                  className="bg-green-800 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg"
+                  className="bg-green-800 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
                 >
                   Buy Safely
                 </Link>
@@ -233,7 +233,7 @@ const account = () => {
           <h2 className="text-2xl font-bold text-left">Orders</h2>
           <Link
             href={"/transactions"}
-            className="text-right hover:underline text-white font-bold p-2 rounded-lg"
+            className="text-right hover:underline font-bold p-2 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
           >
             See more
           </Link>
@@ -263,7 +263,7 @@ const account = () => {
                     >
                       <li
                         key={id}
-                        className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7"
+                        className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                       >
                         <p className="truncate w-full">{transaction.id}</p>
                         <p className="font-bold truncate w-full">{transaction.item}</p>

@@ -306,7 +306,7 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleAppeal}
-                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     Appeal!
                   </button>
@@ -314,7 +314,7 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleSellerConfirmation}
-                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     I, the Seller Confirm Delivery!
                   </button>
@@ -337,7 +337,7 @@ const transactionDetail = () => {
                     <div className="flex justify-center">
                       <button
                         type="submit"
-                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg hover:bg-blue-600 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                       >
                         Submit
                       </button>
@@ -355,7 +355,7 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleCustomerAppeal}
-                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     Appeal!
                   </button>
@@ -363,7 +363,7 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleCustomerConfirmation}
-                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     I, the Buyer confirm Delivery!
                   </button>
@@ -386,7 +386,7 @@ const transactionDetail = () => {
                     <div className="flex justify-center">
                       <button
                         type="submit"
-                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg  hover:bg-blue-600"
+                        className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg hover:bg-blue-600 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                       >
                         Submit
                       </button>

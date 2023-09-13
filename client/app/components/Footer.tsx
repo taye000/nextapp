@@ -51,7 +51,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <AiOutlineTwitter
-                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  className="hover:-translate-y-1 transition cursor-pointer text-neutral-500 dark:text-neutral-100"
                   size={30}
                 />
               </a>
@@ -61,7 +61,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <AiOutlineLinkedin
-                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  className="hover:-translate-y-1 transition cursor-pointer text-neutral-500 dark:text-neutral-100"
                   size={30}
                 />
               </a>
@@ -71,7 +71,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <AiOutlineInstagram
-                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  className="hover:-translate-y-1 transition cursor-pointer text-neutral-500 dark:text-neutral-100"
                   size={30}
                 />
               </a>
@@ -81,7 +81,7 @@ const Footer = () => {
                 target="_blank"
               >
                 <AiOutlineFacebook
-                  className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+                  className="hover:-translate-y-1 transition cursor-pointer text-neutral-500 dark:text-neutral-100"
                   size={30}
                 />
               </a>

@@ -19,7 +19,7 @@ const transactionsList = () => {
   const [loading, setLoading] = useState(false);
 
   const [sortAmountOrder, setSortAmountOrder] = useState("asc");
-  
+
   const [sortAlphabeticalOrder, setSortAlphabeticalOrder] = useState("asc");
 
   const handleSortAlphabeticalOrder = () => {
@@ -38,7 +38,7 @@ const transactionsList = () => {
       );
       setSortAlphabeticalOrder("asc");
     }
-  }
+  };
 
   const handleSortAmount = () => {
     if (sortAmountOrder === "asc") {
@@ -56,7 +56,7 @@ const transactionsList = () => {
       );
       setSortAmountOrder("asc");
     }
-  }
+  };
 
   const fetchTransactions = async () => {
     try {
@@ -106,15 +106,48 @@ const transactionsList = () => {
         <div className="py-2">
           <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
             <div className="my-3 p-2 items-center justify-between grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7">
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Order ID</span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
+                Order ID
+              </span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
                 Item Desc
               </span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller ID</span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAmount}>Amount</span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Mode</span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Buyer</span>
-              <span className="font-bold w-1/7 px-2 cursor-pointer" onClick={handleSortAlphabeticalOrder}>Seller</span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
+                Seller ID
+              </span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAmount}
+              >
+                Amount
+              </span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
+                Mode
+              </span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
+                Buyer
+              </span>
+              <span
+                className="font-bold w-1/7 px-2 cursor-pointer"
+                onClick={handleSortAlphabeticalOrder}
+              >
+                Seller
+              </span>
             </div>
 
             {loading ? (
@@ -129,17 +162,19 @@ const transactionsList = () => {
                   >
                     <li
                       key={id}
-                      className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7"
+                      className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                     >
-                      <p className="truncate flex-grow">{transaction.id}</p>
-                      <p className="font-bold truncate flex-grow">{transaction.item}</p>
-                      <p className="truncate flex-grow">{transaction.userId}</p>
-                      <p className="font-bold truncate flex-grow">
+                      <p className="truncate w-full">{transaction.id}</p>
+                      <p className="font-bold truncate w-full">
+                        {transaction.item}
+                      </p>
+                      <p className="truncate w-full">{transaction.userId}</p>
+                      <p className="font-bold truncate w-full">
                         ${transaction.amount}
                       </p>
-                      <p className="truncate flex-grow">{transaction.mode}</p>
+                      <p className="truncate w-full">{transaction.mode}</p>
 
-                      <p className="sm:text-left font-bold text-right flex-grow">
+                      <p className="sm:text-left font-bold text-right w-full">
                         <span
                           className={
                             transaction.customerStatus === "completed"
@@ -152,7 +187,7 @@ const transactionsList = () => {
                           {transaction.customerStatus}
                         </span>
                       </p>
-                      <p className="sm:text-left font-bold text-right flex-grow">
+                      <p className="sm:text-left font-bold text-right w-full">
                         <span
                           className={
                             transaction.status === "completed"

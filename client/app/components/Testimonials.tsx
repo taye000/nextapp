@@ -8,7 +8,7 @@ const Testimonials = () => {
           What's Special About Imani Escrow Services?
         </h2>
         <div className="flex flex-col mt-24 md:flex-row md:space-x-6">
-          <div className="flex flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:w-1/3">
+          <div className="flex flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:w-1/3 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
             <img
               src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
               className="w-16 -mt-14"
@@ -22,7 +22,7 @@ const Testimonials = () => {
               paid."
             </p>
           </div>
-          <div className="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:flex md:w-1/3">
+          <div className="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:flex md:w-1/3 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
             <img
               src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
               className="w-16 -mt-14"
@@ -33,7 +33,7 @@ const Testimonials = () => {
               "They made me feel safe and secure when I was buying my first car"
             </p>
           </div>
-          <div className="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:flex md:w-1/3">
+          <div className="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-gray-300 md:flex md:w-1/3 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
             <img
               src="/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"
               className="w-16 -mt-14"
