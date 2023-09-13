@@ -14,7 +14,7 @@ const Hero = () => {
           </p>
         </div>
         <div className="md:w-1/2">
-          <img src="/imanilogo.png" className="rounded-lg md:rounded-lg"></img>
+          <img src="/imanilogo.png" className="rounded-lg md:rounded-lg transition hover:origin-bottom"></img>
         </div>
       </div>
     </section>

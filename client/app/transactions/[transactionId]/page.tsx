@@ -239,10 +239,10 @@ const transactionDetail = () => {
                 <span
                   className={
                     transaction?.status === "completed"
-                      ? "bg-blue-800 p-2 rounded-lg"
+                      ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                       : transaction?.status === "pending"
-                      ? "bg-yellow-400 p-2 rounded-lg"
-                      : "bg-red-600 p-2 rounded-lg"
+                      ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                      : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                   }
                 >
                   Seller Confirmation: {transaction?.status}
@@ -254,10 +254,10 @@ const transactionDetail = () => {
                 <span
                   className={
                     transaction?.customerStatus === "completed"
-                      ? "bg-blue-800 p-2 rounded-lg"
+                      ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                       : transaction?.customerStatus === "pending"
-                      ? "bg-yellow-400 p-2 rounded-lg"
-                      : "bg-red-600 p-2 rounded-lg"
+                      ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                      : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                   }
                 >
                   Buyer Confirmation: {transaction?.customerStatus}

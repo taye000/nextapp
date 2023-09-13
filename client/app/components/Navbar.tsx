@@ -94,7 +94,7 @@ const Navbar = () => {
       <div className="md:flex md:items-center justify-between">
         <div className="flex flex-row justify-between">
           <Link href="/">
-            <div className="md:block md:py-5">
+            <div className="md:block md:py-5 transition ease-in-out delay-300 hover:-translate-y-1 hover:scale-110">
               <h1 className="text-2xl font-bold">Imani Escrow Services</h1>
             </div>
           </Link>
@@ -148,7 +148,7 @@ const Navbar = () => {
             <div className="flex flex-row justify-between">
               <Link href={"/account"}>
                 <div className="p-2 md:block md:items-center md:p-2">
-                  <p className="font-bold hover:text-blue-600 text-blue-900">
+                  <p className="font-bold hover:text-blue-600 text-blue-900 transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110">
                     Welcome, {user.name}
                   </p>
                 </div>

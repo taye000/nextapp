@@ -103,108 +103,198 @@ const transactionsList = () => {
         <div className="flex justify-center">
           <h2 className="text-2xl font-bold text-left">Orders</h2>
         </div>
-        <div className="py-2">
-          <div className="w-full m-auto p-4 border rounded-md overflow-y-auto overflow-x-auto">
-            <div className="my-3 p-2 items-center justify-between grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7">
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Order ID
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Item Desc
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Seller ID
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAmount}
-              >
-                Amount
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Mode
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Buyer
-              </span>
-              <span
-                className="font-bold w-1/7 px-2 cursor-pointer"
-                onClick={handleSortAlphabeticalOrder}
-              >
-                Seller
-              </span>
+        <div>
+          <div className="py-2">
+            <div className="w-full m-auto p-4 border rounded-md overflow-auto hidden md:block">
+              <table className="table-auto">
+                <thead className="border-b-2 border-gray-200">
+                  <tr className="grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between">
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Order ID
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Item Desc
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Seller ID
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAmount}
+                    >
+                      Amount
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Mode
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Buyer
+                    </th>
+                    <th
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      onClick={handleSortAlphabeticalOrder}
+                    >
+                      Seller
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loading ? (
+                    <tr>
+                      <td className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
+                      </td>
+                    </tr>
+                  ) : (
+                    transactions.map((transaction, id) => (
+                      <Link
+                        href={`/transactions/get-transaction?transactionId=${transaction.id}`}
+                      >
+                        <tr
+                          key={id}
+                          className="hover:bg-gray-200 rounded-md  justify-between cursor-pointer grid grid-cols-7 md:grid-cols-7 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                        >
+                          <td className="truncate w-full p-3 text-sm">
+                            {transaction.id}
+                          </td>
+                          <td className="font-bold whitespace-nowrap w-full p-3 text-sm">
+                            {transaction.item}
+                          </td>
+                          <td className="truncate w-full p-3 text-sm">
+                            {transaction.userId}
+                          </td>
+                          <td className="font-bold whitespace-nowrap w-full p-3 text-sm">
+                            ${transaction.amount}
+                          </td>
+                          <td className="whitespace-nowrap w-full p-3 text-sm">
+                            {transaction.mode}
+                          </td>
+                          <td className="sm:text-left w-full p-3 text-sm font-bold text-right">
+                            <span
+                              className={
+                                transaction.customerStatus === "completed"
+                                  ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : transaction.customerStatus === "pending"
+                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                              }
+                            >
+                              {transaction.customerStatus}
+                            </span>
+                          </td>
+                          <td className="sm:text-left w-full p-3 text-sm font-bold text-right">
+                            <span
+                              className={
+                                transaction.status === "completed"
+                                  ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : transaction.status === "pending"
+                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                              }
+                            >
+                              {transaction.status}
+                            </span>
+                          </td>
+                        </tr>
+                      </Link>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
 
+            {/* Mobile view */}
             {loading ? (
-              <div className="flex justify-center items-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
-              </div>
+              <tr>
+                <td className="flex justify-center items-center">
+                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
+                </td>
+              </tr>
             ) : (
-              <ul>
-                {transactions.map((transaction, id) => (
-                  <Link
-                    href={`/transactions/get-transaction?transactionId=${transaction.id}`}
-                  >
-                    <li
+              transactions.map((transaction, id) => (
+                <Link
+                  href={`/transactions/get-transaction?transactionId=${transaction.id}`}
+                >
+                  <div className="grid grid-cols-1 gap-4 md:hidden">
+                    <div
                       key={id}
-                      className="flex-shrink-0 hover:bg-gray-200 rounded-md my-3 mx-2 p-2 items-center justify-between cursor-pointer grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                      className="hover:bg-gray-200 border shadow space-y-3 p-4 rounded-md cursor-pointer transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                     >
-                      <p className="truncate w-full">{transaction.id}</p>
-                      <p className="font-bold truncate w-full">
-                        {transaction.item}
-                      </p>
-                      <p className="truncate w-full">{transaction.userId}</p>
-                      <p className="font-bold truncate w-full">
-                        ${transaction.amount}
-                      </p>
-                      <p className="truncate w-full">{transaction.mode}</p>
+                      <div className="flex flex-col space-x-2 text-sm">
+                        <div className="flex flex-row">
+                          <div className="font-bold p-3">Order ID:</div>
+                          <div className="whitespace-nowrap p-3 text-sm">
+                            {transaction.id}
+                          </div>
+                        </div>
 
-                      <p className="sm:text-left font-bold text-right w-full">
-                        <span
-                          className={
-                            transaction.customerStatus === "completed"
-                              ? "bg-blue-800 p-2 rounded-lg"
-                              : transaction.customerStatus === "pending"
-                              ? "bg-yellow-400 p-2 rounded-lg"
-                              : "bg-red-600 p-2 rounded-lg"
-                          }
-                        >
-                          {transaction.customerStatus}
-                        </span>
-                      </p>
-                      <p className="sm:text-left font-bold text-right w-full">
-                        <span
-                          className={
-                            transaction.status === "completed"
-                              ? "bg-blue-800 p-2 rounded-lg"
-                              : transaction.status === "pending"
-                              ? "bg-yellow-400 p-2 rounded-lg"
-                              : "bg-red-600 p-2 rounded-lg"
-                          }
-                        >
-                          {transaction.status}
-                        </span>
-                      </p>
-                      <div className="p-2 md:flex md:justify-start"></div>
-                    </li>
-                  </Link>
-                ))}
-              </ul>
+                        <div className="flex flex-row">
+                          <div className="font-bold p-3">Item Desc:</div>
+                          <div className="font-bold whitespace-nowrap p-3 text-sm">
+                            {transaction.item}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-row">
+                          <div className="font-bold p-3">Amount:</div>
+                          <div className="font-bold whitespace-nowrap p-3 text-sm">
+                            ${transaction.amount}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-row">
+                          <div className="font-bold p-3">Customer Status:</div>
+                          <div className="sm:text-left p-3 text-sm font-bold text-right">
+                            <span
+                              className={
+                                transaction.customerStatus === "completed"
+                                  ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : transaction.customerStatus === "pending"
+                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                              }
+                            >
+                              {transaction.customerStatus}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-row">
+                          <div className="font-bold p-3">Seller Status:</div>
+                          <div className="sm:text-left p-3 text-sm font-bold text-right">
+                            <span
+                              className={
+                                transaction.status === "completed"
+                                  ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : transaction.status === "pending"
+                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                              }
+                            >
+                              {transaction.status}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))
             )}
           </div>
         </div>
