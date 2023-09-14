@@ -3,100 +3,206 @@ import React from "react";
 const Features = () => {
   return (
     <section id="features">
-      <div className="container flex flex-col px-4 mx-auto mt-10 space-y-12 md:space-y-10 md:flex-row">
-        <div className="flex flex-col space-y-12 md:w-1/2">
-          <h2 className="max-w-md text-4xl font-bold text-center md:text-left">
+        <div className="flex flex-col justify-center">
+          <div>
+          <h2 className="text-4xl font-bold text-center">
             What Imani Escrow offers.
           </h2>
-          <p className="max-w-sm text-center text-gray-700 md:text-left">
-            Secure your online purchases with our Escrow services, and have ease
-            of mind as you transact in the digital world.
+          </div>
+          <div>
+          <p className="text-center text-gray-700">
+            Experience peace of mind in the digital realm with our Escrow
+            services, safeguarding your online purchases and ensuring secure
+            transactions.
           </p>
+          </div>
         </div>
+      <div className="container flex flex-col px-4 mx-auto mt-10 space-y-12 md:space-y-10 md:flex-row">
         <div className="flex flex-col space-y-8 md:w-1/2">
           <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
             <div className="rounded-l-full bg-blue-200 md:bg-transparent">
               <div className="flex items-center space-x-2">
-                <div className="px-4 py-2 text-white rounded-full md:py-1 bg-blue-800">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
                   01
                 </div>
                 <h3 className="text-base font-bold md:mb-4 md:hidden">
-                  Buyer and Seller agree to terms.
+                  Agreement on Terms:
                 </h3>
               </div>
             </div>
             <div>
               <h3 className="hidden mb-4 text-lg font-bold md:block">
-                Buyer and Seller agree to terms.
+                Agreement on Terms:
               </h3>
               <p className="text-gray-700">
-                Buyer and Seller agree to terms, which includes a description of
-                the item, sale price, number of days for the Buyer's inspection,
-                and any shipping information.
+                Buyer and Seller reach a mutual agreement on the terms of the
+                transaction. This encompasses a detailed item description, the
+                sale price, the specified inspection period for the Buyer, and
+                any pertinent shipping information.
               </p>
             </div>
           </div>
           <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
             <div className="rounded-l-full bg-blue-200 md:bg-transparent">
               <div className="flex items-center space-x-2">
-                <div className="px-4 py-2 text-white rounded-full md:py-1 bg-blue-800">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
                   02
                 </div>
                 <h3 className="text-base font-bold md:mb-4 md:hidden">
-                  Buyer deposits funds.
+                  Secure Fund Deposit:
                 </h3>
               </div>
             </div>
             <div>
               <h3 className="hidden mb-4 text-lg font-bold md:block">
-                Buyer deposits funds.
+                Secure Fund Deposit:
               </h3>
               <p className="text-gray-700">
-                Buyer deposits funds into Imani Escrow Services' and links the
-                transaction to the item and the seller's id.
+                The Buyer securely deposits funds into Imani Escrow Services
+                while associating the transaction with the item and the Seller's
+                unique identification.
               </p>
             </div>
           </div>
           <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
             <div className="rounded-l-full bg-blue-200 md:bg-transparent">
               <div className="flex items-center space-x-2">
-                <div className="px-4 py-2 text-white rounded-full md:py-1 bg-blue-800">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
                   03
                 </div>
                 <h3 className="text-base font-bold md:mb-4 md:hidden">
-                  Seller ships the item.{" "}
+                  Hassle-Free Shipping:{" "}
                 </h3>
               </div>
             </div>
             <div>
               <h3 className="hidden mb-4 text-lg font-bold md:block">
-                Seller ships the item.
+                Hassle-Free Shipping:
               </h3>
               <p className="text-gray-700">
-                Seller will see the funds have been deposited and will ship the
-                item with peace of mind.
+                With the assurance of deposited funds, the Seller proceeds to
+                ship the item, knowing their transaction is safeguarded.
               </p>
             </div>
           </div>
           <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
             <div className="rounded-l-full bg-blue-200 md:bg-transparent">
               <div className="flex items-center space-x-2">
-                <div className="px-4 py-2 text-white rounded-full md:py-1 bg-blue-800">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
                   04
                 </div>
                 <h3 className="text-base font-bold md:mb-4 md:hidden">
-                  Buyer confirms the item.{" "}
+                  Verification and Release:{" "}
                 </h3>
               </div>
             </div>
             <div>
               <h3 className="hidden mb-4 text-lg font-bold md:block">
-                Buyer confirms the item.
+                Verification and Release:
               </h3>
               <p className="text-gray-700">
-                The buyer will confirm the item has been received as was
-                expected, and mark the order as complete. The funds will then be
-                released to the seller.
+                Upon receiving the item as expected, the Buyer verifies its
+                condition and marks the order as complete. At this point, the
+                funds are released to the Seller, ensuring a smooth and secure
+                transaction process.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
+            <div className="rounded-l-full bg-blue-200 md:bg-transparent">
+              <div className="flex items-center space-x-2">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
+                  05
+                </div>
+                <h3 className="text-base font-bold md:mb-4 md:hidden">
+                  Dispute Resolution:{" "}
+                </h3>
+              </div>
+            </div>
+            <div>
+              <h3 className="hidden mb-4 text-lg font-bold md:block">
+                Dispute Resolution:
+              </h3>
+              <p className="text-gray-700">
+                In the event of a dispute between the Buyer and Seller regarding
+                the item's condition or other transaction-related issues, our
+                escrow service provides a platform for mediation and conflict
+                resolution.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
+            <div className="rounded-l-full bg-blue-200 md:bg-transparent">
+              <div className="flex items-center space-x-2">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
+                  06
+                </div>
+                <h3 className="text-base font-bold md:mb-4 md:hidden">
+                  Return or Refund Process:{" "}
+                </h3>
+              </div>
+            </div>
+            <div>
+              <h3 className="hidden mb-4 text-lg font-bold md:block">
+                Return or Refund Process:
+              </h3>
+              <p className="text-gray-700">
+                If the Buyer is not completely satisfied with the received item
+                and wishes to initiate a return, we have a well-defined return
+                and refund process in place. Buyers can request a return within
+                a specified timeframe and provide reasons for the return. Once
+                the item is returned and inspected, we facilitate a prompt
+                refund or replacement, as per the agreed terms.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
+            <div className="rounded-l-full bg-blue-200 md:bg-transparent">
+              <div className="flex items-center space-x-2">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
+                  07
+                </div>
+                <h3 className="text-base font-bold md:mb-4 md:hidden">
+                  Escrow Fee Information:{" "}
+                </h3>
+              </div>
+            </div>
+            <div>
+              <h3 className="hidden mb-4 text-lg font-bold md:block">
+                Escrow Fee Information:
+              </h3>
+              <p className="text-gray-700">
+                We believe in transparency when it comes to fees. Our escrow fee
+                structure is straightforward. We charge a nominal fee, which is
+                typically a percentage of the transaction amount. This fee is
+                clearly outlined at the beginning of the transaction, ensuring
+                that both Buyers and Sellers are aware of the associated costs.
+                Rest assured, there are no hidden charges.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
+            <div className="rounded-l-full bg-blue-200 md:bg-transparent">
+              <div className="flex items-center space-x-2">
+                <div className="px-4 py-2 text-white rounded-full my-3 md:py-1 bg-blue-800">
+                  08
+                </div>
+                <h3 className="text-base font-bold md:mb-4 md:hidden">
+                  Communication Protocol:{" "}
+                </h3>
+              </div>
+            </div>
+            <div>
+              <h3 className="hidden mb-4 text-lg font-bold md:block">
+                Communication Protocol:
+              </h3>
+              <p className="text-gray-700">
+                Throughout the process, our platform facilitates seamless
+                communication between Buyers, Sellers, and our escrow service.
+                You'll receive timely email notifications, and you can also log
+                in to our platform to track the progress of your transaction,
+                exchange messages, and receive updates, ensuring that you're
+                always in the know.
               </p>
             </div>
           </div>

@@ -9,12 +9,16 @@ const Hero = () => {
             Welcome to imani escrow services.
           </h1>
           <p className="max-w-sm text-center text-gray-700 md:text-left">
-            Helping small businesses and individuals to transact safely and
-            securely, by leveraging our superior escrow services.
+            Elevating trust and security for small businesses and individuals by
+            harnessing the power of blockchain technology to enhance our
+            exceptional escrow services. Your safe transactions, our priority.
           </p>
         </div>
         <div className="md:w-1/2">
-          <img src="/imanilogo.png" className="rounded-lg md:rounded-lg transition hover:origin-bottom"></img>
+          <img
+            src="/imanilogo.png"
+            className="rounded-lg md:rounded-lg transition hover:origin-bottom"
+          ></img>
         </div>
       </div>
     </section>
