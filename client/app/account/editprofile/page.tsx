@@ -190,10 +190,8 @@ const editprofile = () => {
                 ></input>
               </label>
             </div>
-          </div>
 
-          <div className="flex">
-            <div className="relative">
+            <div className="absolute">
               <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
                 <img
                   src={user.photo || "/avatar.jpg"}
@@ -215,31 +213,31 @@ const editprofile = () => {
                 </label>
               </div>
             </div>
+          </div>
 
-            <div className="flex flex-col p-2 justify-between">
-              <div className="pl-2 flex items-center">
-                <p className="text-2xl px-2 font-bold">{user.name}</p>
-              </div>
-
-              <div className="pl-2 flex items-center">
-                <ImMail2 />
-                <p className="text-lg px-2 font-bold">{user.email}</p>
-              </div>
-
-              {user.phoneNumber && (
-                <div className="pl-2 flex items-center">
-                  <ImPhone />
-                  <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
-                </div>
-              )}
-
-              {user.location && (
-                <div className="pl-2 flex items-center">
-                  <ImLocation2 />
-                  <p className="text-lg px-2 font-bold">{user.location}</p>
-                </div>
-              )}
+          <div className="flex flex-col p-2 justify-center items-center">
+            <div className="pl-2 flex items-center">
+              <p className="text-2xl px-2 font-bold">{user.name}</p>
             </div>
+
+            <div className="pl-2 flex items-center">
+              <ImMail2 />
+              <p className="text-lg px-2 font-bold">{user.email}</p>
+            </div>
+
+            {user.phoneNumber && (
+              <div className="pl-2 flex items-center">
+                <ImPhone />
+                <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+              </div>
+            )}
+
+            {user.location && (
+              <div className="pl-2 flex items-center">
+                <ImLocation2 />
+                <p className="text-lg px-2 font-bold">{user.location}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

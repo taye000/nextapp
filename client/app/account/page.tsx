@@ -1,11 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import {
-  ImMail2,
-  ImPhone,
-  ImLocation2,
-} from "react-icons/im";
+import { ImMail2, ImPhone, ImLocation2 } from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
@@ -142,7 +138,7 @@ const account = () => {
   return (
     <main className="min-h-screen justify-between mt-5">
       <div className="p-2">
-        <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
+        <div className="w-full m-auto p-2 border rounded-md">
           <div className="relative p-[5%]">
             <Image
               src={user.coverPhoto || "/Milky_Way_at_Bear_Lake_4_nxqjo2.jpg"}
@@ -150,10 +146,9 @@ const account = () => {
               fill
               priority={false}
               style={{ objectFit: "cover" }}
+              className="rounded-md"
             />
-          </div>
-          <div className="flex">
-            <div className="relative">
+            <div className="absolute">
               <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
                 <img
                   src={user.photo || "/avatar.jpg"}
@@ -162,31 +157,30 @@ const account = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col p-2 justify-between">
+          </div>
+          <div className="flex flex-col p-2 justify-center items-center">
+            <div className="pl-2 flex items-center">
+              <p className="text-2xl px-2 font-bold">{user.name}</p>
+            </div>
 
-              <div className="pl-2 flex items-center">
-                <p className="text-2xl px-2 font-bold">{user.name}</p>
-              </div>
+            <div className="pl-2 flex items-center">
+              <ImMail2 />
+              <p className="text-lg px-2 font-bold">{user.email}</p>
+            </div>
 
-              <div className="pl-2 flex items-center">
-                <ImMail2 />
-                <p className="text-lg px-2 font-bold">{user.email}</p>
-              </div>
-
-              {user.phoneNumber && (
+            {user.phoneNumber && (
               <div className="pl-2 flex items-center">
                 <ImPhone />
                 <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
               </div>
-              )}
+            )}
 
-              {user.location && (
+            {user.location && (
               <div className="pl-2 flex items-center">
                 <ImLocation2 />
                 <p className="text-lg px-2 font-bold">{user.location}</p>
               </div>
-              )}
-            </div>
+            )}
           </div>
           <div className="flex flex-row p-2 md:flex md:flex-row md:justify-between">
             <div className="p-2 md:flex md:justify-center">
