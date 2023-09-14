@@ -27,7 +27,7 @@ const Navbar = () => {
 
   // get the stored cookie from local storage
   const cookie = getCookie();
-  
+
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [navbar, setNavbar] = useState(false);
@@ -50,21 +50,21 @@ const Navbar = () => {
         throw new Error("Error fetching user data");
       }
       const userData = await response.json();
-      
+
       // Update user state with fetched data
       setUser(userData.user);
     } catch (error) {
       console.error(error);
     }
   };
-  
-    // check if user is logged in
-    useEffect(() => {
-      if (cookie) {
-        // Fetch user data
-        fetchUserData();
-      }
-    }, [cookie]);
+
+  // check if user is logged in
+  useEffect(() => {
+    if (cookie) {
+      // Fetch user data
+      fetchUserData();
+    }
+  }, [cookie]);
 
   const handleSignout = async () => {
     try {
@@ -155,7 +155,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={handleSignout}
-                className="p-3 px-6 pt-2 text-red-400 baseline hover:underline md:block"
+                className="p-3 px-6 pt-2 text-red-400 baseline hover:underline hover:text-red-500 md:block"
               >
                 Sign Out
               </button>
@@ -164,7 +164,7 @@ const Navbar = () => {
         ) : (
           <Link
             href="/signin"
-            className="p-3 px-6 pt-2 text-white bg-blue-800 rounded-full baseline font-bold hover:bg-blue-500 active:bg-blue-900 md:block transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+            className="p-3 px-6 pt-2 text-white bg-blue-500 rounded-full baseline font-bold hover:bg-blue-600 active:bg-blue-900 md:block transition ease-in-out delay-300 hover:-translate-y-1 hover:scale-110"
           >
             Get Started
           </Link>

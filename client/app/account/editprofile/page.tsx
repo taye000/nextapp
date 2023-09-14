@@ -2,7 +2,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ImMail2, ImPhone, ImLocation2 } from "react-icons/im";
+import { ImMail2, ImPhone, ImLocation2, ImCamera } from "react-icons/im";
 import { getCookie } from "../../utils/tokenUtils";
 import { IUser } from "../../utils/types";
 
@@ -158,7 +158,7 @@ const editprofile = () => {
   return (
     <main className="min-h-screen justify-between mt-5">
       <div className="p-2">
-        <div className="w-full m-auto p-2 border rounded-md overflow-y-auto">
+        <div className="w-full m-auto p-2 border rounded-md">
           <div className="relative p-[5%]">
             {user.coverPhoto ? (
               <Image
@@ -177,19 +177,21 @@ const editprofile = () => {
                 style={{ objectFit: "cover" }}
               />
             )}
-            <div className="p-2">
-              <label className="bg-gray-300 hover:bg-gray-400 text-gray-600 absolute font-bold py-2 px-4 rounded-lg">
-                Change Image
+            <div className="p-2 absolute bottom-5 right-5">
+              <label htmlFor="coverPhoto" className="absolute cursor-pointer">
+                <ImCamera style={{ color: "gray" }} className="w-5 h-5" />
                 <input
                   type="file"
+                  id="coverPhoto"
                   accept="image/*"
                   name="coverPhoto"
-                  className="hidden md:cursor-pointer"
+                  className="hidden"
                   onChange={handleCoverPhotoUpload}
                 ></input>
               </label>
             </div>
           </div>
+
           <div className="flex">
             <div className="relative">
               <div className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4">
@@ -199,16 +201,22 @@ const editprofile = () => {
                   className="rounded-full object-cover object-center w-full h-full"
                 />
               </div>
-              <input
-                type="file"
-                accept="image/*"
-                name="photo"
-                className="absolute inset-0 z-20 w-20 h-20 opacity-0 cursor-pointer"
-                onChange={handlePhotoUpload}
-              />
+              <div className="p-2 absolute bottom-20 right-20">
+                <label htmlFor="photo" className="absolute cursor-pointer">
+                  <ImCamera style={{ color: "gray" }} className="w-5 h-5" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="photo"
+                    name="photo"
+                    className="hidden"
+                    onChange={handlePhotoUpload}
+                  ></input>
+                </label>
+              </div>
             </div>
-            <div className="flex flex-col p-2 justify-between">
 
+            <div className="flex flex-col p-2 justify-between">
               <div className="pl-2 flex items-center">
                 <p className="text-2xl px-2 font-bold">{user.name}</p>
               </div>
@@ -219,20 +227,19 @@ const editprofile = () => {
               </div>
 
               {user.phoneNumber && (
-              <div className="pl-2 flex items-center">
-                <ImPhone />
-                <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
-              </div>
+                <div className="pl-2 flex items-center">
+                  <ImPhone />
+                  <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
+                </div>
               )}
 
               {user.location && (
-              <div className="pl-2 flex items-center">
-                <ImLocation2 />
-                <p className="text-lg px-2 font-bold">{user.location}</p>
-              </div>
+                <div className="pl-2 flex items-center">
+                  <ImLocation2 />
+                  <p className="text-lg px-2 font-bold">{user.location}</p>
+                </div>
               )}
             </div>
-
           </div>
         </div>
       </div>

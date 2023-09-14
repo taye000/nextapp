@@ -192,7 +192,7 @@ const account = () => {
             <div className="p-2 md:flex md:justify-center">
               <Link
                 href={"/account/editprofile"}
-                className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
               >
                 Edit Profile
               </Link>
@@ -201,7 +201,7 @@ const account = () => {
               <div className="p-2 md:flex md:justify-center">
                 <Link
                   href={"/buyer"}
-                  className="bg-green-800 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
                 >
                   Buy Safely
                 </Link>
