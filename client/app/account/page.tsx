@@ -245,43 +245,43 @@ const account = () => {
                 <thead className="border-b-2 border-gray-200">
                   <tr className="grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 items-center justify-between">
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Order ID
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Item Desc
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Seller ID
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAmount}
                     >
                       Amount
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Mode
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Buyer
                     </th>
                     <th
-                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer"
+                      className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
                       Seller

@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="md:w-1/2">
           <img
             src="/imanilogo.png"
-            className="rounded-lg md:rounded-lg transition hover:origin-bottom"
+            className="rounded-lg shadow-xl"
           ></img>
         </div>
       </div>

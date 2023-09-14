@@ -106,7 +106,7 @@ const signup = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
             <input
               required
