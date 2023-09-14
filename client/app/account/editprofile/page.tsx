@@ -166,7 +166,7 @@ const editprofile = () => {
                 width={150}
                 height={150}
                 alt="profile"
-                className="rounded-full object-cover object-center w-[60px] h-[60px] z-30 lg:w-36 lg:h-36 lg:border-4"
+                className="rounded-md object-cover object-center"
               />
             ) : (
               <Image
@@ -175,6 +175,7 @@ const editprofile = () => {
                 fill
                 priority={false}
                 style={{ objectFit: "cover" }}
+                className="rounded-md"
               />
             )}
             <div className="p-2 absolute bottom-5 right-5">
