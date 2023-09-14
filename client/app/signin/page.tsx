@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { ImEye, ImEyeBlocked } from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { getCookie, storeCookie } from "../utils/tokenUtils";
 
@@ -20,6 +21,11 @@ const signin = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,9 +78,11 @@ const signin = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+
+            <div className="relative">
             <input
-            required
-              type="password"
+              required
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Enter your password"
@@ -82,6 +90,21 @@ const signin = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+            {showPassword ? (
+              <ImEyeBlocked
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            ) : (
+              <ImEye
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            )}
+            </div>
+
             <Link
               href={"/signin/forgotpassword"}
               className="text-blue-700 text-right hover:underline"

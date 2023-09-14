@@ -1,10 +1,21 @@
 "use client"
 import React, {useState} from "react";
+import {ImEye, ImEyeBlocked} from "react-icons/im";
 
 const otp = () => {
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -49,24 +60,59 @@ const otp = () => {
               value={code} onChange={(e) => setCode(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+
+<div className="relative">
             <input
-            required
-              type="password"
+              required
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
-              placeholder="Enter your new password"
-              value={password} onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-4 pr-12 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+            {showPassword ? (
+              <ImEyeBlocked
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            ) : (
+              <ImEye
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            )}
+            </div>
+
+            <div className="relative">
             <input
-            required
-              type="password"
+              required
+              type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               id="confirmPassword"
-              placeholder="Confirm your new password"
-              value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+            {showConfirmPassword ? (
+              <ImEyeBlocked
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowConfirmPassword}
+              />
+            ) : (
+              <ImEye
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowConfirmPassword}
+              />
+            )}
+            </div>
+
             <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900">
               Continue
             </button>

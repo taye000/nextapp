@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import {ImEye, ImEyeBlocked} from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
 
@@ -24,6 +25,16 @@ const signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [account_type, setAccount_type] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,19 +109,37 @@ const signup = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+
+            <div className="relative">
             <input
               required
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
+              className="w-full p-4 pr-12 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+            {showPassword ? (
+              <ImEyeBlocked
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            ) : (
+              <ImEye
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowPassword}
+              />
+            )}
+            </div>
+
+            <div className="relative">
             <input
               required
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirm your password"
@@ -118,6 +147,21 @@ const signup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
+            {showConfirmPassword ? (
+              <ImEyeBlocked
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowConfirmPassword}
+              />
+            ) : (
+              <ImEye
+                className="absolute right-4 top-5 cursor-pointer"
+                style={{width:"1.5rem", height:"1.5rem"}}
+                onClick={handleShowConfirmPassword}
+              />
+            )}
+            </div>
+
             <div className="container">
               Select Account Type
               <div className="p-2">
