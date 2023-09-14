@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
-  AiOutlineMail,
-  AiOutlinePhone,
-  AiOutlineCheckCircle,
-} from "react-icons/ai";
+  ImMail2,
+  ImPhone,
+  ImLocation2,
+} from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
@@ -31,6 +31,7 @@ const account = () => {
     email: "",
     photo: "",
     coverPhoto: "",
+    location: "",
     phoneNumber: "",
   });
 
@@ -162,18 +163,29 @@ const account = () => {
               </div>
             </div>
             <div className="flex flex-col p-2 justify-between">
-              <div className="border rounded-md shadow-md pl-2 flex items-center">
-                <AiOutlineCheckCircle />
+
+              <div className="pl-2 flex items-center">
                 <p className="text-2xl px-2 font-bold">{user.name}</p>
               </div>
-              <div className="border rounded-md shadow-md pl-2 flex items-center">
-                <AiOutlineMail />
+
+              <div className="pl-2 flex items-center">
+                <ImMail2 />
                 <p className="text-lg px-2 font-bold">{user.email}</p>
               </div>
-              <div className="border rounded-md shadow-md pl-2 flex items-center">
-                <AiOutlinePhone />
+
+              {user.phoneNumber && (
+              <div className="pl-2 flex items-center">
+                <ImPhone />
                 <p className="text-lg px-2 font-bold">{user.phoneNumber}</p>
               </div>
+              )}
+
+              {user.location && (
+              <div className="pl-2 flex items-center">
+                <ImLocation2 />
+                <p className="text-lg px-2 font-bold">{user.location}</p>
+              </div>
+              )}
             </div>
           </div>
           <div className="flex flex-row p-2 md:flex md:flex-row md:justify-between">

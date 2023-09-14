@@ -3,14 +3,14 @@ import React from "react";
 const Features = () => {
   return (
     <section id="features">
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center py-4">
         <div>
           <h2 className="text-4xl font-bold text-center">
             What Imani Escrow offers.
           </h2>
         </div>
         <div>
-          <p className="text-center text-gray-700">
+          <p className="flex justify-center text-center text-gray-700">
             Experience peace of mind in the digital realm with our Escrow
             services, safeguarding your online purchases and ensuring secure
             transactions.
@@ -19,8 +19,7 @@ const Features = () => {
       </div>
       <div className="container shadow flex flex-col p-4 mx-auto mt-10 space-y-12 md:space-y-10 md:flex-row">
         <div className="flex flex-col space-y-8">
-          <div className="md:flex md:flex-row">
-            <div>
+          <div className="md:grid md:grid-cols-2">
               <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
                 <div className="rounded-l-full bg-blue-200 md:bg-transparent">
                   <div className="flex items-center space-x-2">
@@ -109,9 +108,7 @@ const Features = () => {
                     secure transaction process.
                   </p>
                 </div>
-              </div>
             </div>
-            <div>
               <div className="flex flex-col space-y-3 md-space-y-0 md:space-x-6 md:flex-row">
                 <div className="rounded-l-full bg-blue-200 md:bg-transparent">
                   <div className="flex items-center space-x-2">
@@ -212,7 +209,6 @@ const Features = () => {
                   </p>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

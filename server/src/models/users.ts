@@ -32,7 +32,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     },
     location: {
       type: String,
-      default: "",
+      default: "Nairobi, Kenya",
     },
     photo: {
       type: String,
