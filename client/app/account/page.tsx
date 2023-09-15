@@ -35,6 +35,20 @@ const account = () => {
 
   const [sortAlphabeticalOrder, setSortAlphabeticalOrder] = useState("asc");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const transactionsPerPage = 5;
+
+  // Get current transactions
+  const getCurrentTransactions = () => {
+    const indexOfLastTransaction = currentPage * transactionsPerPage;
+    const indexOfFirstTransaction =
+      indexOfLastTransaction - transactionsPerPage;
+    return transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  };
+
+  // Change page
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+
   const handleSortAlphabeticalOrder = () => {
     if (sortAlphabeticalOrder === "asc") {
       setTransactions(
@@ -302,7 +316,7 @@ const account = () => {
                       </td>
                     </tr>
                   ) : (
-                    transactions.map((transaction, id) => (
+                    getCurrentTransactions().map((transaction, id) => (
                       <Link
                         href={`/transactions/get-transaction?transactionId=${transaction.id}`}
                       >
@@ -355,6 +369,24 @@ const account = () => {
                       </Link>
                     ))
                   )}
+                  {/* pagination */}
+                  <div className="mt-4 flex justify-center">
+                    <ul className="flex">
+                      {Array.from({
+                        length: Math.ceil(
+                          transactions.length / transactionsPerPage
+                        ),
+                      }).map((_, index) => (
+                        <li
+                          key={index}
+                          className="cursor-pointer px-2 py-1 hover:bg-gray-300 rounded-lg"
+                          onClick={() => paginate(index + 1)}
+                        >
+                          {index + 1}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </tbody>
               </table>
             </div>
