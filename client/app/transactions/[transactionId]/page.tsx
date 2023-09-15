@@ -17,6 +17,7 @@ const transactionDetail = () => {
   const [transaction, setTransaction] = useState<ITransaction | null>(null);
   const [buyerAppealClicked, setBuyerAppealClicked] = useState(false);
   const [sellerAppealClicked, setSellerAppealClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [comment, setComment] = useState("");
 
@@ -115,6 +116,7 @@ const transactionDetail = () => {
   };
 
   const handleSellerConfirmation = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${apiUrl}/transactions/update-transaction-status/${transactionId}`,
@@ -137,10 +139,13 @@ const transactionDetail = () => {
       fetchTransaction();
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleAppeal = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${apiUrl}/transactions/appeal-transaction/${transactionId}`,
@@ -165,6 +170,8 @@ const transactionDetail = () => {
       fetchTransaction();
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -197,6 +204,7 @@ const transactionDetail = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${apiUrl}/transactions/update-comment/${transactionId}`,
@@ -220,6 +228,8 @@ const transactionDetail = () => {
       setComment("");
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -306,7 +316,7 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleAppeal}
-                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     Appeal!
                   </button>
@@ -314,9 +324,35 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleSellerConfirmation}
-                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${
+                      loading ? "flex items-center justify-center" : ""
+                    }`}
                   >
-                    I, the Seller Confirm Delivery!
+                    {loading ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5 mr-3"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.794A7.962 7.962 0 014 12H0c0 3.042 1.135 5.86 3.184 8.016l2.472-2.472zM12 20a8 8 0 008-8h4a12 12 0 01-12 12v-4zm5.795-2.472A7.962 7.962 0 0120 12h4c0 3.042-1.135 5.86-3.184 8.016l-2.472-2.472z"
+                          ></path>
+                        </svg>
+                        Processing...
+                      </>
+                    ) : (
+                      "I, the Seller Confirm Delivery!"
+                    )}
                   </button>
                 </div>
               </div>
@@ -349,13 +385,14 @@ const transactionDetail = () => {
           )}
 
         {user.account_type === "Buyer" &&
-          transaction?.customerStatus !== "completed" && (
+          transaction?.customerStatus !== "completed" &&
+          transaction?.status === "completed" && (
             <div>
               <div className="p-2 m-4 md:flex md:justify-center">
                 <div className="p-2">
                   <button
                     onClick={handleCustomerAppeal}
-                    className="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
                   >
                     Appeal!
                   </button>
@@ -363,9 +400,35 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleCustomerConfirmation}
-                    className="bg-blue-800 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${
+                      loading ? "flex items-center justify-center" : ""
+                    }`}
                   >
-                    I, the Buyer confirm Delivery!
+                    {loading ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5 mr-3"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.794A7.962 7.962 0 014 12H0c0 3.042 1.135 5.86 3.184 8.016l2.472-2.472zM12 20a8 8 0 008-8h4a12 12 0 01-12 12v-4zm5.795-2.472A7.962 7.962 0 0120 12h4c0 3.042-1.135 5.86-3.184 8.016l-2.472-2.472z"
+                          ></path>
+                        </svg>
+                        Processing...
+                      </>
+                    ) : (
+                      "I, the Buyer confirm Delivery!"
+                    )}
                   </button>
                 </div>
               </div>
