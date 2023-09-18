@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getCookie } from "../../utils/tokenUtils";
-import { IAppealStatus, ITransaction, IUser } from "../../utils/types";
+import {
+  IAppealStatus,
+  IMessage,
+  ITransaction,
+  IUser,
+} from "../../utils/types";
+import socket from "../../utils/socket";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -18,6 +24,9 @@ const transactionDetail = () => {
   const [buyerAppealClicked, setBuyerAppealClicked] = useState(false);
   const [sellerAppealClicked, setSellerAppealClicked] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [message, setMessage] = useState("");
 
   const [comment, setComment] = useState("");
 
@@ -88,6 +97,40 @@ const transactionDetail = () => {
       fetchTransaction();
     }
   }, [cookie, transactionId]);
+
+  // listen to messages
+  useEffect(() => {
+    // Listen to incoming messages
+    socket.on("chatMessage", (message: any) => {
+      console.log("message", message);
+      // update messages state with the new message
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Cleanup event listener when component unmounts
+    return () => {
+      socket.off("chatMessage");
+    };
+  }, []);
+
+  // send message
+  const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      if (message) {
+        // send chat to server
+        socket.emit("chatMessage", {
+          clientId: transaction?.clientId,
+          userId: transaction?.userId,
+          message,
+        });
+        setMessage("");
+      }
+    } catch (error) {
+      console.log("socket error", error);
+    }
+  };
 
   const handleCustomerConfirmation = async () => {
     try {
@@ -459,6 +502,48 @@ const transactionDetail = () => {
               )}
             </div>
           )}
+      </div>
+      <div className="border rounded-md shadow-md p-6 m-4">
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-bold text-left">Chat</h2>
+        </div>
+        <div>
+          <div className="py-2">
+            <div className="w-full m-auto p-4 border rounded-md overflow-auto">
+              <ul id="messages">
+                {messages.map((message, index) => (
+                  <li key={index}>
+                    {message.message}
+                    {/* {message.clientId === transaction?.clientId
+                      ? `Seller: ${message.message}`
+                      : `Buyer: ${message.message}`} */}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <form
+          id="form"
+          onSubmit={handleMessageSubmit}
+          className="flex flex-col space-y-4"
+        >
+          <input
+            id="input"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type your message"
+            className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+          />
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg hover:bg-blue-600 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+            >
+              Send
+            </button>
+          </div>
+        </form>
       </div>
     </main>
   );

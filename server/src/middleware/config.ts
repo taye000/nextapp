@@ -22,8 +22,14 @@ export const configureMiddleware = (app: Express) => {
   //form parser middleware
   app.use(express.urlencoded({ extended: true }));
 
-  //enable cors
-  app.use(cors());
+  // Configure CORS to allow requests from localhost:3000
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      methods: ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"],
+      credentials: true,
+    })
+  );
 
   //cookie session
   app.use(

@@ -32,3 +32,9 @@ export enum IAppealStatus {
   RESOLVED = "resolved",
   UNDER_REVIEW = "under review",
 }
+export interface IMessage {
+  id?: string;
+  userId: string;
+  clientId: string;
+  message: string;
+}
