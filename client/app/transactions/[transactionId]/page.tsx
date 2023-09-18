@@ -311,7 +311,7 @@ const transactionDetail = () => {
       <div className="border rounded-md shadow-md p-6 m-4">
         <div className="flex flex-col p-2 md:flex-row justify-between">
           <h2 className="text-2xl font-bold text-left">
-            Order Id : {transaction?.id}
+            Transaction Id : {transaction?.id}
           </h2>
           <div className="flex flex-col md:flex md:flex-col sm:flex sm:flex-col">
             <div className="p-4">

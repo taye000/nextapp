@@ -127,7 +127,7 @@ const transactionsList = () => {
                       className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
                       onClick={handleSortAlphabeticalOrder}
                     >
-                      Order ID
+                      Transaction ID
                     </th>
                     <th
                       className="font-semibold w-30 p-3 tracking-wide text-left cursor-pointer active:opacity-50"
