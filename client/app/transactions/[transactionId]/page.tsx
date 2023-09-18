@@ -513,10 +513,9 @@ const transactionDetail = () => {
               <ul id="messages">
                 {messages.map((message, index) => (
                   <li key={index}>
-                    {message.message}
-                    {/* {message.clientId === transaction?.clientId
-                      ? `Seller: ${message.message}`
-                      : `Buyer: ${message.message}`} */}
+                    {message.clientId === transaction?.clientId
+                      ? `Buyer: ${message.message}`
+                      : `Seller: ${message.message}`}
                   </li>
                 ))}
               </ul>
