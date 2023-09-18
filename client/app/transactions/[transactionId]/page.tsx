@@ -77,13 +77,14 @@ const transactionDetail = () => {
         throw new Error("error fetching messages");
       }
       const data = await response.json();
+      console.log("msg data", data);      
 
       //update Transactions
       setMessages(data.messages);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const fetchTransaction = async () => {
     try {
@@ -120,6 +121,7 @@ const transactionDetail = () => {
     //fetch transaction
     if (transactionId) {
       fetchTransaction();
+      fetchMessages();
     }
   }, [cookie, transactionId]);
 

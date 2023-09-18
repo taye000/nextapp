@@ -8,4 +8,5 @@ export const configureRoutes = (app: Application) => {
   app.use("/api/admin", require("./api/admin"));
   app.use("/api/transactions", require("./api/transactions"));
   app.use("/api/subscribers", require("./api/subscribers"));
+  app.use("/api/messages", require("./api/messages"));
 };
