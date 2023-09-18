@@ -61,6 +61,30 @@ const transactionDetail = () => {
     }
   };
 
+  const fetchMessages = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/messages/get-messages/${transactionId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("error fetching messages");
+      }
+      const data = await response.json();
+
+      //update Transactions
+      setMessages(data.messages);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const fetchTransaction = async () => {
     try {
       const response = await fetch(
@@ -84,6 +108,7 @@ const transactionDetail = () => {
       console.error(error);
     }
   };
+
   // check if user is logged in
   useEffect(() => {
     if (!cookie) {

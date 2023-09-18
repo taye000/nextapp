@@ -32,7 +32,7 @@ export const createTransactionController = async (
   try {
 
     // write to blockchain
-    // await newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
+    await newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
 
     // write to database
     let transaction = await Transaction.create({
