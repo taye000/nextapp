@@ -200,7 +200,7 @@ const editprofile = () => {
                   className="rounded-full object-cover object-center w-full h-full"
                 />
               </div>
-              <div className="p-2 absolute bottom-20 right-20">
+              <div className="p-2 absolute md:bottom-20 md:right-20 bottom-8 right-8">
                 <label htmlFor="photo" className="absolute cursor-pointer">
                   <ImCamera style={{ color: "gray" }} className="w-5 h-5" />
                   <input
@@ -248,7 +248,7 @@ const editprofile = () => {
             <div className="md:grid md:grid-cols-2 p-2">
               <div className="flex flex-col py-4 md:flex-row items-center justify-between">
                 <p className="ext-lg p-2 font-bold">
-                  Enter to update your name*
+                  Update your name*
                 </p>
                 <input
                   type="text"
@@ -262,7 +262,7 @@ const editprofile = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <p className="ext-lg p-2 font-bold">
-                  Enter to update your email*
+                  Update your email*
                 </p>
                 <input
                   type="email"
@@ -276,7 +276,7 @@ const editprofile = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <p className="ext-lg p-2 font-bold">
-                  Enter to update your location*
+                  Update your location*
                 </p>
                 <input
                   type="text"
@@ -292,7 +292,7 @@ const editprofile = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <p className="ext-lg p-2 font-bold">
-                  Enter to update your phonenumber*
+                  Update your phonenumber*
                 </p>
                 <input
                   type="phonenumber"

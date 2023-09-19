@@ -219,7 +219,7 @@ const account = () => {
         </div>
       </div>
       <div className="grid gap-4 p-4 lg:grid-cols-3">
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+        <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-gray-500">YTD Revenue</p>
           </div>
@@ -227,7 +227,7 @@ const account = () => {
             <span className="text-green-700 text-lg">+{totalSales}</span>
           </p>
         </div>
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+        <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-gray-500">Number of orders</p>
           </div>
@@ -237,7 +237,7 @@ const account = () => {
             </span>
           </p>
         </div>
-        <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+        <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
           <div className="flex flex-col w-full pb-4">
             <p className="text-gray-500">Daily Sales</p>
           </div>

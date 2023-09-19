@@ -310,7 +310,7 @@ const transactionDetail = () => {
       </div>
       <div className="border rounded-md shadow-md p-6 m-4">
         <div className="flex flex-col p-2 md:flex-row justify-between">
-          <h2 className="text-2xl font-bold text-left">
+          <h2 className="text-2xl font-bold text-left overflow-auto">
             Transaction Id : {transaction?.id}
           </h2>
           <div className="flex flex-col md:flex md:flex-col sm:flex sm:flex-col">
@@ -345,14 +345,14 @@ const transactionDetail = () => {
               </p>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-left">
+          <h2 className="text-2xl font-bold text-left overflow-auto">
             {user.account_type === "Seller" ? "Buyer Id" : "Seller Id"} :{" "}
             {transaction?.clientId}
           </h2>
         </div>
         <div className="p-4">
           <div className="grid gap-4 p-4 lg:grid-cols-3">
-            <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+            <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
                 <span className="text-green-700 text-lg font-bold">Item</span>
               </p>
@@ -360,7 +360,7 @@ const transactionDetail = () => {
                 <p className="text-2xl font-bold">{transaction?.item}</p>
               </div>
             </div>
-            <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+            <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
                 <span className="text-green-700 text-lg font-bold">Mode</span>
               </p>
@@ -368,7 +368,7 @@ const transactionDetail = () => {
                 <p className="text-2xl font-bold">{transaction?.mode}</p>
               </div>
             </div>
-            <div className="flex justify-between w-1/2 border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+            <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
               <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
                 <span className="text-green-700 text-lg font-bold">Amount</span>
               </p>
