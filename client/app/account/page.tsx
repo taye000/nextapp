@@ -35,6 +35,8 @@ const account = () => {
 
   const [sortAlphabeticalOrder, setSortAlphabeticalOrder] = useState("asc");
 
+  const [dailySales, setDailySales] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 5;
 
@@ -128,6 +130,24 @@ const account = () => {
 
       //update Transactions & clear loading
       setTransactions(data.transactions);
+
+      // get current date
+      const date = new Date();
+      const today = date.toISOString().split("T")[0];
+
+      // get daily sales
+      const dailySales = data.transactions.reduce(
+        (total: any, transaction: any) => {
+          const dateFromDb = new Date(transaction.createdAt);
+          if (dateFromDb.toISOString().split("T")[0] === today) {
+            return total + transaction.amount;
+          }
+          return total;
+        },
+        0
+      );
+      setDailySales(dailySales);
+
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -196,7 +216,7 @@ const account = () => {
               </div>
             )}
           </div>
-          <div className="flex flex-row p-2 md:flex md:flex-row md:justify-between">
+          <div className="flex flex-row justify-between p-2 md:flex md:flex-row md:justify-between">
             <div className="p-2 md:flex md:justify-center">
               <Link
                 href={"/account/editprofile"}
@@ -242,9 +262,7 @@ const account = () => {
             <p className="text-gray-500">Daily Sales</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">
-              +{transactions.length}
-            </span>
+            <span className="text-green-700 text-lg">+{dailySales}</span>
           </p>
         </div>
       </div>
@@ -469,6 +487,22 @@ const account = () => {
                 </Link>
               ))
             )}
+            {/* mobile view pagination */}
+            <div className="mt-4 flex justify-center md:hidden">
+              <ul className="flex">
+                {Array.from({
+                  length: Math.ceil(transactions.length / transactionsPerPage),
+                }).map((_, index) => (
+                  <li
+                    key={index}
+                    className="cursor-pointer px-2 py-1 hover:bg-gray-300 rounded-lg"
+                    onClick={() => paginate(index + 1)}
+                  >
+                    {index + 1}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
