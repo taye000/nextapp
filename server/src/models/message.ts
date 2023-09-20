@@ -8,18 +8,22 @@ interface MessageModel extends Model<IMessage> {
 const MessageSchema = new Schema<IMessage, MessageModel>(
   {
     message: {
-        type: String,
-        trim: true,
-        required: true,
-        },
-    clientId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       trim: true,
+      required: true,
     },
     userId: {
       type: Schema.Types.ObjectId,
       trim: true,
       required: true,
+    },
+    clientId: {
+      type: Schema.Types.ObjectId,
+      trim: true,
+    },
+    transactionId: {
+      type: Schema.Types.ObjectId,
+      trim: true,
     },
   },
   {

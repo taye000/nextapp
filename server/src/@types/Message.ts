@@ -5,6 +5,7 @@ export interface IMessage {
   orderId?: string;
   clientId: Schema.Types.ObjectId;
   userId: Schema.Types.ObjectId;
+  transactionId?: Schema.Types.ObjectId;
   message: string;
   phone?: string;
   amount?: number;

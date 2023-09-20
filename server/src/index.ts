@@ -47,10 +47,10 @@ const main = async () => {
           message: message.message,
           clientId: message.clientId,
           userId: message.userId,
+          transactionId: message.transactionId,
         });
         await chat.save();
         console.log("chat saved", chat);
-        
         
       } catch (error) {
         console.log("Error saving chat", error);

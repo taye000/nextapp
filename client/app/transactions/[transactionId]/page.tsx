@@ -150,6 +150,7 @@ const transactionDetail = () => {
         socket.emit("chatMessage", {
           clientId: transaction?.clientId,
           userId: transaction?.userId,
+          transactionId: transaction?.id,
           message,
         });
         setMessage("");
@@ -530,6 +531,7 @@ const transactionDetail = () => {
             </div>
           )}
       </div>
+      <div className="md:flex md:justify-center p-4">
       <div className="border rounded-md shadow-md p-6 m-4">
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold text-left">Chat</h2>
@@ -570,6 +572,7 @@ const transactionDetail = () => {
             </button>
           </div>
         </form>
+      </div>
       </div>
     </main>
   );
