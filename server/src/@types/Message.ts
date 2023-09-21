@@ -2,11 +2,11 @@ import { Schema } from "mongoose";
 
 export interface IMessage {
   id?: string;
-  orderId?: string;
-  clientId: Schema.Types.ObjectId;
+  chat?: Schema.Types.ObjectId;
   userId: Schema.Types.ObjectId;
+  clientId: Schema.Types.ObjectId;
   transactionId?: Schema.Types.ObjectId;
-  message: string;
+  orderId?: string;
   phone?: string;
   amount?: number;
   mode?: string;

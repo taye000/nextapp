@@ -61,6 +61,7 @@ export const createTransactionController = async (
 //controller to get all transactions from the blockchain
 export const getTransactions = async (_req: Request, res: Response) => {
   try {
+    // get all transactions from the blockchain
     const transactions = await getAllTransactions();
     res.status(200).json({ transactions });
   } catch (error: any) {
