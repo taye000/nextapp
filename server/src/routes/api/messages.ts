@@ -1,15 +1,21 @@
 import { Router } from "express";
 import { validateRequest, validateToken } from "../../middleware";
-import { getMessages } from "../../controllers/message";
-
+import { getUserMessage, getUserMessages } from "../../controllers/message";
 
 const router = Router();
 
 router.get(
-  "/get-messages/:id",
+  "/get-user-message/:id",
   validateRequest,
   validateToken,
-  getMessages
+  getUserMessage
+);
+
+router.get(
+  "/get-user-messages",
+  validateRequest,
+  validateToken,
+  getUserMessages
 );
 
 module.exports = router;

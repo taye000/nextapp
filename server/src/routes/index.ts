@@ -9,4 +9,5 @@ export const configureRoutes = (app: Application) => {
   app.use("/api/transactions", require("./api/transactions"));
   app.use("/api/subscribers", require("./api/subscribers"));
   app.use("/api/messages", require("./api/messages"));
+  app.use("/api/chats", require("./api/chats"));
 };
