@@ -24,10 +24,9 @@ const MessageSchema = new Schema<IMessage, MessageModel>(
       trim: true,
       ref: "User",
     },
-    transactionId: {
-      type: Schema.Types.ObjectId,
+    content: {
+      type: String,
       trim: true,
-      ref: "Transaction",
     },
   },
   {
