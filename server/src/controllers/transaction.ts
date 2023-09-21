@@ -109,37 +109,6 @@ export const getUserTransaction = async (req: Request, res: Response) => {
   }
 };
 
-//controller to update a transaction assigned person
-export const updateTransactionAssigned = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const user = await User.findById(req.currentUser?.id);
-    if (!user || user.is_admin === false) {
-      res.status(401).json({ msg: "Unauthorized access" });
-    }
-    // Get the transaction id from the request body
-    const transaction = await Transaction.findById(req.params.id);
-    if (!transaction) {
-      return res.status(404).json({ msg: "transaction not found" });
-    }
-
-    let assigned = user;
-
-    await Transaction.findByIdAndUpdate(req.params.id, {
-      assigned,
-    });
-    res
-      .status(200)
-      .json({ success: true, msg: "Transaction updated successfully" });
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({ msg: "Error updating transaction", error });
-  }
-};
-
 //controller to update a transaction status
 export const updateTransactionStatus = async (req: Request, res: Response) => {
   try {

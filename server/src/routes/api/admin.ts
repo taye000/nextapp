@@ -3,12 +3,10 @@ import {
   validateRequest,
   validateAdmin,
   validateToken,
-  // validateAdminToken,
 } from "../../middleware";
 import {
   getTransaction,
   getTransactions,
-  updateTransactionAssigned,
   updateTransactionStatus,
 } from "../../controllers/transaction";
 import {
@@ -84,14 +82,6 @@ router.get(
   validateToken,
   validateAdmin,
   getTransactions
-);
-
-router.post(
-  "/update-transaction-assigned/:id",
-  validateRequest,
-  validateToken,
-  validateAdmin,
-  updateTransactionAssigned
 );
 
 router.post(
