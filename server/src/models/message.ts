@@ -11,19 +11,23 @@ const MessageSchema = new Schema<IMessage, MessageModel>(
       type: String,
       trim: true,
       required: true,
+      ref: "Message",
     },
     userId: {
       type: Schema.Types.ObjectId,
       trim: true,
       required: true,
+      ref: "User",
     },
     clientId: {
       type: Schema.Types.ObjectId,
       trim: true,
+      ref: "User",
     },
     transactionId: {
       type: Schema.Types.ObjectId,
       trim: true,
+      ref: "Transaction",
     },
   },
   {

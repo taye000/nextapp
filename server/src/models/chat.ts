@@ -7,6 +7,10 @@ interface ChatModel extends Model<IChat> {
 
 const ChatSchema = new Schema<IChat, ChatModel>(
   {
+    chatName: {
+        type: String,
+        trim: true,
+        },
     users: [{
       type: Schema.Types.ObjectId,
       trim: true,
