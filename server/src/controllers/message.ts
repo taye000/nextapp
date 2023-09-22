@@ -4,9 +4,11 @@ import Message from "../models/message";
 //controller to get all messages from db
 export const getUserMessages = async (req: Request, res: Response) => {
   const userId = req.currentUser?.id;
+  console.log("userId", userId);
+  
   try {
     const messages = await Message.find({
-      $or: [{ userId }, { clientId: userId }],
+      senderId: userId,
     }); // Retrieve messages that match either the user ID or the client ID
     res.status(200).json({ messages });
   } catch (error: any) {

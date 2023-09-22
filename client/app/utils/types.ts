@@ -34,7 +34,15 @@ export enum IAppealStatus {
 }
 export interface IMessage {
   id?: string;
-  userId: string;
-  clientId: string;
-  message: string;
+  chatId: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+}
+
+export interface IChat {
+  id?: string;
+  chatName?: string;
+  users: string[];
+  latestMessage?: string;
 }

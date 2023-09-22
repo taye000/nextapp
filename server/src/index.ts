@@ -55,7 +55,7 @@ const main = async () => {
     });
 
     socket.on("chatMessage", async (message) => {
-      if (!message) return;
+      if (!message) return;    
       try {
         // save chat to db
         const chat = await Chat.create({
@@ -84,9 +84,9 @@ const main = async () => {
       } catch (error) {
         console.log("Error saving chat", error);  
       }
-      // broadcast message to all clients
+      // broadcast message to client
       const res = socket.in(message.userId).emit("chatMessage", message);
-      console.log("chatMessage", res);
+      console.log("chatMessage:", res);
     });
 
     // to print any event received from client
