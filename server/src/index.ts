@@ -6,6 +6,7 @@ import { config } from "./config/config";
 import { configureMiddleware } from "./middleware";
 import { configureRoutes } from "./routes";
 import Message from "./models/message";
+import Chat from "./models/chat";
 
 const main = async () => {
   //connect to db
@@ -53,26 +54,40 @@ const main = async () => {
       console.log("user joined room:", room);
     });
 
-    // socket.on("chatMessage", async (message) => {
-    //   try {
-    //     // save chat to db
-    //     const chat = await Message.create({
-    //       message: message.message,
-    //       clientId: message.clientId,
-    //       userId: message.userId,
-    //       transactionId: message.transactionId,
-    //     });
-    //     await chat.save();
-    //     console.log("chat saved", chat);
+    socket.on("chatMessage", async (message) => {
+      if (!message) return;
+      try {
+        // save chat to db
+        const chat = await Chat.create({
+          chatName: message.chatName,
+          users: [message.userId, message.clientId],
+          // latestMessage: message.message,
+        });
+        await chat.save();
+        console.log("chat saved", chat);
+
+        // find receiver from users Array
+        const receiver = chat.users.forEach((user) => {
+          if (user !== message.sender) return user;
+        });
+
+        // save message to db
+        const msg = await Message.create({
+          content: message.message,
+          senderId: message.sender,
+          receiverId: receiver,
+          chatId: chat._id,
+        });
+        await msg.save();
+        console.log("msg saved", msg);
         
-    //   } catch (error) {
-    //     console.log("Error saving chat", error);
-        
-    //   }
-    //   // broadcast message to all clients
-    //   const res = io.emit("chatMessage", message);
-    //   console.log("chatMessage", res);
-    // });
+      } catch (error) {
+        console.log("Error saving chat", error);  
+      }
+      // broadcast message to all clients
+      const res = socket.in(message.userId).emit("chatMessage", message);
+      console.log("chatMessage", res);
+    });
 
     // to print any event received from client
     socket.onAny((event, ...args) => {

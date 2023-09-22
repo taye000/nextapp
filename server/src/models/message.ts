@@ -7,19 +7,18 @@ interface MessageModel extends Model<IMessage> {
 
 const MessageSchema = new Schema<IMessage, MessageModel>(
   {
-    chat: {
+    chatId: {
       type: Schema.Types.ObjectId,
       trim: true,
-      required: true,
+      required: false,
       ref: "Chat",
     },
-    userId: {
+    senderId: {
       type: Schema.Types.ObjectId,
       trim: true,
-      required: true,
       ref: "User",
     },
-    clientId: {
+    receiverId: {
       type: Schema.Types.ObjectId,
       trim: true,
       ref: "User",

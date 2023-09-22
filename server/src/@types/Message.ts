@@ -2,8 +2,8 @@ import { Schema } from "mongoose";
 
 export interface IMessage {
   id?: string;
-  chat: Schema.Types.ObjectId;
-  userId: Schema.Types.ObjectId;
-  clientId: Schema.Types.ObjectId;
+  chatId: Schema.Types.ObjectId;
+  senderId: Schema.Types.ObjectId;
+  receiverId: Schema.Types.ObjectId;
   content: string;
 }

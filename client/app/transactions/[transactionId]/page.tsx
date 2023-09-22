@@ -151,11 +151,13 @@ const transactionDetail = () => {
 
     try {
       if (message) {
+        
         // send chat to server
         socket.emit("chatMessage", {
           clientId: transaction?.clientId,
           userId: transaction?.userId,
-          transactionId: transaction?.id,
+          chatName: user.name,
+          sender: user.id,
           message,
         });
         setMessage("");
