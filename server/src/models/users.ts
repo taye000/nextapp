@@ -12,6 +12,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     name: {
       type: String,
       trim: true,
+      required: true,
       max: 50,
     },
     email: {

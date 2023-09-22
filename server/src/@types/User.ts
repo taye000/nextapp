@@ -2,10 +2,10 @@ import { JwtPayload } from "jsonwebtoken";
 
 export interface IUser {
   id?: string;
-  name?: string;
+  name: string;
   email: string;
-  phoneNumber?: string;
   password: string;
+  phoneNumber?: string;
   photo?: string;
   coverPhoto?: string;
   location?: string;
@@ -21,8 +21,8 @@ export interface IUser {
 export interface UserPayload extends JwtPayload {
   id: string;
   email: string;
+  name: string;
   phoneNumber?: string;
-  name?: string;
   is_active?: boolean;
   is_admin?: boolean;
 }

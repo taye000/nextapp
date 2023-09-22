@@ -39,6 +39,7 @@ export const signin = async (req: Request, res: Response) => {
     //payload for generating jwt token
     const payload = {
       id: user.id,
+      name: user.name,
       email: user.email,
       phoneNumber: user.phoneNumber,
     };
@@ -185,6 +186,9 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 
 // sign out of the system
 export const logout = async (req: Request, res: Response) => {
+  // clear the cookie session
   req.session = null;
-  res.status(200).json({ success: true, msg: "Sign out successful." });
+  // clear the cookie
+  res.clearCookie("jwt");
+  res.status(200).json({ msg: "User signed out successfully" });
 };

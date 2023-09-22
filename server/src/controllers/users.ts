@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/users";
 import validator from "validator";
-import { config } from "../config";
-import { sign } from "jsonwebtoken";
 
 //create a new user
 export const signUp = async (req: any, res: any) => {

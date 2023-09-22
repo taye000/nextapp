@@ -13,7 +13,7 @@ export const validateToken = (
   const token = (req.headers.authorization as string)?.split(" ")[1];
   const accessToken = token;
 
-  if (!accessToken || accessToken === "undefined") {
+  if (!accessToken) {
     return res.status(401).json({ msg: "Unauthorised access", success: false });
   }
   try {
@@ -26,7 +26,16 @@ export const validateToken = (
     }
     next();
   } catch (error: any) {
-    return res.status(500).json({ msg: "Internal auth error", error });
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ msg: "Token expired", success: false });
+    } else if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ msg: "Invalid token", success: false });
+    } else {
+      console.error("Authentication error:", error);
+      return res
+        .status(500)
+        .json({ msg: "Internal auth error", success: false });
+    }
   }
 };
 
