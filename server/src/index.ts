@@ -19,6 +19,7 @@ const main = async () => {
 
   // initialize socket.io
   const io = new Server(server, {
+    pingTimeout: 60000,
     cors: {
       origin: "http://localhost:3000",
       methods: ["GET", "HEAD", "PATCH", "POST", "PUT", "DELETE"],
@@ -40,26 +41,38 @@ const main = async () => {
   io.on("connection", (socket) => {
     console.log("a user connected");
 
-    socket.on("chatMessage", async (message) => {
-      try {
-        // save chat to db
-        const chat = await Message.create({
-          message: message.message,
-          clientId: message.clientId,
-          userId: message.userId,
-          transactionId: message.transactionId,
-        });
-        await chat.save();
-        console.log("chat saved", chat);
-        
-      } catch (error) {
-        console.log("Error saving chat", error);
-        
-      }
-      // broadcast message to all clients
-      const res = io.emit("chatMessage", message);
-      console.log("chatMessage", res);
+    // receive user data from client
+    socket.on("userData", (data) => {
+      socket.join(data.userId);
+      console.log("userData", data.userId);
+      socket.emit("connected:", data.userId);
     });
+    // join room
+    socket.on("joinRoom", (room) => {
+      socket.join(room);
+      console.log("user joined room:", room);
+    });
+
+    // socket.on("chatMessage", async (message) => {
+    //   try {
+    //     // save chat to db
+    //     const chat = await Message.create({
+    //       message: message.message,
+    //       clientId: message.clientId,
+    //       userId: message.userId,
+    //       transactionId: message.transactionId,
+    //     });
+    //     await chat.save();
+    //     console.log("chat saved", chat);
+        
+    //   } catch (error) {
+    //     console.log("Error saving chat", error);
+        
+    //   }
+    //   // broadcast message to all clients
+    //   const res = io.emit("chatMessage", message);
+    //   console.log("chatMessage", res);
+    // });
 
     // to print any event received from client
     socket.onAny((event, ...args) => {

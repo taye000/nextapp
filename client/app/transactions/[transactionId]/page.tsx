@@ -25,6 +25,8 @@ const transactionDetail = () => {
   const [sellerAppealClicked, setSellerAppealClicked] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [socketConnected, setSocketConnected] = useState(false);
+
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [message, setMessage] = useState("");
 
@@ -77,9 +79,9 @@ const transactionDetail = () => {
         throw new Error("error fetching messages");
       }
       const data = await response.json();
-      console.log("msg data", data);      
+      console.log("msg data", data);
 
-      //update Transactions
+      //update Messages
       setMessages(data.messages);
     } catch (error) {
       console.error(error);
@@ -105,6 +107,9 @@ const transactionDetail = () => {
 
       //update Transactions
       setTransaction(data.transaction);
+
+      // Join room
+      socket.emit("joinRoom", transactionId);
     } catch (error) {
       console.error(error);
     }
@@ -532,47 +537,47 @@ const transactionDetail = () => {
           )}
       </div>
       <div className="md:flex md:justify-center p-4">
-      <div className="border rounded-md shadow-md p-6 m-4">
-        <div className="flex justify-between">
-          <h2 className="text-2xl font-bold text-left">Chat</h2>
-        </div>
-        <div>
-          <div className="py-2">
-            <div className="w-full m-auto p-4 border rounded-md overflow-auto">
-              <ul id="messages">
-                {messages.map((message, index) => (
-                  <li key={index}>
-                    {message.clientId === transaction?.clientId
-                      ? `Buyer: ${message.message}`
-                      : `Seller: ${message.message}`}
-                  </li>
-                ))}
-              </ul>
+        <div className="border rounded-md shadow-md p-6 m-4">
+          <div className="flex justify-between">
+            <h2 className="text-2xl font-bold text-left">Chat</h2>
+          </div>
+          <div>
+            <div className="py-2">
+              <div className="w-full m-auto p-4 border rounded-md overflow-auto">
+                <ul id="messages">
+                  {messages.map((message, index) => (
+                    <li key={index}>
+                      {message.clientId === transaction?.clientId
+                        ? `Buyer: ${message.message}`
+                        : `Seller: ${message.message}`}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
+          <form
+            id="form"
+            onSubmit={handleMessageSubmit}
+            className="flex flex-col space-y-4"
+          >
+            <input
+              id="input"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type your message"
+              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
+            />
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg hover:bg-blue-600 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
+              >
+                Send
+              </button>
+            </div>
+          </form>
         </div>
-        <form
-          id="form"
-          onSubmit={handleMessageSubmit}
-          className="flex flex-col space-y-4"
-        >
-          <input
-            id="input"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message"
-            className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500"
-          />
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="bg-blue-800 flex rounded-lg text-white font-bold p-2 px-6 md:p3 md:rounded-lg hover:bg-blue-600 transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100"
-            >
-              Send
-            </button>
-          </div>
-        </form>
-      </div>
       </div>
     </main>
   );
