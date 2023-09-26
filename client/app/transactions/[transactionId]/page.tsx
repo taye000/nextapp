@@ -69,16 +69,13 @@ const transactionDetail = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/messages/get-user-messages`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/messages/get-user-messages`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("error fetching messages");
       }
@@ -94,16 +91,13 @@ const transactionDetail = () => {
 
   const fetchChats = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/chats/get-user-chats`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/chats/get-user-chats`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("error fetching chats");
       }
@@ -120,7 +114,7 @@ const transactionDetail = () => {
   const chatIdToChatName = (chatId: string) => {
     const chat = chats.find((chat) => chat.id === chatId);
     return chat?.chatName;
-  }
+  };
 
   const fetchTransaction = async () => {
     try {
@@ -186,7 +180,6 @@ const transactionDetail = () => {
 
     try {
       if (message) {
-        
         // send chat to server
         socket.emit("chatMessage", {
           clientId: transaction?.clientId,
