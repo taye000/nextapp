@@ -33,6 +33,7 @@ export enum IAppealStatus {
   UNDER_REVIEW = "under review",
 }
 export interface IMessage {
+  createdAt: string;
   id?: string;
   chatId: string;
   senderId: string;

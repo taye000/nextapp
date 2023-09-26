@@ -10,6 +10,7 @@ import {
   IUser,
 } from "../../utils/types";
 import socket from "../../utils/socket";
+import { dateFormat } from "../../utils/dateFormat";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -579,8 +580,8 @@ const transactionDetail = () => {
                       key={index}
                       className={
                         message.senderId === user.id
-                          ? "flex justify-start m-2"
-                          : "flex justify-end m-2"
+                          ? "flex justify-end m-2"
+                          : "flex justify-start m-2"
                       }
                     >
                       <div className={
@@ -588,8 +589,10 @@ const transactionDetail = () => {
                         ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 font-medium"
                         : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 font-medium"
                       }
-                      >
-                      {chatIdToChatName(message.chatId)} : {message.content}
+                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)} : {message.content}
+                      <div>
+                        <p className="text-xs">{dateFormat(message.createdAt)}</p>
+                        </div>
                     </div>
                     </div>
                   ))}
