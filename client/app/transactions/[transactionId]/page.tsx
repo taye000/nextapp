@@ -571,18 +571,30 @@ const transactionDetail = () => {
           <div className="flex justify-between">
             <h2 className="text-2xl font-bold text-left">Chat</h2>
           </div>
-          <div>
             <div className="py-2">
               <div className="w-full m-auto p-4 border rounded-md overflow-auto">
-                <ul id="messages">
+                <div className="flex flex-col">
                   {messages.map((message, index) => (
-                    <li key={index}>
+                    <div
+                      key={index}
+                      className={
+                        message.senderId === user.id
+                          ? "flex justify-start m-2"
+                          : "flex justify-end m-2"
+                      }
+                    >
+                      <div className={
+                        message.senderId === user.id
+                        ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 font-medium"
+                        : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 font-medium"
+                      }
+                      >
                       {chatIdToChatName(message.chatId)} : {message.content}
-                    </li>
+                    </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            </div>
           </div>
           <form
             id="form"
