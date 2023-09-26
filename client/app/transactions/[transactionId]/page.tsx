@@ -63,6 +63,9 @@ const transactionDetail = () => {
 
       // Update user state with fetched data
       setUser(userData);
+
+      // emit user data to server
+      socket.emit("userData", userData);
     } catch (error) {
       console.error(error);
     }
@@ -162,6 +165,8 @@ const transactionDetail = () => {
 
   // listen to messages
   useEffect(() => {
+    // Listen to socket connection    
+    socket.on("connect", () => setSocketConnected(true)); 
     // Listen to incoming messages
     socket.on("chatMessage", (message: any) => {
       console.log("message", message);

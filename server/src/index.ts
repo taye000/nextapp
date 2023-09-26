@@ -44,9 +44,8 @@ const main = async () => {
 
     // receive user data from client
     socket.on("userData", (data) => {
-      socket.join(data.userId);
-      console.log("userData", data.userId);
-      socket.emit("connected:", data.userId);
+      socket.join(data.id);
+      socket.emit("connected:", data.id);
     });
     // join room
     socket.on("joinRoom", (room) => {
@@ -55,7 +54,7 @@ const main = async () => {
     });
 
     socket.on("chatMessage", async (message) => {
-      if (!message) return;    
+      if (!message) return;
       try {
         // save chat to db
         const chat = await Chat.create({
@@ -69,9 +68,8 @@ const main = async () => {
         // find receiver from users Array
         const receiver = chat.users.find((user) => user !== message.senderId);
         console.log("chat users", chat.users);
-        
+
         console.log("receiver", receiver);
-        
 
         // save message to db
         const msg = await Message.create({
@@ -82,9 +80,8 @@ const main = async () => {
         });
         await msg.save();
         console.log("msg saved", msg);
-        
       } catch (error) {
-        console.log("Error saving chat", error);  
+        console.log("Error saving chat", error);
       }
       // broadcast message to client
       const res = socket.in(message.userId).emit("chatMessage", message);
