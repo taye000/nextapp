@@ -586,13 +586,17 @@ const transactionDetail = () => {
                     >
                       <div className={
                         message.senderId === user.id
-                        ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 font-medium"
-                        : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 font-medium"
+                        ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
+                        : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
                       }
-                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)} : {message.content}
+                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)}
+                      <div
+                      className="text-lg">
+                      {message.content}
                       <div>
                         <p className="text-xs">{dateFormat(message.createdAt)}</p>
                         </div>
+                    </div>
                     </div>
                     </div>
                   ))}
