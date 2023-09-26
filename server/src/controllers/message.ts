@@ -8,7 +8,7 @@ export const getUserMessages = async (req: Request, res: Response) => {
   
   try {
     const messages = await Message.find({
-      senderId: userId,
+     $or:[{ senderId: userId}, { receiverId: userId}],
     }); // Retrieve messages that match either the user ID or the client ID
     res.status(200).json({ messages });
   } catch (error: any) {

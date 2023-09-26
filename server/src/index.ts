@@ -67,9 +67,11 @@ const main = async () => {
         console.log("chat saved", chat);
 
         // find receiver from users Array
-        const receiver = chat.users.forEach((user) => {
-          if (user !== message.sender) return user;
-        });
+        const receiver = chat.users.find((user) => user !== message.senderId);
+        console.log("chat users", chat.users);
+        
+        console.log("receiver", receiver);
+        
 
         // save message to db
         const msg = await Message.create({
