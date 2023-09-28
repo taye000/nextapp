@@ -23,6 +23,11 @@ const MessageSchema = new Schema<IMessage, MessageModel>(
       trim: true,
       ref: "User",
     },
+    transactionId: {
+      type: Schema.Types.ObjectId,
+      trim: true,
+      ref: "Transaction",
+    },
     content: {
       type: String,
       trim: true,

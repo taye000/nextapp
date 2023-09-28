@@ -71,9 +71,9 @@ const transactionDetail = () => {
     }
   };
 
-  const fetchMessages = async () => {
+  const fetchTXMessages = async () => {
     try {
-      const response = await fetch(`${apiUrl}/messages/get-user-messages`, {
+      const response = await fetch(`${apiUrl}/messages/get-tx-user-messages/${transactionId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${cookie}`,
@@ -158,7 +158,7 @@ const transactionDetail = () => {
     //fetch transaction
     if (transactionId) {
       fetchTransaction();
-      fetchMessages();
+      fetchTXMessages();
       fetchChats();
     }
   }, [cookie, transactionId]);

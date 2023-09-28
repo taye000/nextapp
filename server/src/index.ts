@@ -86,6 +86,7 @@ const main = async () => {
           content: message.message,
           senderId: message.sender,
           receiverId: receiver,
+          transactionId: message.transactionId,
           chatId: chat._id,
         });
         await msg.save();

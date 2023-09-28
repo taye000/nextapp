@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateRequest, validateToken } from "../../middleware";
-import { getUserMessage, getUserMessages } from "../../controllers/message";
+import { getTXUserMessages, getUserMessage, getUserMessages } from "../../controllers/message";
 
 const router = Router();
 
@@ -17,5 +17,12 @@ router.get(
   validateToken,
   getUserMessages
 );
+
+router.get(
+  "/get-tx-user-messages/:id",
+  validateRequest,
+  validateToken,
+  getTXUserMessages
+)
 
 module.exports = router;
