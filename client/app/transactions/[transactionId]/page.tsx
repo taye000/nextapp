@@ -184,26 +184,32 @@ const transactionDetail = () => {
   useEffect(() => {
     socket.on("messageReceived", (message) => {
       setMessages([...messages, message])
+      console.log("message received", message);
+      
     })
   });
 
   // send message
   const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if(!transaction) return;
 
+    const msgData:IMessage = {
+      clientId: transaction.clientId,
+      userId: transaction.userId,
+      transactionId: transaction.id,
+      chatName: user.name,
+      sender: user.id,
+      content: message,
+    };
     try {
       if (message) {
         // send chat to server
-        socket.emit("chatMessage", {
-          clientId: transaction?.clientId,
-          userId: transaction?.userId,
-          transactionId: transaction?.id,
-          chatName: user.name,
-          sender: user.id,
-          message,
-        });
-        setMessage("");
+        socket.emit("chatMessage", msgData);
+        // update messages state with the new message
+        setMessages([...messages, msgData]);
       }
+      setMessage("");
     } catch (error) {
       console.log("socket error", error);
     }
@@ -592,23 +598,23 @@ const transactionDetail = () => {
                     <div
                       key={index}
                       className={
-                        message.senderId === user.id
+                        message.sender === user.id
                           ? "flex justify-end m-2"
                           : "flex justify-start m-2"
                       }
                     >
                       <div className={
-                        message.senderId === user.id
+                        message.sender === user.id
                         ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
                         : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
                       }
-                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)}
+                      >{message.sender === user.id ? "You" : chatIdToChatName(message.chatId)}
                       <div
                       className="text-lg">
                       {message.content}
-                      <div>
+                      {/* <div>
                         <p className="text-xs">{dateFormat(message.createdAt)}</p>
-                        </div>
+                        </div> */}
                     </div>
                     </div>
                     </div>

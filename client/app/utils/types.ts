@@ -1,5 +1,5 @@
 export interface ITransaction {
-  id?: string;
+  id: string;
   phone?: string;
   userId: string;
   clientId: string;
@@ -33,12 +33,16 @@ export enum IAppealStatus {
   UNDER_REVIEW = "under review",
 }
 export interface IMessage {
-  createdAt: string;
+  createdAt?: any;
   id?: string;
-  chatId: string;
-  senderId: string;
-  receiverId: string;
+  chatId?: any;
+  chatName: any;
+  sender: any;
+  receiverId?: string;
+  transactionId: string;
+  clientId: string;
   content: string;
+  userId: string;
 }
 
 export interface IChat {

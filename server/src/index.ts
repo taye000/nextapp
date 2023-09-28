@@ -46,6 +46,8 @@ const main = async () => {
     socket.on("userData", (data) => {
       socket.join(data.id);
       socket.emit("connected:", data.id);
+      console.log("user data received:", data.id);
+      
     });
     // join room
     socket.on("joinRoom", (room) => {
@@ -57,7 +59,9 @@ const main = async () => {
       if (!message) return;
 
       // broadcast message to client
-      socket.in(message.clientId).emit("messageReceived", message);
+      socket.in(message.transactionId).emit("messageReceived", message);
+      console.log("message received", message);
+      
 
       // find receiver
       let receiver;
@@ -83,7 +87,7 @@ const main = async () => {
 
         // save message to db
         const msg = await Message.create({
-          content: message.message,
+          content: message.content,
           senderId: message.sender,
           receiverId: receiver,
           transactionId: message.transactionId,
