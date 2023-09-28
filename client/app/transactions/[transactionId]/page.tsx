@@ -182,9 +182,9 @@ const transactionDetail = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("messageReceived", (message) => {
-      setMessages([...messages, message])
-      console.log("message received", message);
+    socket.on("messageReceived", (msg) => {
+      setMessages([...messages, msg])
+      console.log("message received", msg);
       
     })
   });
@@ -207,7 +207,7 @@ const transactionDetail = () => {
         // send chat to server
         socket.emit("chatMessage", msgData);
         // update messages state with the new message
-        setMessages([...messages, msgData]);
+        // setMessages([...messages, msgData]);
       }
       setMessage("");
     } catch (error) {
@@ -612,9 +612,9 @@ const transactionDetail = () => {
                       <div
                       className="text-lg">
                       {message.content}
-                      {/* <div>
+                      <div>
                         <p className="text-xs">{dateFormat(message.createdAt)}</p>
-                        </div> */}
+                        </div>
                     </div>
                     </div>
                     </div>
