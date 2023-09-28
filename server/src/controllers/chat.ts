@@ -29,36 +29,20 @@ export const getUserChat = async (req: Request, res: Response) => {
   }
 };
 
-//controller to create/fetch a Chat from db
-export const createFetchChat = async (req: Request, res: Response) => {
-  const { userId } = req.body;
-  console.log("req.currentUser", req.currentUser);
+//controller to get all Chats for a transaction from db
+export const getTXUserChats = async (req: Request, res: Response) => {
+  const userId = req.currentUser?.id;
+  const transactionId = req.params?.id;
 
   try {
-    let existingChat: IChat | null = await Chat.findOne({
-      users: {
-        $all: [req.currentUser?.id, userId],
-      },
-    })
-      .populate("users", "-password")
-      .populate("latestMessage");
-
-    if (!existingChat) {
-      // If the chat doesn't exist, create a new one
-      const chatData = {
-        chatName: req.currentUser?.name,
-        users: [req.currentUser?.id, userId],
-      };
-
-      const createdChat = new Chat(chatData);
-
-      await createdChat.save();
-      existingChat = createdChat;
-    }
-
-    res.status(200).json(existingChat);
-    console.log("existingChat", existingChat);
+    const chats = await Chat.find({
+      $and: [
+      {users: { $in: [userId] },},
+      {transactionId: transactionId},
+      ],
+    });
+    res.status(200).json({ chats });
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    return res.status(404).json({ msg: error.Chat });
   }
 };

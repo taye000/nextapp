@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { validateRequest, validateToken } from "../../middleware";
-import { createFetchChat, getUserChat, getUserChats } from "../../controllers";
+import { getUserChat, getUserChats,getTXUserMessages } from "../../controllers";
 
 const router = Router();
 
 router.get("/get-user-chat/:id", validateRequest, validateToken, getUserChat);
 
-router.get("/get-user-chats", validateRequest, validateToken, getUserChats);
+router.get("/get-tx-user-chats/:id", validateRequest, validateToken, getTXUserMessages);
 
-router.post("/create-fetch-chat", validateRequest, validateToken, createFetchChat);
+router.get("/get-user-chats", validateRequest, validateToken, getUserChats);
 
 module.exports = router;

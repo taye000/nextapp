@@ -93,9 +93,9 @@ const transactionDetail = () => {
     }
   };
 
-  const fetchChats = async () => {
+  const fetchTXChats = async () => {
     try {
-      const response = await fetch(`${apiUrl}/chats/get-user-chats`, {
+      const response = await fetch(`${apiUrl}/chats/get-tx-user-chats/${transactionId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${cookie}`,
@@ -116,6 +116,7 @@ const transactionDetail = () => {
   };
 
   const chatIdToChatName = (chatId: string) => {
+    if (!chats) return;
     const chat = chats.find((chat) => chat.id === chatId);
     return chat?.chatName;
   };
@@ -159,7 +160,7 @@ const transactionDetail = () => {
     if (transactionId) {
       fetchTransaction();
       fetchTXMessages();
-      fetchChats();
+      fetchTXChats();
     }
   }, [cookie, transactionId]);
 
