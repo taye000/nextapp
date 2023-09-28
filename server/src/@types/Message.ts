@@ -5,6 +5,7 @@ export interface IMessage {
   chatId: Schema.Types.ObjectId;
   senderId: Schema.Types.ObjectId;
   receiverId: Schema.Types.ObjectId;
+  receiverName: string;
   transactionId: Schema.Types.ObjectId;
   content: string;
 }

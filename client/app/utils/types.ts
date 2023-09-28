@@ -39,6 +39,7 @@ export interface IMessage {
   chatName: any;
   senderId: any;
   receiverId?: string;
+  receiverName?: string;
   transactionId: string;
   clientId: string;
   content: string;

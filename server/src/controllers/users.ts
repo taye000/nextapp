@@ -4,7 +4,8 @@ import validator from "validator";
 
 //create a new user
 export const signUp = async (req: any, res: any) => {
-  const { name, email, phoneNumber, password, confirmPassword, account_type } = req.body;
+  const { name, email, phoneNumber, password, confirmPassword, account_type } =
+    req.body;
 
   if (!email.trim()) {
     return res.status(400).json({ email: "email is required" });
@@ -19,7 +20,9 @@ export const signUp = async (req: any, res: any) => {
     return res.status(400).json({ password: "Password is required" });
   }
   if (!confirmPassword.trim()) {
-    return res.status(400).json({ confirmPassword: "Password confirmation is required" });
+    return res
+      .status(400)
+      .json({ confirmPassword: "Password confirmation is required" });
   }
 
   try {
@@ -28,19 +31,23 @@ export const signUp = async (req: any, res: any) => {
     if (emailExists)
       return res.status(400).json({ email: "User email already exists" });
 
-      //check if user password and confirm password match
-      if (password !== confirmPassword) {
-        return res.status(400).json({ confirmPassword: "Password and Confirm Password do not match" })
-      }
-      
-      //create new user
-      const createUser = await User.create({
-        name,
-        email,
-        phoneNumber,
-        password,
-        account_type,
-      });
+    //check if user password and confirm password match
+    if (password !== confirmPassword) {
+      return res
+        .status(400)
+        .json({
+          confirmPassword: "Password and Confirm Password do not match",
+        });
+    }
+
+    //create new user
+    const createUser = await User.create({
+      name,
+      email,
+      phoneNumber,
+      password,
+      account_type,
+    });
     //save user
     let newUser = await createUser.save();
 
@@ -53,13 +60,11 @@ export const signUp = async (req: any, res: any) => {
       account_type: newUser.account_type,
     };
 
-    res
-      .status(201)
-      .json({
-        success: true,
-        msg: "New User Created Successfully.",
-        sanitizedUser,
-      });
+    res.status(201).json({
+      success: true,
+      msg: "New User Created Successfully.",
+      sanitizedUser,
+    });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -106,13 +111,11 @@ export const adminSignUp = async (req: any, res: any) => {
     //save user
     let newUser = await createUser.save();
 
-    res
-      .status(201)
-      .json({
-        success: true,
-        msg: "New Admin User Created Successfully. Please Login to continue.",
-        newUser,
-      });
+    res.status(201).json({
+      success: true,
+      msg: "New Admin User Created Successfully. Please Login to continue.",
+      newUser,
+    });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -124,11 +127,28 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(userId);
     if (user) {
+      console.log("user found", user);
+
       res.status(200).json({ user });
     } else {
       return res.status(404).json({ message: "User not found" });
     }
   } catch (error: any) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+//get a username by id
+export const getUserNameById = async (userId: any) => {
+  try {
+    const user = await User.findById(userId);
+    if (user) {
+      return user.name;
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (error: any) {
+    console.log("error fetching user by id", error);
+    throw new Error("error fetching user by id");
   }
 };

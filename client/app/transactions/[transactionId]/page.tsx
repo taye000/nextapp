@@ -608,7 +608,7 @@ const transactionDetail = () => {
                         ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
                         : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
                       }
-                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)}
+                      >{message.senderId === user.id ? "You" : message.receiverName}
                       <div
                       className="text-lg">
                       {message.content}

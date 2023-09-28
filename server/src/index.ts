@@ -7,6 +7,7 @@ import { configureMiddleware } from "./middleware";
 import { configureRoutes } from "./routes";
 import Message from "./models/message";
 import Chat from "./models/chat";
+import { getUserNameById } from "./controllers";
 
 const main = async () => {
   //connect to db
@@ -64,6 +65,9 @@ const main = async () => {
       } else {
         receiver = msgData.userId;
       }
+      let receiverName = await getUserNameById(receiver);
+      console.log("receiver name", receiverName);
+      
 
       try {
         // save chat to db
@@ -84,6 +88,7 @@ const main = async () => {
           content: msgData.content,
           senderId: msgData.senderId,
           receiverId: receiver,
+          receiverName: receiverName,
           transactionId: msgData.transactionId,
           chatId: chat._id,
         });
