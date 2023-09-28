@@ -199,7 +199,7 @@ const transactionDetail = () => {
       userId: transaction.userId,
       transactionId: transaction.id,
       chatName: user.name,
-      sender: user.id,
+      senderId: user.id,
       content: message,
     };
     try {
@@ -598,17 +598,17 @@ const transactionDetail = () => {
                     <div
                       key={index}
                       className={
-                        message.sender === user.id
+                        message.senderId === user.id
                           ? "flex justify-end m-2"
                           : "flex justify-start m-2"
                       }
                     >
                       <div className={
-                        message.sender === user.id
+                        message.senderId === user.id
                         ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
                         : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
                       }
-                      >{message.sender === user.id ? "You" : chatIdToChatName(message.chatId)}
+                      >{message.senderId === user.id ? "You" : chatIdToChatName(message.chatId)}
                       <div
                       className="text-lg">
                       {message.content}

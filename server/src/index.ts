@@ -54,22 +54,22 @@ const main = async () => {
       console.log("user joined room:", room);
     });
 
-    socket.on("chatMessage", async (message) => {
-      if (!message) return;
+    socket.on("chatMessage", async (msgData) => {
+      if (!msgData) return;
 
       // find receiver
       let receiver;
-      if (message.clientId !== message.sender) {
-        receiver = message.clientId;
+      if (msgData.clientId !== msgData.senderId) {
+        receiver = msgData.clientId;
       } else {
-        receiver = message.userId;
+        receiver = msgData.userId;
       }
 
       try {
         // save chat to db
         const chat = await Chat.create({
-          chatName: message.chatName,
-          users: [message.sender, message.clientId],
+          chatName: msgData.chatName,
+          users: [msgData.senderId, msgData.clientId],
           // latestMessage: message.message,
         });
         await chat.save();
@@ -81,17 +81,17 @@ const main = async () => {
 
         // save message to db
         const msg = await Message.create({
-          content: message.content,
-          senderId: message.sender,
+          content: msgData.content,
+          senderId: msgData.senderId,
           receiverId: receiver,
-          transactionId: message.transactionId,
+          transactionId: msgData.transactionId,
           chatId: chat._id,
         });
         await msg.save();
         console.log("msg saved", msg);
 
         // broadcast message to client
-        socket.in(message.transactionId).emit("messageReceived", msg);
+        socket.in(msgData.transactionId).emit("messageReceived", msg);
         console.log("message received", msg);
       } catch (error) {
         console.log("Error saving chat", error);
