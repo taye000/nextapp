@@ -180,6 +180,12 @@ const transactionDetail = () => {
     };
   }, []);
 
+  useEffect(() => {
+    socket.on("messageReceived", (message) => {
+      setMessages([...messages, message])
+    })
+  });
+
   // send message
   const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -190,6 +196,7 @@ const transactionDetail = () => {
         socket.emit("chatMessage", {
           clientId: transaction?.clientId,
           userId: transaction?.userId,
+          transactionId: transaction?.id,
           chatName: user.name,
           sender: user.id,
           message,

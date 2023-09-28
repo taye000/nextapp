@@ -34,7 +34,7 @@ const main = async () => {
   configureRoutes(app);
 
   //start server
-  server.listen(config.PORT || 5000, () => {
+  server.listen(config.PORT || 5001, () => {
     console.log(`Server started at port ${config.PORT}`, server.address());
   });
 
@@ -55,18 +55,28 @@ const main = async () => {
 
     socket.on("chatMessage", async (message) => {
       if (!message) return;
+
+      // broadcast message to client
+      socket.in(message.clientId).emit("messageReceived", message);
+
+      // find receiver
+      let receiver;
+      if(message.clientId !== message.sender) {
+        receiver = message.clientId;
+      } else {
+        receiver = message.userId;
+      };
+
       try {
         // save chat to db
         const chat = await Chat.create({
           chatName: message.chatName,
-          users: [message.userId, message.clientId],
+          users: [message.sender, message.clientId],
           // latestMessage: message.message,
         });
         await chat.save();
         console.log("chat saved", chat);
 
-        // find receiver from users Array
-        const receiver = chat.users.find((user) => user !== message.senderId);
         console.log("chat users", chat.users);
 
         console.log("receiver", receiver);
@@ -83,9 +93,6 @@ const main = async () => {
       } catch (error) {
         console.log("Error saving chat", error);
       }
-      // broadcast message to client
-      const res = socket.in(message.userId).emit("chatMessage", message);
-      console.log("chatMessage:", res);
     });
 
     // to print any event received from client
