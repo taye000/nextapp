@@ -33,7 +33,6 @@ const transactionDetail = () => {
   const [message, setMessage] = useState("");
 
   const [chats, setChats] = useState<IChat[]>([]);
-  const [chat, setChat] = useState("");
 
   const [comment, setComment] = useState("");
 
@@ -73,13 +72,16 @@ const transactionDetail = () => {
 
   const fetchTXMessages = async () => {
     try {
-      const response = await fetch(`${apiUrl}/messages/get-tx-user-messages/${transactionId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${cookie}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${apiUrl}/messages/get-tx-user-messages/${transactionId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("error fetching messages");
       }
@@ -95,13 +97,16 @@ const transactionDetail = () => {
 
   const fetchTXChats = async () => {
     try {
-      const response = await fetch(`${apiUrl}/chats/get-tx-user-chats/${transactionId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${cookie}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${apiUrl}/chats/get-tx-user-chats/${transactionId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error("error fetching chats");
       }
@@ -113,12 +118,6 @@ const transactionDetail = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const chatIdToChatName = (chatId: string) => {
-    if (!chats) return;
-    const chat = chats.find((chat) => chat.id === chatId);
-    return chat?.chatName;
   };
 
   const fetchTransaction = async () => {
@@ -166,8 +165,8 @@ const transactionDetail = () => {
 
   // listen to messages
   useEffect(() => {
-    // Listen to socket connection    
-    socket.on("connect", () => setSocketConnected(true)); 
+    // Listen to socket connection
+    socket.on("connect", () => setSocketConnected(true));
     // Listen to incoming messages
     socket.on("chatMessage", (message: any) => {
       console.log("message", message);
@@ -183,18 +182,17 @@ const transactionDetail = () => {
 
   useEffect(() => {
     socket.on("messageReceived", (msg) => {
-      setMessages([...messages, msg])
+      setMessages([...messages, msg]);
       console.log("message received", msg);
-      
-    })
+    });
   });
 
   // send message
   const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(!transaction) return;
+    if (!transaction) return;
 
-    const msgData:IMessage = {
+    const msgData: IMessage = {
       clientId: transaction.clientId,
       userId: transaction.userId,
       transactionId: transaction.id,
@@ -591,36 +589,41 @@ const transactionDetail = () => {
           <div className="flex justify-between">
             <h2 className="text-2xl font-bold text-left">Chat</h2>
           </div>
-            <div className="py-2">
-              <div className="w-full m-auto p-4 border rounded-md overflow-y-auto max-h-[400px]">
-                <div className="flex flex-col">
-                  {messages.map((message, index) => (
+          <div className="py-2">
+            <div className="w-full m-auto p-4 border rounded-md overflow-y-auto max-h-[400px]">
+              <div className="flex flex-col">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={
+                      message.senderId === user.id
+                        ? "flex justify-end m-2"
+                        : "flex justify-start m-2"
+                    }
+                  >
                     <div
-                      key={index}
                       className={
                         message.senderId === user.id
-                          ? "flex justify-end m-2"
-                          : "flex justify-start m-2"
+                          ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
+                          : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
                       }
                     >
-                      <div className={
-                        message.senderId === user.id
-                        ? "border rounded-lg p-1.5 m-2 bg-blue-800 bg-opacity-50 text-xs"
-                        : "border rounded-lg p-1.5 m-2 bg-green-800 bg-opacity-50 text-xs"
-                      }
-                      >{message.senderId === user.id ? "You" : message.receiverName}
-                      <div
-                      className="text-lg">
-                      {message.content}
-                      <div>
-                        <p className="text-xs">{dateFormat(message.createdAt)}</p>
+                      {message.senderId === user.id
+                        ? "You"
+                        : message.receiverName}
+                      <div className="text-lg">
+                        {message.content}
+                        <div>
+                          <p className="text-xs">
+                            {dateFormat(message.createdAt)}
+                          </p>
                         </div>
+                      </div>
                     </div>
-                    </div>
-                    </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
+            </div>
           </div>
           <form
             id="form"
