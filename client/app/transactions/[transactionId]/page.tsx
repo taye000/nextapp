@@ -592,7 +592,7 @@ const transactionDetail = () => {
             <h2 className="text-2xl font-bold text-left">Chat</h2>
           </div>
             <div className="py-2">
-              <div className="w-full m-auto p-4 border rounded-md overflow-auto">
+              <div className="w-full m-auto p-4 border rounded-md overflow-y-auto max-h-[400px]">
                 <div className="flex flex-col">
                   {messages.map((message, index) => (
                     <div
