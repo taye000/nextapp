@@ -13,8 +13,8 @@ export interface ITransaction {
   orderId?: string;
   comment?: string;
   customerComment?: string;
-  photo?: string;
-  customerPhoto?: string;
+  photos?: string[];
+  customerPhotos?: string[];
   accountNumber?: string;
   status?: string;
   customerStatus?: string;

@@ -26,13 +26,16 @@ router.post("/verifyuser", validateRequest, verifyUserLoginByOTP);
 router.post("/signout", validateRequest, validateToken, logout);
 router.post("/requestpasswordreset", validateRequest, requestPasswordReset);
 router.post("/passwordreset", validateRequest, passwordReset);
+
 router.post(
   "/userpasswordreset",
   validateRequest,
   validateToken,
   currentUserResetPassword
 );
+
 router.post("/updateprofile", validateRequest, validateToken, updateProfile);
+
 router.post(
   "/updateprofilephoto",
   validateRequest,
@@ -40,6 +43,7 @@ router.post(
   upload.single("photo"),
   updateProfilePhoto
 );
+
 router.post(
   "/updatecoverphoto",
   validateRequest,

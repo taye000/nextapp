@@ -10,7 +10,10 @@ import {
   createComment,
   updateCustomerTransactionStatus,
   appealCustomerTransaction,
+  updateCustomerTransactionPhoto,
+  updateTransactionPhoto,
 } from "../../controllers/transaction";
+import { upload } from "../../controllers";
 
 const router = Router();
 
@@ -70,6 +73,22 @@ router.post(
   validateRequest,
   validateToken,
   createTransactionController
+);
+
+router.post(
+  "/updateTransactionPhoto/:id",
+  validateRequest,
+  validateToken,
+  upload.single("photo"),
+  updateTransactionPhoto
+);
+
+router.post(
+  "/updateCustomerTransactionPhoto/:id",
+  validateRequest,
+  validateToken,
+  upload.single("photo"),
+  updateCustomerTransactionPhoto
 );
 
 module.exports = router;

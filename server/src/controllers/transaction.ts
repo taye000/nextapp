@@ -1,7 +1,16 @@
 import { Request, Response } from "express";
-import Transaction, { IAppealStatus, ITransactionStatus } from "../models/transactions";
+import Transaction, {
+  IAppealStatus,
+  ITransactionStatus,
+} from "../models/transactions";
 import User from "../models/users";
-import { newTransaction, getAllTransactions, updateComment, updateStatus, updateCustomerStatus } from "./blockchain";
+import {
+  newTransaction,
+  getAllTransactions,
+  updateComment,
+  updateStatus,
+  updateCustomerStatus,
+} from "./blockchain";
 
 const orderID = () => {
   return Math.random().toString(35).substring(2, 7);
@@ -30,9 +39,17 @@ export const createTransactionController = async (
 
   // create the transactions here
   try {
-
     // write to blockchain
-    await newTransaction(orderId, clientId, req.currentUser!.id, amount, item, mode, ITransactionStatus.PENDING, ITransactionStatus.PENDING)
+    await newTransaction(
+      orderId,
+      clientId,
+      req.currentUser!.id,
+      amount,
+      item,
+      mode,
+      ITransactionStatus.PENDING,
+      ITransactionStatus.PENDING
+    );
 
     // write to database
     let transaction = await Transaction.create({
@@ -122,8 +139,8 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
     const status = ITransactionStatus.COMPLETED;
 
     // update the transaction status on the blockchain
-    if (transaction?.orderId){
-      await updateStatus(transaction.orderId, status)
+    if (transaction?.orderId) {
+      await updateStatus(transaction.orderId, status);
     }
 
     // update the transaction status on the database
@@ -139,7 +156,10 @@ export const updateTransactionStatus = async (req: Request, res: Response) => {
   }
 };
 //controller to update a transaction status
-export const updateCustomerTransactionStatus = async (req: Request, res: Response) => {
+export const updateCustomerTransactionStatus = async (
+  req: Request,
+  res: Response
+) => {
   try {
     // get the transaction id from the request body
     const transaction = await Transaction.findById(req.params.id);
@@ -151,8 +171,8 @@ export const updateCustomerTransactionStatus = async (req: Request, res: Respons
     const customerStatus = ITransactionStatus.COMPLETED;
 
     // update the transaction status on the blockchain
-    if (transaction?.orderId){
-      await updateCustomerStatus(transaction.orderId, customerStatus)
+    if (transaction?.orderId) {
+      await updateCustomerStatus(transaction.orderId, customerStatus);
     }
 
     // update the transaction status on the database
@@ -180,8 +200,8 @@ export const createComment = async (req: Request, res: Response) => {
     }
 
     // update the comment to the blockchain
-    if (transaction?.orderId){
-      await updateComment(transaction.orderId, comment)
+    if (transaction?.orderId) {
+      await updateComment(transaction.orderId, comment);
     }
 
     // get the transaction id from the request body and update
@@ -203,7 +223,7 @@ export const createComment = async (req: Request, res: Response) => {
 };
 
 // controller to appeal a transaction
-export const appealTransaction =async (req:Request, res:Response) => {
+export const appealTransaction = async (req: Request, res: Response) => {
   try {
     // get the transaction id from the request body
     const transaction = await Transaction.findById(req.params.id);
@@ -223,10 +243,13 @@ export const appealTransaction =async (req:Request, res:Response) => {
   } catch (error) {
     res.status(500).json({ msg: "Error updating transaction", error });
   }
-}
+};
 
 // controller to appeal a customer's transaction
-export const appealCustomerTransaction =async (req:Request, res:Response) => {
+export const appealCustomerTransaction = async (
+  req: Request,
+  res: Response
+) => {
   try {
     // get the transaction id from the request body
     const transaction = await Transaction.findById(req.params.id);
@@ -246,24 +269,29 @@ export const appealCustomerTransaction =async (req:Request, res:Response) => {
   } catch (error) {
     res.status(500).json({ msg: "Error updating transaction", error });
   }
-}
+};
 
 //update transaction photo controller
 export const updateTransactionPhoto = async (req: Request, res: Response) => {
+  const userId = req.currentUser?.id;
+
   try {
-    const transaction = await Transaction.findById(req.params.id);
+    const transaction = await Transaction.findOne({
+      _id: req.params.id,
+      clientId: userId,
+    });
     if (!transaction) {
       return res.status(401).json({ msg: "Transaction not found" });
     }
-    if(!req?.file?.path){
+    if (!req?.file?.path) {
       return res.status(400).json({ msg: "Photo is required" });
     }
-    const photo = req?.file?.path;
+    const photo = req.file.path;
 
-    transaction.photo = req.file.path;
+    transaction.photos?.push(photo);
     await transaction.save();
     console.log("photo", photo);
-    
+
     res
       .status(200)
       .json({ success: true, msg: "Transaction photo uploaded successfully" });
@@ -273,24 +301,36 @@ export const updateTransactionPhoto = async (req: Request, res: Response) => {
 };
 
 //update customer transaction photo controller
-export const updateCustomerTransactionPhoto = async (req: Request, res: Response) => {
+export const updateCustomerTransactionPhoto = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.currentUser?.id;
+
   try {
-    const transaction = await Transaction.findById(req.params.id);
+    const transaction = await Transaction.findOne({
+      _id: req.params.id,
+      userId 
+    });
     if (!transaction) {
       return res.status(401).json({ msg: "Transaction not found" });
     }
-    if(!req?.file?.path){
+    if (!req?.file?.path) {
       return res.status(400).json({ msg: "Photo is required" });
     }
-    const customerPhoto = req?.file?.path;
+    const customerPhoto = req.file.path;
 
-    transaction.customerPhoto = req.file.path;
+    transaction.customerPhotos?.push(customerPhoto);
+
     await transaction.save();
     console.log("customerPhoto", customerPhoto);
-    
+
     res
       .status(200)
-      .json({ success: true, msg: "Customer transaction photo uploaded successfully" });
+      .json({
+        success: true,
+        msg: "Customer transaction photo uploaded successfully",
+      });
   } catch (error) {
     res.send({ msg: "Error uploading customer photo" });
   }
