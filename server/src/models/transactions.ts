@@ -50,11 +50,23 @@ const TransactionSchema = new Schema<ITransaction, TransactionModel>(
       type: String,
       trim: true,
     },
+    customerComment: {
+      type: String,
+      trim: true,
+    },
     appeal: {
       type: Schema.Types.Mixed,
     },
     customerAppeal: {
       type: Schema.Types.Mixed,
+    },
+    photo: {
+      type: String,
+      default: "",
+    },
+    customerPhoto: {
+      type: String,
+      default: "",
     },
     clientId: {
       type: Schema.Types.ObjectId,

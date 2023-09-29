@@ -12,6 +12,9 @@ export interface ITransaction {
   appeal?: string;
   orderId?: string;
   comment?: string;
+  customerComment?: string;
+  photo?: string;
+  customerPhoto?: string;
   accountNumber?: string;
   status?: string;
   customerStatus?: string;

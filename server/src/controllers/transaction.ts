@@ -247,3 +247,51 @@ export const appealCustomerTransaction =async (req:Request, res:Response) => {
     res.status(500).json({ msg: "Error updating transaction", error });
   }
 }
+
+//update transaction photo controller
+export const updateTransactionPhoto = async (req: Request, res: Response) => {
+  try {
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction) {
+      return res.status(401).json({ msg: "Transaction not found" });
+    }
+    if(!req?.file?.path){
+      return res.status(400).json({ msg: "Photo is required" });
+    }
+    const photo = req?.file?.path;
+
+    transaction.photo = req.file.path;
+    await transaction.save();
+    console.log("photo", photo);
+    
+    res
+      .status(200)
+      .json({ success: true, msg: "Transaction photo uploaded successfully" });
+  } catch (error) {
+    res.send({ msg: "Error uploading photo" });
+  }
+};
+
+//update customer transaction photo controller
+export const updateCustomerTransactionPhoto = async (req: Request, res: Response) => {
+  try {
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction) {
+      return res.status(401).json({ msg: "Transaction not found" });
+    }
+    if(!req?.file?.path){
+      return res.status(400).json({ msg: "Photo is required" });
+    }
+    const customerPhoto = req?.file?.path;
+
+    transaction.customerPhoto = req.file.path;
+    await transaction.save();
+    console.log("customerPhoto", customerPhoto);
+    
+    res
+      .status(200)
+      .json({ success: true, msg: "Customer transaction photo uploaded successfully" });
+  } catch (error) {
+    res.send({ msg: "Error uploading customer photo" });
+  }
+};

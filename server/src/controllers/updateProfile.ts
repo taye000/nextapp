@@ -17,7 +17,10 @@ export const updateProfilePhoto = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.currentUser?.id);
     if (!user) {
-      res.status(401).json({ msg: "Unauthorized access" });
+      return res.status(401).json({ msg: "Unauthorized access" });
+    }
+    if(!req?.file?.path){
+      return res.status(400).json({ msg: "Photo is required" });
     }
     const photo = req?.file?.path;
     console.log("photo", photo);
