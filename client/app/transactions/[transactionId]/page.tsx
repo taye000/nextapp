@@ -665,7 +665,7 @@ const transactionDetail = () => {
           )}
       </div>
       <div className="md:flex md:justify-center p-4">
-        <div className="flex flex-row">
+        <div className="flex flex-row p-4">
           <div>
             {user.account_type === "Seller" && transaction?.photos && (
               <>
@@ -699,10 +699,10 @@ const transactionDetail = () => {
               )}
           </div>
           <div>
-            <label htmlFor="txphoto" className="cursor-pointer">
-              <div className="border rounded-md shadow-md p-8 m-4">
-                <ImPlus className="text-lg" />
-              </div>
+            <label htmlFor="txphoto" className="text-2xl font-semibold cursor-pointer">Upload Photo
+              <div className="border rounded-md shadow-md p-9 m-6">
+                <div className="flex items-center justify-center">
+                <ImPlus/>
               <input
                 type="file"
                 accept="image/*"
@@ -714,13 +714,15 @@ const transactionDetail = () => {
                     ? handleTransactionPhoto
                     : handleCustomerTransactionPhoto
                 }
-              ></input>
+              />
+              </div>
+              </div>
             </label>
           </div>
         </div>
         <div className="border rounded-md shadow-md p-6 m-4">
           <div className="flex justify-between">
-            <h2 className="text-2xl font-bold text-left">Chat</h2>
+            <h2 className="text-2xl font-semibold text-left">Chat</h2>
           </div>
           <div className="py-2">
             <div className="w-full m-auto p-4 border rounded-md overflow-y-auto max-h-[400px]">
