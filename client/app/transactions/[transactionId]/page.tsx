@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ImPlus } from "react-icons/im";
 import { getCookie } from "../../utils/tokenUtils";
 import {
   IAppealStatus,
@@ -31,6 +32,9 @@ const transactionDetail = () => {
 
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [message, setMessage] = useState("");
+
+  const [txPhoto, setTXPhoto] = useState("");
+  const [customerTXPhoto, setCustomerTXPhoto] = useState("");
 
   const [chats, setChats] = useState<IChat[]>([]);
 
@@ -265,6 +269,81 @@ const transactionDetail = () => {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleTransactionPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    e.preventDefault();
+    const selectedFile = e.target.files && e.target.files[0];
+    if (!selectedFile) return;
+
+    try {
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
+      const res = await fetch(
+        `${apiUrl}/transactions/updateTransactionPhoto/${transactionId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+          },
+          body: formData,
+        }
+      );
+      const json = await res.json();
+      if (!res.ok) throw Error(json.message);
+
+      // Clear the form fields
+      setTXPhoto("");
+      console.log(json);
+
+      // Fetch user data to update the user state after photo update
+      fetchTransaction();
+
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCustomerTransactionPhoto = async (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoading(true);
+
+    e.preventDefault();
+    const selectedFile = e.target.files && e.target.files[0];
+    if (!selectedFile) return;
+
+    try {
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
+      const res = await fetch(
+        `${apiUrl}/transactions/updateCustomerTransactionPhoto/${transactionId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${cookie}`,
+          },
+          body: formData,
+        }
+      );
+      const json = await res.json();
+      if (!res.ok) throw Error(json.message);
+
+      // Clear the form fields
+      setCustomerTXPhoto("");
+      console.log(json);
+
+      // Fetch user data to update the user state after photo update
+      fetchTransaction();
+
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -585,6 +664,25 @@ const transactionDetail = () => {
           )}
       </div>
       <div className="md:flex md:justify-center p-4">
+        <div>
+          <div className="border rounded-md p-8 m-4">
+            <label htmlFor="txphoto" className="cursor-pointer">
+            <ImPlus className="text-lg" />
+            <input
+              type="file"
+              accept="image/*"
+              id="txphoto"
+              name="txphoto"
+              className="hidden"
+              onChange={
+                user.account_type === "Seller"
+                  ? handleTransactionPhoto
+                  : handleCustomerTransactionPhoto
+              }
+            ></input>
+            </label>
+          </div>
+        </div>
         <div className="border rounded-md shadow-md p-6 m-4">
           <div className="flex justify-between">
             <h2 className="text-2xl font-bold text-left">Chat</h2>
