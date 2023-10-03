@@ -2,6 +2,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ImPlus } from "react-icons/im";
+import Image from "next/image";
 import { getCookie } from "../../utils/tokenUtils";
 import {
   IAppealStatus,
@@ -664,22 +665,52 @@ const transactionDetail = () => {
           )}
       </div>
       <div className="md:flex md:justify-center p-4">
-        <div>
+        <div className="flex">
+          <div className="border rounded-md">
+            {user.account_type === "Seller" && transaction?.photos && (
+              <>
+                {transaction.photos.map((photo, index) => (
+                  <Image
+                    key={index}
+                    alt={`transaction photo ${index}`}
+                    width={150}
+                    height={150}
+                    src={photo}
+                  />
+                ))}
+              </>
+            )}
+
+            {user.account_type === "Customer" &&
+              transaction?.customerPhotos && (
+                <>
+                  {transaction.customerPhotos.map((photo, index) => (
+                    <Image
+                      key={index}
+                      alt={`transaction photo ${index}`}
+                      width={150}
+                      height={150}
+                      src={photo}
+                    />
+                  ))}
+                </>
+              )}
+          </div>
           <div className="border rounded-md p-8 m-4">
             <label htmlFor="txphoto" className="cursor-pointer">
-            <ImPlus className="text-lg" />
-            <input
-              type="file"
-              accept="image/*"
-              id="txphoto"
-              name="txphoto"
-              className="hidden"
-              onChange={
-                user.account_type === "Seller"
-                  ? handleTransactionPhoto
-                  : handleCustomerTransactionPhoto
-              }
-            ></input>
+              <ImPlus className="text-lg" />
+              <input
+                type="file"
+                accept="image/*"
+                id="txphoto"
+                name="txphoto"
+                className="hidden"
+                onChange={
+                  user.account_type === "Seller"
+                    ? handleTransactionPhoto
+                    : handleCustomerTransactionPhoto
+                }
+              ></input>
             </label>
           </div>
         </div>

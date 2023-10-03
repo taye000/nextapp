@@ -6,6 +6,8 @@ export interface ITransaction {
   amount: number;
   mode: string;
   item: string;
+  photos: string[];
+  customerPhotos: string[];
   customerStatus: string;
   orderId?: string;
   accountNumber?: string;
