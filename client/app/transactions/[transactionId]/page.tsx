@@ -665,16 +665,17 @@ const transactionDetail = () => {
           )}
       </div>
       <div className="md:flex md:justify-center p-4">
-        <div className="flex">
-          <div className="border rounded-md">
+        <div className="flex flex-row">
+          <div>
             {user.account_type === "Seller" && transaction?.photos && (
               <>
                 {transaction.photos.map((photo, index) => (
                   <Image
+                    className="rounded-md m-4"
                     key={index}
                     alt={`transaction photo ${index}`}
-                    width={150}
-                    height={150}
+                    width={200}
+                    height={200}
                     src={photo}
                   />
                 ))}
@@ -686,19 +687,22 @@ const transactionDetail = () => {
                 <>
                   {transaction.customerPhotos.map((photo, index) => (
                     <Image
+                      className="rounded-md m-4"
                       key={index}
                       alt={`transaction photo ${index}`}
-                      width={150}
-                      height={150}
+                      width={200}
+                      height={200}
                       src={photo}
                     />
                   ))}
                 </>
               )}
           </div>
-          <div className="border rounded-md p-8 m-4">
+          <div>
             <label htmlFor="txphoto" className="cursor-pointer">
-              <ImPlus className="text-lg" />
+              <div className="border rounded-md shadow-md p-8 m-4">
+                <ImPlus className="text-lg" />
+              </div>
               <input
                 type="file"
                 accept="image/*"
