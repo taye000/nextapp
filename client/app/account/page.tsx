@@ -4,9 +4,14 @@ import Image from "next/image";
 import { ImMail2, ImPhone, ImLocation2 } from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { getCookie } from "../utils/tokenUtils";
 import { ITransaction, IUser } from "../utils/types";
 import Loading from "../loading";
+
+const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
+  ssr: false,
+});
 
 const account = () => {
   // initialize useRouter
@@ -245,7 +250,14 @@ const account = () => {
             <p className="text-gray-500">YTD Revenue</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">+{totalSales}</span>
+            <span className="text-green-700 text-lg">
+              <AnimatedNumbers
+                includeComma
+                animateToNumber={totalSales}
+                locale="en-US"
+                configs={[{ mass: 1, tension: 70, friction: 30 }]}
+              ></AnimatedNumbers>
+            </span>
           </p>
         </div>
         <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
@@ -254,7 +266,12 @@ const account = () => {
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
             <span className="text-green-700 text-lg">
-              +{transactions.length}
+              <AnimatedNumbers
+                includeComma
+                animateToNumber={transactions.length}
+                locale="en-US"
+                configs={[{ mass: 1, tension: 40, friction: 30 }]}
+              ></AnimatedNumbers>
             </span>
           </p>
         </div>
@@ -263,7 +280,14 @@ const account = () => {
             <p className="text-gray-500">Daily Sales</p>
           </div>
           <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
-            <span className="text-green-700 text-lg">+{dailySales}</span>
+            <span className="text-green-700 text-lg">
+              <AnimatedNumbers
+                includeComma
+                animateToNumber={dailySales}
+                locale="en-US"
+                configs={[{ mass: 1, tension: 140, friction: 30 }]}
+              ></AnimatedNumbers>
+            </span>
           </p>
         </div>
       </div>
