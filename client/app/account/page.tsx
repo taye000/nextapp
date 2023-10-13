@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
 import { ITransaction, IUser } from "../utils/types";
+import Loading from "../loading";
 
 const account = () => {
   // initialize useRouter
@@ -328,11 +329,7 @@ const account = () => {
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr>
-                      <td className="flex justify-center items-center">
-                        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
-                      </td>
-                    </tr>
+                    <Loading />
                   ) : (
                     getCurrentTransactions().map((transaction, id) => (
                       <Link
@@ -411,11 +408,7 @@ const account = () => {
 
             {/* Mobile view */}
             {loading ? (
-              <tr>
-                <td className="flex justify-center items-center">
-                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-800"></div>
-                </td>
-              </tr>
+              <Loading />
             ) : (
               transactions.map((transaction, id) => (
                 <Link
