@@ -1,30 +1,9 @@
-"use client";
-import React, { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import React from "react";
 
 const Features = () => {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from(".feature-item", {
-      opacity: 2,
-      y: 50,
-      duration: 1,
-      ease: "bounce",
-      stagger: 0.2, // Adjust the stagger value to control the animation delay between items
-      scrollTrigger: {
-        trigger: ".feature-item",
-        start: "top bottom-=100", // Adjust the start position based on your needs
-        end: "bottom center",
-        toggleActions: "play none none none",
-      },
-    });
-  }, []);
-
   return (
     <section id="features">
-      <div className="flex flex-col justify-center py-4 feature-item">
+      <div className="flex flex-col justify-center py-4">
         <div>
           <h2 className="text-4xl font-bold text-center">
             What Imani Escrow offers.
