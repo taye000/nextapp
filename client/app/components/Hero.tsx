@@ -12,7 +12,7 @@ const Hero = () => {
       opacity: 2,
       y: 50,
       duration: 1,
-      ease: "bounce",
+      ease: "circ",
       stagger: 0.2, // Adjust the stagger value to control the animation delay between items
       scrollTrigger: {
         trigger: ".feature-item",
@@ -26,7 +26,7 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="container flex flex-col-reverse items-center px-6 mx-auto mt-10 space-y-0 sm:mt-50 md:flex-row md:space-y-0">
-        <div className="flex flex-col mb-32 space-y-5 md:m-auto md:w-1/2">
+        <div className="flex flex-col mb-32 space-y-5 md:m-auto md:w-1/2 feature-item">
           <h1 className="max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">
             Welcome to imani escrow services.
           </h1>
@@ -36,7 +36,7 @@ const Hero = () => {
             exceptional escrow services. Your safe transactions, our priority.
           </p>
         </div>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 feature-item">
           <img
             src="/imanilogo.png"
             className="rounded-lg shadow-xl"
