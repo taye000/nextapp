@@ -10,13 +10,13 @@ const Hero = () => {
 
     gsap.from(".feature-item", {
       opacity: 2,
-      y: 50,
-      duration: 1,
+      x: 900,
+      duration: 2,
       ease: "circ",
       stagger: 0.2, // Adjust the stagger value to control the animation delay between items
       scrollTrigger: {
         trigger: ".feature-item",
-        start: "top bottom-=100", // Adjust the start position based on your needs
+        start: "top bottom", // Adjust the start position based on your needs
         end: "bottom center",
         toggleActions: "play none none none",
       },
