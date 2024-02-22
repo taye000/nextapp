@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ImMail2, ImPhone, ImLocation2 } from "react-icons/im";
+import { ImMail2, ImPhone, ImLocation2, ImUser } from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -35,6 +35,7 @@ const account = () => {
     coverPhoto: "",
     location: "",
     phoneNumber: "",
+    account_type: "",
   });
 
   const [sortOrder, setSortOrder] = useState("asc");
@@ -221,6 +222,13 @@ const account = () => {
                 <p className="text-lg px-2 font-bold">{user.location}</p>
               </div>
             )}
+
+            {user.account_type && (
+              <div className="pl-2 flex items-center">
+                <ImUser />
+                <p className="text-lg px-2 font-bold">{user.account_type}</p>
+              </div>
+            )}
           </div>
           <div className="flex flex-row justify-between p-2 md:flex md:flex-row md:justify-between">
             <div className="p-2 md:flex md:justify-center">
@@ -384,8 +392,8 @@ const account = () => {
                                 transaction.customerStatus === "completed"
                                   ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                                   : transaction.customerStatus === "pending"
-                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                               }
                             >
                               {transaction.customerStatus}
@@ -397,8 +405,8 @@ const account = () => {
                                 transaction.status === "completed"
                                   ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                                   : transaction.status === "pending"
-                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                               }
                             >
                               {transaction.status}
@@ -473,8 +481,8 @@ const account = () => {
                                 transaction.customerStatus === "completed"
                                   ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                                   : transaction.customerStatus === "pending"
-                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                               }
                             >
                               {transaction.customerStatus}
@@ -490,8 +498,8 @@ const account = () => {
                                 transaction.status === "completed"
                                   ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                                   : transaction.status === "pending"
-                                  ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                                  : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                                    : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                               }
                             >
                               {transaction.status}
