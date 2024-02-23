@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ImMail2, ImPhone, ImLocation2, ImUser } from "react-icons/im";
+import { PiIdentificationCardFill } from "react-icons/pi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -227,6 +228,13 @@ const account = () => {
               <div className="pl-2 flex items-center">
                 <ImUser />
                 <p className="text-lg px-2 font-bold">{user.account_type}</p>
+              </div>
+            )}
+
+            {user.account_type && (
+              <div className="pl-2 flex items-center">
+                <PiIdentificationCardFill />
+                <p className="text-lg px-2 font-bold">{user.id}</p>
               </div>
             )}
           </div>

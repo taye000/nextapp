@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from "next/navigation";
 import { IUser } from "../utils/types";
 import { getCookie } from "../utils/tokenUtils";
 import { BiSolidCopy } from "react-icons/bi";
+import toast, { Toaster } from "react-hot-toast";
 
 const buyer = () => {
   // initialize useRouter
@@ -36,7 +36,12 @@ const buyer = () => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(
       () => {
-        toast.success('Copied!');
+        toast.success('Copied!', {
+          iconTheme:{
+            primary: "blue",
+            secondary: "white"
+          }
+        });
       },
       (err) => {
         console.error('Could not copy:', err);
@@ -91,8 +96,10 @@ const buyer = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const res = await fetch(`${apiUrl}/transactions/create-transaction`, {
+
+    toast.promise(
+      // Promise to wait for
+      fetch(`${apiUrl}/transactions/create-transaction`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,
@@ -104,21 +111,35 @@ const buyer = () => {
           item,
           mode,
         }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw Error(json.message);
+      }).then((res) => {
+        if (!res.ok) {
+          // Convert non-2xx HTTP responses into errors
+          return res.json().then((json) => Promise.reject(json));
+        }
+        return res.json();
+      }),
+      {
+        // Object with three states: loading, success, and error
+        loading: 'Creating transaction...',
+        success: 'Transaction created successfully!',
+        error: 'Error creating transaction',
+      }
+    ).then((json) => {
+      // Handle the success state
+      console.log(json);
       // Clear the form fields
       setclientId("");
       setAmount("");
       setMode("");
       setItem("");
-      console.log(json);
-    } catch (error) {
+    }).catch((error) => {
+      // The error state is handled by toast.promise, but you can still catch and log or do additional handling
       console.error(error);
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    });
   };
+
 
   const [user, setUser] = useState<IUser>({
     id: "",
@@ -266,36 +287,12 @@ const buyer = () => {
               className={`bg-blue-700 rounded-full text-white p-3 md:p3 md:rounded-full md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900 ${loading ? "flex items-center justify-center" : ""
                 }`}
             >
-              {loading ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-3"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.794A7.962 7.962 0 014 12H0c0 3.042 1.135 5.86 3.184 8.016l2.472-2.472zM12 20a8 8 0 008-8h4a12 12 0 01-12 12v-4zm5.795-2.472A7.962 7.962 0 0120 12h4c0 3.042-1.135 5.86-3.184 8.016l-2.472-2.472z"
-                    ></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                "Submit"
-              )}
+              Submit
             </button>
           </form>
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </main>
   );
 };

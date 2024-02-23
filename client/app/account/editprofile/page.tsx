@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ImMail2, ImPhone, ImLocation2, ImCamera } from "react-icons/im";
 import { getCookie } from "../../utils/tokenUtils";
 import { IUser } from "../../utils/types";
+import toast, { Toaster } from "react-hot-toast";
 
 const editprofile = () => {
   // initialize useRouter
@@ -55,35 +56,50 @@ const editprofile = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch(`${apiUrl}/users/updateprofile`, {
+    setLoading(true); // Optionally initialize loading state
+
+    toast.promise(
+      fetch(`${apiUrl}/users/updateprofile`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookie}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          email,
-          phoneNumber,
-        }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw Error(json.message);
+        body: JSON.stringify({ name, email, phoneNumber, location }),
+      }).then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json.message || 'Failed to update profile');
+        }
+        return json;
+      }),
+      {
+        loading: 'Updating profile...',
+        success: 'Profile updated successfully!',
+        error: (err) => {
+          // Optionally, you can customize the error message using the error object
+          return err.toString() || 'Error updating profile';
+        },
+      }
+    ).then((json) => {
+      // Handle success state here, if needed
+      console.log(json);
       // Clear the form fields
       setName("");
       setEmail("");
       setPhoneNumber("");
-      console.log(json);
-
-      // Fetch user data to update the user state after photo update
+      setLocation("");
+      // Fetch user data to update the user state after profile update
       fetchUserData();
-      setLoading(false);
-    } catch (error) {
+    }).catch((error) => {
+      // Error handling if necessary
+      toast.error('Error updating profile');
       console.error(error);
-    }
+    }).finally(() => {
+      setLoading(false); // Reset loading state
+    });
   };
+
 
   const handlePhotoUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -334,6 +350,7 @@ const editprofile = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 };
