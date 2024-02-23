@@ -1,6 +1,7 @@
 "use client"
-import React, {useState} from "react";
-import {ImEye, ImEyeBlocked} from "react-icons/im";
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { ImEye, ImEyeBlocked } from "react-icons/im";
 
 const otp = () => {
   const [code, setCode] = useState("");
@@ -33,12 +34,14 @@ const otp = () => {
       });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
+      toast.success("Your password has been reset");
       // Clear the form fields
       setCode("");
       setPassword("");
       setConfirmPassword("");
       console.log(json);
     } catch (error) {
+      toast.error("Error resetting password, please try again.");
       console.error(error);
     }
   };
@@ -50,9 +53,9 @@ const otp = () => {
         </div>
         <div>
           <form onSubmit={handleSubmit}
-          className="flex flex-col space-y-4">
+            className="flex flex-col space-y-4">
             <input
-            required
+              required
               type="Code"
               name="Code"
               id="Code"
@@ -61,56 +64,56 @@ const otp = () => {
               className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
             />
 
-<div className="relative">
-            <input
-              required
-              type={showPassword ? "text" : "password"}
-              name="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 pr-12 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
-            />
-            {showPassword ? (
-              <ImEyeBlocked
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowPassword}
+            <div className="relative">
+              <input
+                required
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-4 pr-12 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
               />
-            ) : (
-              <ImEye
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowPassword}
-              />
-            )}
+              {showPassword ? (
+                <ImEyeBlocked
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowPassword}
+                />
+              ) : (
+                <ImEye
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowPassword}
+                />
+              )}
             </div>
 
             <div className="relative">
-            <input
-              required
-              type={showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
-            />
-            {showConfirmPassword ? (
-              <ImEyeBlocked
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowConfirmPassword}
+              <input
+                required
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500  invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
               />
-            ) : (
-              <ImEye
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowConfirmPassword}
-              />
-            )}
+              {showConfirmPassword ? (
+                <ImEyeBlocked
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowConfirmPassword}
+                />
+              ) : (
+                <ImEye
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowConfirmPassword}
+                />
+              )}
             </div>
 
             <button type="submit" className="bg-blue-700 rounded-lg text-white p-3 md:p3 md:rounded-lg md:bg-blue-700 hover:bg-blue-400 active:bg-blue-900">
@@ -119,6 +122,7 @@ const otp = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
 import { IUser } from "../utils/types";
+import toast from "react-hot-toast";
 
 const seller = () => {
   // initialize useRouter
@@ -50,38 +51,46 @@ const seller = () => {
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState("");
   const [item, setItem] = useState("");
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const res = await fetch(
-        `${apiUrl}/transactions/create-transaction`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${cookie}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            clientId,
-            amount,
-            mode,
-            item,
-          }),
+  
+    // Wrap the fetch operation in toast.promise
+    toast.promise(
+      // The fetch operation as a promise
+      fetch(`${apiUrl}/transactions/create-transaction`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${cookie}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          clientId,
+          amount,
+          mode,
+          item,
+        }),
+      })
+      .then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json.message || "Failed to create transaction");
         }
-      );
-      const json = await res.json();
-      if (!res.ok) throw Error(json.message);
-      // Clear the form fields
-      setclientId("");
-      setAmount("");
-      setMode("");
-      setItem("");
-      console.log(json);
-    } catch (error) {
-      console.error(error);
-    }
+        // Clear the form fields
+        setclientId("");
+        setAmount("");
+        setMode("");
+        setItem("");
+        return json; // Return json for the success handler
+      }),
+      {
+        loading: 'Creating transaction...',
+        success: 'Transaction created successfully!',
+        error: (err) => `${err.toString() || "Error creating transaction"}`, // Customize based on the error response
+      }
+    );
   };
+  
 
   const [user, setUser] = useState<IUser>({
     id: "",

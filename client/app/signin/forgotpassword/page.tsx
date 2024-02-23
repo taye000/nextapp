@@ -1,5 +1,6 @@
 "use client"
 import React, {useState} from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const forgotpassword = () => {
   const [email, setEmail] = useState("");
@@ -20,13 +21,16 @@ const forgotpassword = () => {
       });
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
+      toast.success("A password reset link has been sent to your email");
       // Clear the form fields
       setEmail("");
       console.log(json);
     } catch (error) {
+      toast.error("Error sending password reset link, please try again.");
       console.error(error);
     }
   };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between mt-5">
       <div className="border rounded-md shadow-md p-6">
@@ -51,6 +55,7 @@ const forgotpassword = () => {
           </form>
         </div>
       </div>
+      <Toaster/>
     </main>
   );
 };

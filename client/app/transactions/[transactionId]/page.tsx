@@ -13,6 +13,7 @@ import {
 } from "../../utils/types";
 import socket from "../../utils/socket";
 import { dateFormat } from "../../utils/dateFormat";
+import toast, { Toaster } from "react-hot-toast";
 
 const transactionDetail = () => {
   // initialize useRouter
@@ -236,10 +237,13 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
+      toast.success("Transaction status updated successfully");
+
       setTransaction(data.transaction);
 
       fetchTransaction();
     } catch (error) {
+      toast.error("Error updating transaction status, please try again.");
       console.error(error);
     }
   };
@@ -263,10 +267,13 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
+      toast.success("Transaction status updated successfully");
+
       setTransaction(data.transaction);
 
       fetchTransaction();
     } catch (error) {
+      toast.error("Error updating transaction status, please try again.");
       console.error(error);
     } finally {
       setLoading(false);
@@ -296,15 +303,17 @@ const transactionDetail = () => {
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
+      toast.success("Transaction photo updated successfully");
+
       // Clear the form fields
       setTXPhoto("");
-      console.log(json);
 
       // Fetch user data to update the user state after photo update
       fetchTransaction();
 
       setLoading(false);
     } catch (error) {
+      toast.error("Error updating transaction photo, please try again.");
       console.error(error);
     }
   };
@@ -335,15 +344,17 @@ const transactionDetail = () => {
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
+      toast.success("Transaction photo updated successfully");
+
       // Clear the form fields
       setCustomerTXPhoto("");
-      console.log(json);
 
       // Fetch user data to update the user state after photo update
       fetchTransaction();
 
       setLoading(false);
     } catch (error) {
+      toast.error("Error updating transaction photo, please try again.");
       console.error(error);
     }
   };
@@ -367,12 +378,15 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
+      toast.success("Appeal sent successfully");
+
       //update Transactions
       setTransaction(data.transaction);
       setSellerAppealClicked(true);
 
       fetchTransaction();
     } catch (error) {
+      toast.error("Error sending appeal, please try again.");
       console.error(error);
     } finally {
       setLoading(false);
@@ -397,12 +411,15 @@ const transactionDetail = () => {
       }
       const data = await response.json();
 
+      toast.success("Appeal sent successfully");
+
       //update Transactions
       setTransaction(data.transaction);
       setBuyerAppealClicked(true);
 
       fetchTransaction();
     } catch (error) {
+      toast.error("Error sending appeal, please try again.");
       console.error(error);
     }
   };
@@ -427,10 +444,13 @@ const transactionDetail = () => {
       const data = await response.json();
       const updatedTransaction = data.transaction;
 
+      toast.success("Comment sent successfully");
+
       //update Transactions
       setTransaction(updatedTransaction);
       setComment("");
     } catch (error) {
+      toast.error("Error sending comment, please try again.");
       console.error(error);
     } finally {
       setLoading(false);
@@ -455,8 +475,8 @@ const transactionDetail = () => {
                     transaction?.status === "completed"
                       ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                       : transaction?.status === "pending"
-                      ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                      : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                        ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                        : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                   }
                 >
                   Seller Confirmation: {transaction?.status}
@@ -470,8 +490,8 @@ const transactionDetail = () => {
                     transaction?.customerStatus === "completed"
                       ? "bg-blue-800 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                       : transaction?.customerStatus === "pending"
-                      ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
-                      : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                        ? "bg-yellow-400 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
+                        : "bg-red-600 p-1.5 text-xs font-medium uppercase tracking-wider bg-opacity-50 rounded-lg"
                   }
                 >
                   Buyer Confirmation: {transaction?.customerStatus}
@@ -528,9 +548,8 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleSellerConfirmation}
-                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${
-                      loading ? "flex items-center justify-center" : ""
-                    }`}
+                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${loading ? "flex items-center justify-center" : ""
+                      }`}
                   >
                     {loading ? (
                       <>
@@ -604,9 +623,8 @@ const transactionDetail = () => {
                 <div className="p-2">
                   <button
                     onClick={handleCustomerConfirmation}
-                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${
-                      loading ? "flex items-center justify-center" : ""
-                    }`}
+                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition ease-in-outdelay-100 hover:-translate-y-1 hover:scale-100 ${loading ? "flex items-center justify-center" : ""
+                      }`}
                   >
                     {loading ? (
                       <>
@@ -702,20 +720,20 @@ const transactionDetail = () => {
             <label htmlFor="txphoto" className="text-2xl font-semibold cursor-pointer">Upload Photo
               <div className="border rounded-md shadow-md p-9 m-6">
                 <div className="flex items-center justify-center">
-                <ImPlus/>
-              <input
-                type="file"
-                accept="image/*"
-                id="txphoto"
-                name="txphoto"
-                className="hidden"
-                onChange={
-                  user.account_type === "Seller"
-                    ? handleTransactionPhoto
-                    : handleCustomerTransactionPhoto
-                }
-              />
-              </div>
+                  <ImPlus />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="txphoto"
+                    name="txphoto"
+                    className="hidden"
+                    onChange={
+                      user.account_type === "Seller"
+                        ? handleTransactionPhoto
+                        : handleCustomerTransactionPhoto
+                    }
+                  />
+                </div>
               </div>
             </label>
           </div>
@@ -783,6 +801,7 @@ const transactionDetail = () => {
           </form>
         </div>
       </div>
+      <Toaster/>
     </main>
   );
 };

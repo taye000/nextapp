@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ImEye, ImEyeBlocked } from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { getCookie, storeCookie } from "../utils/tokenUtils";
+import toast, { Toaster } from "react-hot-toast";
 
 const signin = () => {
   // initialize useRouter
@@ -45,17 +46,17 @@ const signin = () => {
 
       //save the token in the browser
       storeCookie(json.cookie);
-      console.log("cookie", json.cookie);
+
+      toast.success("You have successfully signed in");
 
       // Clear the form fields
       setEmail("");
       setPassword("");
 
-      console.log(json);
-
       // Redirect to the account page
       window.location.href = "/account";
     } catch (error) {
+      toast.error("Error Signing in, please try again.");
       console.error(error);
     }
   };
@@ -80,29 +81,29 @@ const signin = () => {
             />
 
             <div className="relative">
-            <input
-              required
-              type={showPassword ? "text" : "password"}
-              name="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
-            />
-            {showPassword ? (
-              <ImEyeBlocked
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowPassword}
+              <input
+                required
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-4 border rounded-md resize-y focus:outline-none focus:border-blue-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 focus:invalid:text-red-600"
               />
-            ) : (
-              <ImEye
-                className="absolute right-4 top-5 cursor-pointer"
-                style={{width:"1.5rem", height:"1.5rem"}}
-                onClick={handleShowPassword}
-              />
-            )}
+              {showPassword ? (
+                <ImEyeBlocked
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowPassword}
+                />
+              ) : (
+                <ImEye
+                  className="absolute right-4 top-5 cursor-pointer"
+                  style={{ width: "1.5rem", height: "1.5rem" }}
+                  onClick={handleShowPassword}
+                />
+              )}
             </div>
 
             <Link
@@ -127,6 +128,7 @@ const signin = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 };

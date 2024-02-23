@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {ImEye, ImEyeBlocked} from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../utils/tokenUtils";
+import toast, { Toaster } from "react-hot-toast";
 
 const signup = () => {
   // initialize useRouter
@@ -56,6 +57,8 @@ const signup = () => {
       const json = await res.json();
       if (!res.ok) throw Error(json.message);
 
+      toast.success("You have successfully signed up");
+
       // Clear the form fields
       setName("");
       setEmail("");
@@ -67,6 +70,7 @@ const signup = () => {
       // Redirect to the account page
       window.location.href = "/signin";
     } catch (error) {
+      toast.error("Error Signing up, please try again.");
       console.error(error);
     }
   };
@@ -205,6 +209,7 @@ const signup = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 };
