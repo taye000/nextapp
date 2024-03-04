@@ -12,40 +12,41 @@ import {
   appealCustomerTransaction,
   updateCustomerTransactionPhoto,
   updateTransactionPhoto,
+  uploadTxPhoto,
 } from "../../controllers/transaction";
 import { upload } from "../../controllers";
 
 const router = Router();
 
-router.post(
+router.put(
   "/update-comment/:id",
   validateRequest,
   validateToken,
   createComment
 );
 
-router.post(
+router.put(
   "/appeal-transaction/:id",
   validateRequest,
   validateToken,
   appealTransaction
 );
 
-router.post(
+router.put(
   "/appeal-customer-transaction/:id",
   validateRequest,
   validateToken,
   appealCustomerTransaction
 );
 
-router.post(
+router.put(
   "/update-transaction-status/:id",
   validateRequest,
   validateToken,
   updateTransactionStatus
 );
 
-router.post(
+router.put(
   "/update-customer-transaction-status/:id",
   validateRequest,
   validateToken,
@@ -75,15 +76,23 @@ router.post(
   createTransactionController
 );
 
-router.post(
-  "/updateTransactionPhoto/:id",
+router.put(
+  "/updateTransactionPhoto",
   validateRequest,
   validateToken,
   upload.single("photo"),
   updateTransactionPhoto
 );
 
-router.post(
+router.put(
+  "/uploadTxPhoto",
+  validateRequest,
+  validateToken,
+  upload.single("photo"),
+  uploadTxPhoto
+);
+
+router.put(
   "/updateCustomerTransactionPhoto/:id",
   validateRequest,
   validateToken,

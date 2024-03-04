@@ -21,7 +21,9 @@ export const createTransactionController = async (
   req: Request,
   res: Response
 ) => {
-  let { clientId, amount, mode, item } = req.body;
+  console.log("body", req.body);
+
+  let { clientId, amount, mode, item, txPhoto, description } = req.body;
 
   const user = await User.findById(req.currentUser!.id);
 
@@ -34,22 +36,26 @@ export const createTransactionController = async (
   if (!item.trim()) {
     return res.status(400).json({ item: "item is required" });
   }
+  if (!description.trim()) {
+    return res.status(400).json({ description: "description is required" });
+  }
 
   let orderId = orderID();
 
-  // create the transactions here
+  // TODO: Add photo upload to the transaction
+  // TODO: Add the transaction to the blockchain
   try {
     // write to blockchain
-    await newTransaction(
-      orderId,
-      clientId,
-      req.currentUser!.id,
-      amount,
-      item,
-      mode,
-      ITransactionStatus.PENDING,
-      ITransactionStatus.PENDING
-    );
+    // await newTransaction(
+    //   orderId,
+    //   clientId,
+    //   req.currentUser!.id,
+    //   amount,
+    //   item,
+    //   mode,
+    //   ITransactionStatus.PENDING,
+    //   ITransactionStatus.PENDING
+    // );
 
     // write to database
     let transaction = await Transaction.create({
@@ -57,17 +63,21 @@ export const createTransactionController = async (
       mode,
       amount,
       clientId,
+      description,
+      photos: [txPhoto],
       userId: req.currentUser!.id,
       item,
       status: ITransactionStatus.PENDING,
       customerStatus: ITransactionStatus.PENDING,
     });
 
+    console.log({ transaction });
     return res.status(201).json({
       status: true,
       transaction,
       msg: "Transaction Initiated Successfully.",
     });
+    
   } catch (error: any) {
     return res
       .status(400)
@@ -274,6 +284,7 @@ export const appealCustomerTransaction = async (
 //update transaction photo controller
 export const updateTransactionPhoto = async (req: Request, res: Response) => {
   const userId = req.currentUser?.id;
+  console.log({ userId });
 
   try {
     const transaction = await Transaction.findOne({
@@ -286,15 +297,42 @@ export const updateTransactionPhoto = async (req: Request, res: Response) => {
     if (!req?.file?.path) {
       return res.status(400).json({ msg: "Photo is required" });
     }
-    const photo = req.file.path;
+    const photo = req?.file?.path;
 
+    transaction.photos = transaction.photos || [];
     transaction.photos?.push(photo);
     await transaction.save();
+
     console.log("photo", photo);
 
     res
       .status(200)
       .json({ success: true, msg: "Transaction photo uploaded successfully" });
+  } catch (error) {
+    res.send({ msg: "Error uploading photo" });
+  }
+};
+
+// upload tx photo
+export const uploadTxPhoto = async (req: Request, res: Response) => {
+  const userId = req.currentUser?.id;
+  console.log({ userId });
+
+  try {
+    if (!req?.file?.path) {
+      return res.status(400).json({ msg: "Photo is required" });
+    }
+    const photo = req?.file?.path;
+
+    console.log("photo", photo);
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        msg: "Transaction photo uploaded successfully",
+        photo,
+      });
   } catch (error) {
     res.send({ msg: "Error uploading photo" });
   }
@@ -310,7 +348,7 @@ export const updateCustomerTransactionPhoto = async (
   try {
     const transaction = await Transaction.findOne({
       _id: req.params.id,
-      userId 
+      userId,
     });
     if (!transaction) {
       return res.status(401).json({ msg: "Transaction not found" });
@@ -325,12 +363,10 @@ export const updateCustomerTransactionPhoto = async (
     await transaction.save();
     console.log("customerPhoto", customerPhoto);
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        msg: "Customer transaction photo uploaded successfully",
-      });
+    res.status(200).json({
+      success: true,
+      msg: "Customer transaction photo uploaded successfully",
+    });
   } catch (error) {
     res.send({ msg: "Error uploading customer photo" });
   }

@@ -30,13 +30,16 @@ const TransactionSchema = new Schema<ITransaction, TransactionModel>(
     mode: {
       type: String,
       trim: true,
-      required: true,
     },
     item: {
       type: String,
       trim: true,
       required: true,
       max: 50,
+    },
+    description: {
+      type: String,
+      trim: true,
     },
     orderId: {
       type: String,

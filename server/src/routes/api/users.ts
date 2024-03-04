@@ -34,9 +34,9 @@ router.post(
   currentUserResetPassword
 );
 
-router.post("/updateprofile", validateRequest, validateToken, updateProfile);
+router.put("/updateprofile", validateRequest, validateToken, updateProfile);
 
-router.post(
+router.put(
   "/updateprofilephoto",
   validateRequest,
   validateToken,
@@ -44,7 +44,7 @@ router.post(
   updateProfilePhoto
 );
 
-router.post(
+router.put(
   "/updatecoverphoto",
   validateRequest,
   validateToken,

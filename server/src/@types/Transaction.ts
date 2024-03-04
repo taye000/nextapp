@@ -5,9 +5,10 @@ export interface ITransaction {
   phone?: string;
   clientId: String;
   amount: number;
-  mode: string;
   item: string;
   userId: Schema.Types.ObjectId;
+  mode?: string;
+  description?: string;
   customerAppeal?: string;
   appeal?: string;
   orderId?: string;
