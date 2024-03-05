@@ -60,7 +60,7 @@ const editprofile = () => {
 
     toast.promise(
       fetch(`${apiUrl}/users/updateprofile`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${cookie}`,
           "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const editprofile = () => {
       formData.append("photo", selectedFile);
 
       const res = await fetch(`${apiUrl}/users/updateprofilephoto`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${cookie}`,
         },
@@ -141,7 +141,7 @@ const editprofile = () => {
       formData.append("photo", selectedFile);
 
       const res = await fetch(`${apiUrl}/users/updatecoverphoto`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${cookie}`,
         },

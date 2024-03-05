@@ -15,6 +15,9 @@ import socket from "../../utils/socket";
 import { dateFormat } from "../../utils/dateFormat";
 import toast, { Toaster } from "react-hot-toast";
 
+// TODO'S
+// 1. Create a product detail card with photo, item name, description, and price.
+
 const transactionDetail = () => {
   // initialize useRouter
   const router = useRouter();
@@ -529,6 +532,20 @@ const transactionDetail = () => {
               <div className="flex flex-col w-full p-4 pb-4 md:flex md:justify-center">
                 <p className="text-2xl font-bold">{transaction?.amount}</p>
               </div>
+              {/* transaction?.photos
+              <div className="flex justify-between border rounded-md shadow-md p-6 col-span-1 lg:col:span-2">
+                <p className="bg-green-200 flex justify-center items-center p-2 rounded-md">
+                  <span className="text-green-700 text-lg font-bold">Photo</span>
+                </p>
+                <div className="flex flex-col w-full p-4 pb-4 md:flex md:justify-center">
+                  <Image
+                    className="rounded-md"
+                    alt="transaction photo"
+                    width={200}
+                    height={200}
+                    src={transaction?.photos}
+                  />
+                </div> */}
             </div>
           </div>
         </div>
@@ -801,7 +818,7 @@ const transactionDetail = () => {
           </form>
         </div>
       </div>
-      <Toaster/>
+      <Toaster />
     </main>
   );
 };
